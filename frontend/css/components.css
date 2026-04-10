@@ -360,3 +360,132 @@
   padding-top: 12px;
   border-top: 1px solid var(--border);
 }
+
+/* ---------AVATARS---------------- */
+
+.avatars {
+  display: flex;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  margin-left: -8px;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.avatar:first-child { 
+    margin-left: 0; 
+}
+
+.avatar-blue   { 
+    background: #3b6e8f; 
+}
+
+.avatar-pink   { 
+    background: #8f3b5e; 
+}
+
+.avatar-green  { 
+    background: #5e8f3b; 
+}
+
+.avatar-amber  { 
+    background: #8f713b; 
+}
+
+.avatar-purple { 
+    background: #5e3b8f; 
+}
+
+.spots-left {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.spots-left strong { color: var(--ink); 
+    font-weight: 600; 
+}
+
+/* ------------------FORM ELEMENTS---------------------- */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  transition: border-color var(--ease);
+  outline: none;
+  appearance: none;
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover { 
+    border-color: rgba(13,13,13,.3); 
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus { 
+    border-color: var(--ink); 
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder { 
+    color: var(--muted); 
+    font-weight: 300; 
+}
+
+.form-textarea { 
+    resize: vertical; 
+    min-height: 100px; 
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.form-error {
+  font-size: 12px;
+  color: var(--danger);
+  font-weight: 400;
+}
+
+.form-input.error,
+.form-select.error,
+.form-textarea.error { 
+    border-color: var(--danger); 
+}
+
