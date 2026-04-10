@@ -19,7 +19,7 @@
   z-index: 100;
 }
 
-/* LOGO */
+/* NAVBAR LOGO */
 .navbar-logo {
   font-family: var(--font-display);
   font-weight: 800;
@@ -31,6 +31,8 @@
   gap: 8px;
   text-decoration: none;
 }
+
+
 .navbar-logo-dot {
   width: 10px;
   height: 10px;
@@ -46,6 +48,7 @@
   align-items: center;
   gap: 32px;
 }
+
 .navbar-links a {
   font-size: 14px;
   font-weight: 400;
@@ -53,8 +56,12 @@
   text-decoration: none;
   transition: color var(--ease);
 }
+
+
 .navbar-links a:hover,
-.navbar-links a.active { color: var(--ink); }
+.navbar-links a.active { 
+    color: var(--ink); 
+}
 
 /* Navbar right side actions */
 .navbar-actions {
@@ -78,6 +85,8 @@
   transition: all var(--ease);
   cursor: pointer;
 }
+
+
 .navbar-bell:hover { 
     border-color: var(--ink); 
     color: var(--ink); 
@@ -280,4 +289,74 @@
   border-top-color: transparent;
   border-radius: 50%;
   animation: spin .7s linear infinite;
+}
+
+
+/* ---------------------CARDS--------------------- */
+
+/* Base card */
+.card {
+  background: var(--white);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  transition: transform var(--ease);
+}
+
+.event-card {
+  background: var(--white);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: transform var(--ease), box-shadow var(--ease);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+}
+
+.event-card-sport {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--acid);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  width: fit-content;
+}
+
+.event-card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.1;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: -.3px;
+}
+
+.event-card-meta {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.event-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
 }
