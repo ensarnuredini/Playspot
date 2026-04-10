@@ -1,0 +1,14 @@
+/* ---------------------HERO0---------------------- */
+
+.hero {
+  padding-top: calc(var(--nav-h) + 80px);
+  padding-bottom: 80px;
+  padding-left: var(--side-pad);
+  padding-right: var(--side-pad);
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
