@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <title>PlaySpot — Dashboard</title>
+         <link rel="stylesheet" href="css/base.css"/>
+         <link rel="stylesheet" href="css/components.css"/>
+         <link rel="stylesheet" href="css/pages/dashboard.css"/>
+    </head>
+    <body>
+        <!-- NAVBAR - loged in state -->
+         <nav class="navbar">
+            <a href="index.html" class="navbar-logo">
+                <div class="navbar-logo-dot"></div>
+                PlaySpot
+            </a>
+
+            <ul class="navbar-links">
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="create-event.html">Host event</a></li>
+                <li><a href="my-events.html">My events</a></li>
+            </ul>
+
+            <div class="navbar-actions">
+                <a href="#" class="navbar-bell">
+                    🔔
+                    <span class="navbar-bell-dot"></span>
+                </a>
+
+                <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
+                <div class="navbar-avatar" title="My profile">A</div>
+            </div>
+
+            <div class="navbar-hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+         </nav>
+
+         <!-- FILTER BAR -->
+
+        <div class="dashboard-filterbar">
+
+            <!-- Sports Filter -->
+             <button class="filter-chip active" onclick="setFilter(this, 'all')">
+                All sports
+             </button>
+
+             <button class="filter-chip" onclick="setFilter(this, 'football')">
+                <span class="filter-chip-icon">⚽</span> Football
+             </button>
+
+             <button class="filter-chip" onclick="setFilter(this, 'basketball')">
+                <span class="filter-chip-icon">🏀</span> Basketball
+             </button>
+
+             <button class="filter-chip" onclick="setFilter(this, 'tennis')">
+                <span class="filter-chip-icon">🎾</span> Tennis
+             </button>
+
+             <button class="filter-chip" onclick="setFilter(this, 'volleyball')">
+                <span class="filter-chip-icon">🏐</span> Volleyball
+             </button>
+
+             <button class="filter-chip" onclick="setFilter(this, 'running')">
+                <span class="filter-chip-icon">🏃</span> Running
+             </button>
+
+             <button class="filter-chip" onclick="setFilter(this, 'cycling')">
+                <span class="filter-chip-icon">🚴</span> Cycling
+             </button>
+
+             <div class="filter-divider"></div>
+
+             <!-- DATE FILTER -->
+
+             <select class="filter-select" onchange="setDateFilter(this.value)">
+                <option value="today">Today</option>
+                <option value="tomorrow">Tomorrow</option>
+                <option value="week">This week</option>
+                <option value="all">Any date</option>
+             </select>
+        </div>
+
+        <!-- MAIN BODY - sidebar + map -->
+        
+        <div class="dashboard-page">
+            <div class="dashboard-body">
+
+                <!-- Left sidebar -->
+                <aside class="dashboard-sidebar">
+                    <div class="sidebar-header">
+                        <div class="sidebar-title">Nearby events</div>
+                        <div class="sidebar-count" id="event-count">24 events found</div>
+                    </div>
+
+                    <!-- SEARCH -->
+                    <div class="sidebar-search">
+                        <div class="sidebar-search-wrap">
+                            <span class="sidebar-search-icon">🔍</span>
+                            <input class="sidebar-search-icon" type="text" placeholder="Search events..." oninput="handleSearch(this.value)">
+                        </div>
+                    </div>
+
+                    <!-- Event list -->
+
+                    <div class="sidebar-list" id="event-list">
+
+                        <!-- Event card 1 -->
+                        <div class="dash-event-card selected" onclick="selectEvent(this, 1)">
+                            <div class="dash-event-top">
+                                <span class="dash-event-sport">⚽ Football</span>
+                                <span class="dash-event-distance">0.4 km away</span>
+                            </div>
+
+                            <div class="dash-event-title">5-a-side at Karpoš</div>
+                            <div class="dash-event-meta">
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📅</span>
+                                    Today · Saturday, 6:00 PM
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📍</span>
+                                    Karpoš Sports Centre, Skopje
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">👤</span>
+                                    All levels welcome
+                                </div>
+                            </div>
+
+                            <div class="dash-event-footer">
+                                <div class="avatars">
+                                    <div class="avatar avatar-blue">M</div>
+                                    <div class="avatar avatar-pink">J</div>
+                                    <div class="avatar avatar-green">A</div>
+                                    <div class="avatar avatar-amber">R</div>
+                                </div>
+                                <span class="dash-spots urgent"><strong>2</strong> spots left</span>
+                            </div>
+                        </div>
+
+                        <!-- EVENT CARD 2 -->
+                        
+                        <div class="dash-event-card" onclick="selectEvent(this, 2)">
+                            <div class="dash-event-top">
+                                <span class="dash-event-sport">🏀 Basketball</span>
+                                <span class="dash-event-distance">1.1 km away</span>
+                            </div>
+
+                            <div class="dash-event-title">3-on-3 open run — all levels</div>
+                            <div class="dash-event-meta">
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📅</span>
+                                    Today · 4:30 PM
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📍</span>
+                                    Boris Trajkovski Arena, Skopje
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">👤</span>
+                                    Beginner friendly
+                                </div>
+                            </div>
+
+                            <div class="dash-event-footer">
+                                <div class="avatars">
+                                    <div class="avatar avatar-pink">S</div>
+                                    <div class="avatar avatar-green">R</div>
+                                    <div class="avatar avatar-blue">T</div>
+                                </div>
+
+                                <span class="dash-spots"><strong>5</strong> spots left</span>
+                            </div>
+                        </div>
+
+                        <!-- EVENT CARD 3 -->
+                        
+                        <div class="dash-event-card" onclick="selectEvent(this, 3)">
+                            <div class="dash-event-top">
+                                <span class="dash-event-sport">🎾 Tennis</span>
+                                <span class="dash-event-distance">1.8 km away</span>
+                            </div>
+
+                            <div class="dash-event-title">Tennis singles — casual match</div>
+
+                            <div class="dash-event-meta">
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📅</span>
+                                    Tomorrow · 9:00 AM
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📍</span>
+                                    City Tennis Club, Skopje
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">👤</span>
+                                    Intermediate level
+                                </div>
+                            </div>
+
+                            <div class="dash-event-footer">
+                                <div class="avatars">
+                                    <div class="avatar avatar-purple">L</div>
+                                </div>
+
+                                <span class="dash-spots urgent"><strong>1</strong> spot left</span>
+                            </div>
+                        </div>
+
+                        <!-- Event Card 4 -->
+
+                        <div class="dash-event-card" onclick="selectEvent(this, 4)">
+                            <div class="dash-event-top">
+                                <span class="dash-event-sport">🏃 Running</span>
+                                <span class="dash-event-distance">0.7 km away</span>
+                            </div>
+
+                            <div class="dash-event-title">Morning group run — 5K easy</div>
+                            <div class="dash-event-meta">
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📅</span>
+                                    Tomorrow · 7:00 AM
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📍</span>
+                                    City Park, Skopje
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">👤</span>
+                                    All paces welcome
+                                </div>
+                            </div>
+
+                            <div class="dash-event-footer">
+                                <div class="avatars">
+                                    <div class="avatar avatar-green">K</div>
+                                    <div class="avatar avatar-amber">P</div>
+                                    <div class="avatar avatar-blue">N</div>
+                                    <div class="avatar avatar-pink">V</div>
+                                </div>
+
+                                <span class="dash-spots"><strong>8</strong> spots left</span>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </body>
+</html>
