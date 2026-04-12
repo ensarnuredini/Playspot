@@ -254,10 +254,99 @@
                             </div>
                         </div>
 
-                        
+                        <!-- EVENT CARD 5 -->
+
+                        <div class="dash-event-card" onclick="selectEvent(this, 5)">
+                            <div class="dash-event-top">
+                                <span class="dash-event-sport">🏐 Volleyball</span>
+                                <span class="dash-event-distance">2.3 km away</span>
+                            </div>
+
+                            <div class="dash-event-title">Beach volleyball — open net</div>
+
+                            <div class="dash-event-meta">
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📅</span>
+                                    Saturday · 5:00 PM
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">📍</span>
+                                    Skopje Beach Club
+                                </div>
+
+                                <div class="dash-event-meta-row">
+                                    <span class="dash-event-meta-icon">👤</span>
+                                    All levels
+                                </div>
+                            </div>
+
+                            <div class="dash-event-footer">
+                                <div class="avatars">
+                                    <div class="avatar avatar-amber">D</div>
+                                    <div class="avatar avatar-blue">F</div>
+                                </div>
+
+                                <span class="dash-spots"><strong>4</strong> spots left</span>
+                            </div>
+                        </div>
                     </div>
                 </aside>
+
+                <!-- MAP PANEL -->
+
+                <div class="dashboard-map" id="map-container">
+
+                    <!-- Placeholder grid — replaced by real map via api.js + Leaflet -->
+
+                    <div class="map-placeholder">
+                        <div class="map-placeholder-icon">🗺️</div>
+                        <div class="map-placeholder-text">Map loads here via Leaflet.js</div>
+                    </div>
+
+                    <!-- Sample map pins (positioned for demo) -->
+
+                    <div class="map-pin" style="top: 38%; left: 42%;" onclick="selectPin(1)">
+                        <div class="map-pin-bubble active">⚽ 5-a-side</div>
+                        <div class="map-pin-tail"></div>
+                    </div>
+
+                    <div class="map-pin" style="top: 52%; left: 58%;" onclick="selectPin(2)">
+                        <div class="map-pin-bubble">🏀 3-on-3</div>
+                        <div class="map-pin-tail"></div>
+                    </div>
+
+                    <div class="map-pin" style="top: 30%; left: 65%;" onclick="selectPin(3)">
+                        <div class="map-pin-bubble">🎾 Tennis</div>
+                        <div class="map-pin-tail"></div>
+                    </div>
+
+                    <div class="map-pin" style="top: 62%; left: 35%;" onclick="selectPin(4)">
+                        <div class="map-pin-bubble">🏃 Running</div>
+                        <div class="map-pin-tail"></div>
+                    </div>
+
+                    <div class="map-pin" style="top: 45%; left: 75%;" onclick="selectPin(5)">
+                        <div class="map-pin-bubble">🏐 Volleyball</div>
+                        <div class="map-pin-tail"></div>
+                    </div>
+
+                    <!-- Map Control -->
+
+                    <div class="map-controls">
+                        <button class="map-control-btn" title="Zoom in">+</button>
+                        <button class="map-control-btn" title="Zoom out">−</button>
+                    </div>
+
+                    <!-- Locate Me -->
+
+                    <button class="map-locate-btn" onclick="locateMe()">
+                        📍 Near me
+                    </button>
+                </div>
             </div>
         </div>
+
+        
     </body>
 </html>
