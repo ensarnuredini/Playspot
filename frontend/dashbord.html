@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <title>PlaySpot — Dashboard</title>
-         <link rel="stylesheet" href="css/base.css"/>
-         <link rel="stylesheet" href="css/components.css"/>
-         <link rel="stylesheet" href="css/pages/dashboard.css"/>
+         <link rel="stylesheet" href="css/base.css">
+         <link rel="stylesheet" href="css/components.css">
+         <link rel="stylesheet" href="css/pages/dashboard.css">
     </head>
     <body>
         <!-- NAVBAR - loged in state -->
          <nav class="navbar">
-            <a href="index.html" class="navbar-logo">
+            <a href="landing.html" class="navbar-logo">
                 <div class="navbar-logo-dot"></div>
                 PlaySpot
             </a>
@@ -347,6 +347,76 @@
             </div>
         </div>
 
-        
+
+        <!-- Scripts -->
+
+        <script src="js/auth.js" defer></script>
+        <script src="js/api.js" defer></script>
+
+        <script>
+            // ── Filter chips
+
+            function setFilter(el, sport) {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                el.classList.add('active');
+                // api.js will handle actual filtering from backend
+                console.log('Filter by sport:', sport);
+            }
+
+            // ── Date filter
+
+            function setDateFilter(value) {
+                console.log('Filter by date:', value);
+                // api.js will refetch events with this param
+            }
+
+            // ── Search
+
+            function handleSearch(query) {
+                console.log('Search:', query);
+                // api.js will handle live search
+            }
+
+            // ── Select event card
+
+            function selectEvent(el, id) {
+                document.querySelectorAll('.dash-event-card').forEach(c => c.classList.remove('selected'));
+                el.classList.add('selected');
+
+                // Highlight corresponding map pin
+                document.querySelectorAll('.map-pin-bubble').forEach(p => p.classList.remove('active'));
+                // Navigate to detail on double click
+                el.addEventListener('dblclick', () => {
+                    window.location.href = `event-detail.html?id=${id}`;
+                });
+            }
+
+            // ── Select map pin → highlight sidebar card
+
+            function selectPin(id) {
+                const cards = document.querySelectorAll('.dash-event-card');
+                cards.forEach((c, i) => c.classList.toggle('selected', i === id - 1));
+                // Scroll sidebar to that card
+                if (cards[id - 1]) {
+                    cards[id - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+
+            // ── Locate me
+
+            function locateMe() {
+                if (!navigator.geolocation) return;
+                navigator.geolocation.getCurrentPosition(pos => {
+                    console.log('User location:', pos.coords.latitude, pos.coords.longitude);
+                    // api.js will use this to fetch nearby events
+                });
+            }
+
+            // ── Mobile menu
+            function toggleMenu() {
+                const links = document.querySelector('.navbar-links');
+                links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+            }
+        </script>
     </body>
 </html>
