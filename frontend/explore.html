@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaySpot — Explore Events</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages/explore.css">
+</head>
+<body>
+    <!--NAVBAR - loged in state -->
+    <nav class="navbar">
+        <a href="landing.html" class="navbar-logo">
+            <div class="navbar-logo-dot"></div>
+            PlaySpot
+        </a>
+
+        <ul class="navbar-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="explore.html" class="active">Explore</a></li>
+            <li><a href="create-event.html">Host event</a></li>
+            <li><a href="my-events.html">My events</a></li>
+        </ul>
+
+        <div class="navbar-actions">
+            <a href="#" class="navbar-bell">
+                🔔
+                <span class="navbar-bell-dot"></span>
+            </a>
+            <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
+
+            <div class="navbar-avatar" title="My profile">A</div>
+        </div>
+
+        <div class="navbar-hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <div class="explore-page">
+        <!-- Hero Search Bar -->
+        <div class="explore-hero">
+            <h1 class="explore-hero-title">Find your next <span>game.</span></h1>
+            <div class="explore-search-bar">
+                <span class="explore-search-icon">🔍</span>
+                <input class="explore-search-input" type="text" id="main-search" placeholder="Sport, event name, or keyword..." oninput="handleSearch(this.value)" autocomplete="off">
+                <div class="explore-search-divider"></div>
+                <input class="explore-search-location" type="text" placeholder="📍 Skopje" id="location-input">
+                <button class="explore-search-btn" onclick="runSearch()">Search</button>
+            </div>
+
+            <!-- Quick Sport Tag -->
+            <div class="explore-quick-tags">
+                <span class="explore-quick-label">Popular:</span>
+                <button class="explore-quick-tag" onclick="quickSearch('Football')">⚽ Football</button>
+                <button class="explore-quick-tag" onclick="quickSearch('Basketball')">🏀 Basketball</button>
+                <button class="explore-quick-tag" onclick="quickSearch('Tennis')">🎾 Tennis</button>
+                <button class="explore-quick-tag" onclick="quickSearch('Running')">🏃 Running</button>
+                <button class="explore-quick-tag" onclick="quickSearch('Volleyball')">🏐 Volleyball</button>
+            </div>
+        </div>
+
+        <!-- Main : Filters + Results -->
+        <div class="explore-main">
+            <!-- Filters SideBar -->
+            <aside class="explore-filters" id="filters-panel">
+
+                <div class="filters-title">
+                    Filters
+                    <button class="filters-reset" onclick="resetFilters()">Reset all</button>
+                </div>
+
+                <!-- Sport Type -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Sport</div>
+                    <label class="filter-option">
+                        <input type="checkbox" value="football" onchange="applyFilters()"/> Football
+                        <span class="filter-option-count">342</span>                       
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="basketball" onchange="applyFilters()"/> Basketball
+                        <span class="filter-option-count">214</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="tennis" onchange="applyFilters()"/> Tennis
+                        <span class="filter-option-count">187</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="running" onchange="applyFilters()"/> Running
+                        <span class="filter-option-count">203</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="volleyball" onchange="applyFilters()"/> Volleyball
+                        <span class="filter-option-count">156</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="cycling" onchange="applyFilters()"/> Cycling
+                        <span class="filter-option-count">98</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="swimming" onchange="applyFilters()"/> Swimming
+                        <span class="filter-option-count">74</span>
+                    </label>
+                </div>
+
+                <!-- Date -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Date</div>
+                    <label class="filter-option">
+                        <input type="checkbox" value="today" onchange="applyFilters()"/> Today
+                        <span class="filter-option-count">48</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="tomorrow" onchange="applyFilters()"/> Tomorrow
+                        <span class="filter-option-count">61</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="weekend" onchange="applyFilters()"/> This weekend
+                        <span class="filter-option-count">94</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="week" onchange="applyFilters()"/> This week
+                        <span class="filter-option-count">187</span>
+                    </label>
+                </div>
+
+                <!-- Skill Level -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Skill level</div>
+                    <label class="filter-option">
+                        <input type="checkbox" value="all" onchange="applyFilters()"/> All levels
+                        <span class="filter-option-count">284</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="beginner" onchange="applyFilters()"/> Beginner
+                        <span class="filter-option-count">112</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="intermediate" onchange="applyFilters()"/> Intermediate
+                        <span class="filter-option-count">198</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" value="advanced" onchange="applyFilters()"/> Advanced
+                        <span class="filter-option-count">87</span>
+                    </label>
+                </div>
+
+                <!-- Distance -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Distance</div>
+                    <input type="range" class="filter-range" min="1" max="50" value="10" oninput="updateDistance(this.value)" id="distance-slider">
+                    <div class="filter-range-labels">
+                        <span>1 km</span>
+                        <span id="distance-label">10 km</span>
+                        <span>50 km</span>
+                    </div>
+                </div>
+
+                <!-- Spots Available -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Availability</div>
+                    <label class="filter-option">
+                        <input type="checkbox" value="open" onchange="applyFilters()"/> Has open spots                       
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="joined" onchange="applyFilters()"/> Already joined
+                    </label>
+                </div>               
+            </aside>
+
+            
+        </div>
+    </div>
+</body>
+</html>
