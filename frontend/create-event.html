@@ -105,7 +105,125 @@
                     </div>
                 </div>
 
-                
+                <div class="form-group">
+                    <label class="form-label" for="event-title">Event title</label>
+                    <input class="form-input" type="text" id="event-title" placeholder="e.g. 5-a-side at Karpoš" oninput="updatePreview('title', this.value)" maxlength="60">
+                    <span class="form-hint">Keep it short and descriptive.</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="event-desc">Description <span style="color:var(--muted);font-weight:300">(optional)</span></label>
+                    <textarea class="form-input form-textarea" id="event-desc" placeholder="Any extra info players should know — gear needed, format, meetup point..." rows="3"></textarea>
+                </div>
+
+                <div class="form-nav">
+                    <span></span>
+                    <button class="btn btn-acid btn-lg" onclick="goToStep(2)">Next: Location &amp; time →</button>
+                </div>
+            </div>
+
+            <!-- STEP 2 - Location & time -->
+            <div class="form-panel" id="step-2">
+                <div>
+                    <div class="form-section-title">Where &amp; when?</div>
+                    <div class="form-section-desc">Pin the location and set the date and time.</div>
+                </div>
+
+                <!-- MAP PICKER -->
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <div class="map-picker">
+                        <div class="map-picker-placeholder" onclick="openMapPicker()">
+                            <div class="map-picker-icon">📍</div>
+                            <div class="map-picker-text">Click to pin location on map</div>
+                        </div>
+                        <div class="map-picker-footer">
+                            <span class="map-picker-address" id="selected-address">No location selected yet</span>
+                            <button class="map-picker-change" onclick="openMapPicker()">Change</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Address Manual Input -->
+                <div class="form-group">
+                    <label class="form-label" for="event-address">Or type the address</label>
+                    <input class="form-input" type="text" id="event-address" placeholder="Street, venue name, or landmark" oninput="updatePreview('location', this.value)">
+                </div>
+
+                <!-- Date & Time -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="event-date">Date</label>
+                        <input class="form-input" type="date" id="event-date" oninput="updatePreview('date', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="event-time">Start time</label>
+                        <input class="form-input" type="time" id="event-time" oninput="updatePreview('time', this.value)">
+                    </div>
+                </div>
+
+                <!-- Duration -->
+                <div class="form-group">
+                    <label class="form-label" for="event-duration">Duration</label>
+                    <select class="form-input form-select" id="event-duration">
+                        <option value="">Select duration</option>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                        <option value="180">3 hours</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-ghost btn-lg" onclick="goToStep(1)">← Back</button>
+                    <button class="btn btn-acid btn-lg" onclick="goToStep(3)">Next: Players &amp; rules →</button>
+                </div>
+            </div>
+
+            <!-- Step 3 - Players & rules -->
+            <div class="form-panel" id="step-3">
+                <div>
+                    <div class="form-section-title">Players &amp; rules</div>
+                    <div class="form-section-desc">How many players and what level?</div>
+                </div>
+
+                <!-- Max Players Stepper -->
+                <div class="form-group">
+                    <label class="form-label">Maximum players</label>
+                    <div class="player-stepper">
+                        <button class="stepper-btn" onclick="changeCount(-1)" id="count-minus">−</button>
+                        <div class="stepper-value" id="player-count">10</div>
+                        <button class="stepper-btn" onclick="changeCount(1)" id="count-plus">+</button>
+                    </div>
+                    <span class="form-hint">Including yourself.</span>
+                </div>
+
+                <!-- Skill level -->
+                <div class="form-group">
+                    <label class="form-label">Skill level</label>
+                    <div class="skill-selector">
+                        <div class="skill-option" onclick="selectSkill(this, 'All levels')">
+                            <span class="skill-option-label">All levels</span>
+                            <span class="skill-option-desc">Everyone welcome</span>
+                        </div>
+                        <div class="skill-option" onclick="selectSkill(this, 'Beginner')">
+                            <span class="skill-option-label">Beginner</span>
+                            <span class="skill-option-desc">Just starting out</span>
+                        </div>
+                        <div class="skill-option" onclick="selectSkill(this, 'Intermediate')">
+                            <span class="skill-option-label">Intermediate</span>
+                            <span class="skill-option-desc">Some experience</span>
+                        </div>
+                        <div class="skill-option" onclick="selectSkill(this, 'Advanced')">
+                            <span class="skill-option-label">Advanced</span>
+                            <span class="skill-option-desc">Competitive level</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gender -->
             </div>
         </div>
     </div>
