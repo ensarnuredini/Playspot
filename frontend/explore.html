@@ -446,6 +446,85 @@
     </div>
 
     <!-- SCRIPTS -->
+
+    <script src="js/auth.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script>
+        // ── View toggle: grid / list
+        function setView(mode, btn) {
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const grid = document.getElementById('events-grid');
+            const list = document.getElementById('events-list');
+            if (mode === 'grid') {
+                grid.classList.add('active');
+                list.classList.remove('active');
+            } else {
+                list.classList.add('active');
+                grid.classList.remove('active');
+            }
+        }
+
+        // ── Search
+        function handleSearch(query) {
+            console.log('Search:', query);
+            // api.js will handle live fetch
+        }
+
+        function runSearch() {
+            const query = document.getElementById('main-search').value;
+            const location = document.getElementById('location-input').value;
+            console.log('Run search:', query, location);
+            // api.js will handle this
+        }
+
+        function quickSearch(sport) {
+            document.getElementById('main-search').value = sport;
+            runSearch();
+        }
+
+        // ── Filters
+        function applyFilters() {
+            const checked = [...document.querySelectorAll('.explore-filters input:checked')]
+            .map(el => ({ name: el.closest('.filter-group-title') ? '' : '', value: el.value }));
+            console.log('Apply filters:', checked);
+            // api.js will fetch filtered results
+        }
+
+        function resetFilters() {
+            document.querySelectorAll('.explore-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.getElementById('distance-slider').value = 10;
+            document.getElementById('distance-label').textContent = '10 km';
+            applyFilters();
+        }
+
+        // ── Distance slider
+        function updateDistance(val) {
+            document.getElementById('distance-label').textContent = val + ' km';
+            applyFilters();
+        }
+
+        // ── Sort
+        function sortResults(value) {
+            console.log('Sort by:', value);
+            // api.js will re-fetch with sort param
+        }
+
+        // ── Mobile menu
+        function toggleMenu() {
+            const links = document.querySelector('.navbar-links');
+            links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // ── Read ?sport= param from URL and pre-check filter
+        const params = new URLSearchParams(window.location.search);
+        const sportParam = params.get('sport');
+        if (sportParam) {
+            const cb = document.querySelector(`input[value="${sportParam}"]`);
+            if (cb) { cb.checked = true; applyFilters(); }
+            document.getElementById('main-search').value = sportParam.charAt(0).toUpperCase() + sportParam.slice(1);
+        }
+    </script>
     
 </body>
 </html>
