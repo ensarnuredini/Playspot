@@ -224,6 +224,96 @@
                 </div>
 
                 <!-- Gender -->
+                <div class="form-group">
+                    <label class="form-label" for="event-gender">Open to</label>
+                    <select class="form-input form-select" id="event-gender">
+                        <option value="all">Everyone</option>
+                        <option value="male">Men only</option>
+                        <option value="female">Women only</option>
+                    </select>
+                </div>
+
+                <!-- Age range -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="age-min">Min age</label>
+                        <input class="form-input" type="number" id="age-min" placeholder="16" min="5" max="99">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="age-max">Max age</label>
+                        <input class="form-input" type="number" id="age-max" placeholder="Any" min="5" max="99">
+                    </div>
+                </div>
+
+                <!-- Requires approval -->
+                <div class="form-group">
+                    <label class="form-label">Join requires approval?</label>
+                    <div style="display:flex;gap:12px;margin-top:4px;">
+                         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--muted);font-family:var(--font-body)">
+                             <input type="radio" name="approval" value="open" checked style="accent-color:var(--ink)">
+                             Open — anyone can join instantly
+                         </label>
+                    </div>
+                    <div style="display:flex;gap:12px;margin-top:8px;">
+                        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--muted);font-family:var(--font-body)">
+                            <input type="radio" name="approval" value="approval" style="accent-color:var(--ink)">
+                            Request — you approve each player
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-ghost btn-lg" onclick="goToStep(2)">← Back</button>
+                    <button class="btn btn-acid btn-lg" onclick="goToStep(4)">Next: Review →</button>
+                </div>
+            </div>
+
+            <!-- Step 4 : Review and Publish -->
+            <div class="form-panel" id="step-4">
+                <div>
+                    <div class="form-section-title">Review &amp; publish</div>
+                    <div class="form-section-desc">Everything look good? Hit publish to go live.</div>
+                </div>
+
+                <!-- Summary rows -->
+                <div class="card" style="display:flex;flex-direction:column;gap:14px;border-width:1px;border-color:var(--border);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Sport</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-sport">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Title</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-title">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Location</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-location">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Date &amp; time</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-datetime">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Max players</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-players">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Skill level</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-skill">—</span>
+                    </div>
+                </div>
+
+                <!-- Error message -->
+                <div class="auth-error" id="publish-error">
+                    Please fill in all required fields before publishing.
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-ghost btn-lg" onclick="goToStep(3)">← Back</button>
+                    <button class="btn btn-acid btn-lg" id="publish-btn" onclick="publishEvent()">
+                        🚀 Publish event
+                    </button>
+                </div>
             </div>
         </div>
     </div>
