@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaySpot — Create Event</title>
+    <link rel="stylesheet" href="css/base.css"/>
+    <link rel="stylesheet" href="css/components.css"/>
+    <link rel="stylesheet" href="css/pages/create-event.css"/>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <div class="navbar-logo-dot"></div>
+            PlaySpot
+        </a>
+
+        <ul class="navbar-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="create-event.html" class="active">Host event</a></li>
+            <li><a href="my-events.html">My events</a></li>
+        </ul>
+
+        <div class="navbar-actions">
+            <a href="#" class="navbar-bell">🔔<span class="navbar-bell-dot"></span></a>
+            <div class="navbar-avatar">A</div>
+        </div>
+
+        <div class="navbar-hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Page Layout -->
+    <div class="create-page">
+
+        <!-- LEFT PART -->
+        <div class="create-form-area">
+            <h1 class="create-page-title">Host an event</h1>
+            <p class="create-page-subtitle">Fill in the details and get players showing up.</p>
+
+            <!-- Step Progress -->
+            <div class="step-progress" id="step-progress">
+                <div class="step-item active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Sport & details</span>
+                </div>
+
+                <div class="step-item" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Location & time</span>
+                </div>
+
+                <div class="step-item" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Players & rules</span>
+                </div>
+
+                <div class="step-item" data-step="4">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Review & publish</span>
+                </div>
+            </div>
+
+            <!-- STEP 1 - Sport & details -->
+            <div class="form-panel active" id="step-1">
+                <div>
+                    <div class="form-section-title">Pick a sport</div>
+                    <div class="form-section-desc">What are you playing?</div>
+                    <div class="sport-selector">
+                        <div class="sport-option" onclick="selectSport(this, 'Football', '⚽', 'band-football')">
+                            <span class="sport-option-icon">⚽</span>
+                            <span class="sport-option-name">Football</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Basketball', '🏀', 'band-basketball')">
+                            <span class="sport-option-icon">🏀</span>
+                            <span class="sport-option-name">Basketball</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Tennis', '🎾', 'band-tennis')">
+                            <span class="sport-option-icon">🎾</span>
+                            <span class="sport-option-name">Tennis</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Volleyball', '🏐', 'band-volleyball')">
+                            <span class="sport-option-icon">🏐</span>
+                            <span class="sport-option-name">Volleyball</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Running', '🏃', 'band-running')">
+                            <span class="sport-option-icon">🏃</span>
+                            <span class="sport-option-name">Running</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Cycling', '🚴', 'band-cycling')">
+                            <span class="sport-option-icon">🚴</span>
+                            <span class="sport-option-name">Cycling</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Swimming', '🏊', 'band-default')">
+                            <span class="sport-option-icon">🏊</span>
+                            <span class="sport-option-name">Swimming</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Other', '🏅', 'band-default')">
+                            <span class="sport-option-icon">🏅</span>
+                            <span class="sport-option-name">Other</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
