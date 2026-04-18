@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaySpot — Create Event</title>
+    <link rel="stylesheet" href="css/base.css"/>
+    <link rel="stylesheet" href="css/components.css"/>
+    <link rel="stylesheet" href="css/pages/create-event.css"/>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <div class="navbar-logo-dot"></div>
+            PlaySpot
+        </a>
+
+        <ul class="navbar-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="create-event.html" class="active">Host event</a></li>
+            <li><a href="my-events.html">My events</a></li>
+        </ul>
+
+        <div class="navbar-actions">
+            <a href="#" class="navbar-bell">🔔<span class="navbar-bell-dot"></span></a>
+            <div class="navbar-avatar">A</div>
+        </div>
+
+        <div class="navbar-hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Page Layout -->
+    <div class="create-page">
+
+        <!-- LEFT PART -->
+        <div class="create-form-area">
+            <h1 class="create-page-title">Host an event</h1>
+            <p class="create-page-subtitle">Fill in the details and get players showing up.</p>
+
+            <!-- Step Progress -->
+            <div class="step-progress" id="step-progress">
+                <div class="step-item active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Sport & details</span>
+                </div>
+
+                <div class="step-item" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Location & time</span>
+                </div>
+
+                <div class="step-item" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Players & rules</span>
+                </div>
+
+                <div class="step-item" data-step="4">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Review & publish</span>
+                </div>
+            </div>
+
+            <!-- STEP 1 - Sport & details -->
+            <div class="form-panel active" id="step-1">
+                <div>
+                    <div class="form-section-title">Pick a sport</div>
+                    <div class="form-section-desc">What are you playing?</div>
+                    <div class="sport-selector">
+                        <div class="sport-option" onclick="selectSport(this, 'Football', '⚽', 'band-football')">
+                            <span class="sport-option-icon">⚽</span>
+                            <span class="sport-option-name">Football</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Basketball', '🏀', 'band-basketball')">
+                            <span class="sport-option-icon">🏀</span>
+                            <span class="sport-option-name">Basketball</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Tennis', '🎾', 'band-tennis')">
+                            <span class="sport-option-icon">🎾</span>
+                            <span class="sport-option-name">Tennis</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Volleyball', '🏐', 'band-volleyball')">
+                            <span class="sport-option-icon">🏐</span>
+                            <span class="sport-option-name">Volleyball</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Running', '🏃', 'band-running')">
+                            <span class="sport-option-icon">🏃</span>
+                            <span class="sport-option-name">Running</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Cycling', '🚴', 'band-cycling')">
+                            <span class="sport-option-icon">🚴</span>
+                            <span class="sport-option-name">Cycling</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Swimming', '🏊', 'band-default')">
+                            <span class="sport-option-icon">🏊</span>
+                            <span class="sport-option-name">Swimming</span>
+                        </div>
+                        <div class="sport-option" onclick="selectSport(this, 'Other', '🏅', 'band-default')">
+                            <span class="sport-option-icon">🏅</span>
+                            <span class="sport-option-name">Other</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="event-title">Event title</label>
+                    <input class="form-input" type="text" id="event-title" placeholder="e.g. 5-a-side at Karpoš" oninput="updatePreview('title', this.value)" maxlength="60">
+                    <span class="form-hint">Keep it short and descriptive.</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="event-desc">Description <span style="color:var(--muted);font-weight:300">(optional)</span></label>
+                    <textarea class="form-input form-textarea" id="event-desc" placeholder="Any extra info players should know — gear needed, format, meetup point..." rows="3"></textarea>
+                </div>
+
+                <div class="form-nav">
+                    <span></span>
+                    <button class="btn btn-acid btn-lg" onclick="goToStep(2)">Next: Location &amp; time →</button>
+                </div>
+            </div>
+
+            <!-- STEP 2 - Location & time -->
+            <div class="form-panel" id="step-2">
+                <div>
+                    <div class="form-section-title">Where &amp; when?</div>
+                    <div class="form-section-desc">Pin the location and set the date and time.</div>
+                </div>
+
+                <!-- MAP PICKER -->
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <div class="map-picker">
+                        <div class="map-picker-placeholder" onclick="openMapPicker()">
+                            <div class="map-picker-icon">📍</div>
+                            <div class="map-picker-text">Click to pin location on map</div>
+                        </div>
+                        <div class="map-picker-footer">
+                            <span class="map-picker-address" id="selected-address">No location selected yet</span>
+                            <button class="map-picker-change" onclick="openMapPicker()">Change</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Address Manual Input -->
+                <div class="form-group">
+                    <label class="form-label" for="event-address">Or type the address</label>
+                    <input class="form-input" type="text" id="event-address" placeholder="Street, venue name, or landmark" oninput="updatePreview('location', this.value)">
+                </div>
+
+                <!-- Date & Time -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="event-date">Date</label>
+                        <input class="form-input" type="date" id="event-date" oninput="updatePreview('date', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="event-time">Start time</label>
+                        <input class="form-input" type="time" id="event-time" oninput="updatePreview('time', this.value)">
+                    </div>
+                </div>
+
+                <!-- Duration -->
+                <div class="form-group">
+                    <label class="form-label" for="event-duration">Duration</label>
+                    <select class="form-input form-select" id="event-duration">
+                        <option value="">Select duration</option>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                        <option value="180">3 hours</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-ghost btn-lg" onclick="goToStep(1)">← Back</button>
+                    <button class="btn btn-acid btn-lg" onclick="goToStep(3)">Next: Players &amp; rules →</button>
+                </div>
+            </div>
+
+            <!-- Step 3 - Players & rules -->
+            <div class="form-panel" id="step-3">
+                <div>
+                    <div class="form-section-title">Players &amp; rules</div>
+                    <div class="form-section-desc">How many players and what level?</div>
+                </div>
+
+                <!-- Max Players Stepper -->
+                <div class="form-group">
+                    <label class="form-label">Maximum players</label>
+                    <div class="player-stepper">
+                        <button class="stepper-btn" onclick="changeCount(-1)" id="count-minus">−</button>
+                        <div class="stepper-value" id="player-count">10</div>
+                        <button class="stepper-btn" onclick="changeCount(1)" id="count-plus">+</button>
+                    </div>
+                    <span class="form-hint">Including yourself.</span>
+                </div>
+
+                <!-- Skill level -->
+                <div class="form-group">
+                    <label class="form-label">Skill level</label>
+                    <div class="skill-selector">
+                        <div class="skill-option" onclick="selectSkill(this, 'All levels')">
+                            <span class="skill-option-label">All levels</span>
+                            <span class="skill-option-desc">Everyone welcome</span>
+                        </div>
+                        <div class="skill-option" onclick="selectSkill(this, 'Beginner')">
+                            <span class="skill-option-label">Beginner</span>
+                            <span class="skill-option-desc">Just starting out</span>
+                        </div>
+                        <div class="skill-option" onclick="selectSkill(this, 'Intermediate')">
+                            <span class="skill-option-label">Intermediate</span>
+                            <span class="skill-option-desc">Some experience</span>
+                        </div>
+                        <div class="skill-option" onclick="selectSkill(this, 'Advanced')">
+                            <span class="skill-option-label">Advanced</span>
+                            <span class="skill-option-desc">Competitive level</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gender -->
+                <div class="form-group">
+                    <label class="form-label" for="event-gender">Open to</label>
+                    <select class="form-input form-select" id="event-gender">
+                        <option value="all">Everyone</option>
+                        <option value="male">Men only</option>
+                        <option value="female">Women only</option>
+                    </select>
+                </div>
+
+                <!-- Age range -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="age-min">Min age</label>
+                        <input class="form-input" type="number" id="age-min" placeholder="16" min="5" max="99">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="age-max">Max age</label>
+                        <input class="form-input" type="number" id="age-max" placeholder="Any" min="5" max="99">
+                    </div>
+                </div>
+
+                <!-- Requires approval -->
+                <div class="form-group">
+                    <label class="form-label">Join requires approval?</label>
+                    <div style="display:flex;gap:12px;margin-top:4px;">
+                         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--muted);font-family:var(--font-body)">
+                             <input type="radio" name="approval" value="open" checked style="accent-color:var(--ink)">
+                             Open — anyone can join instantly
+                         </label>
+                    </div>
+                    <div style="display:flex;gap:12px;margin-top:8px;">
+                        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--muted);font-family:var(--font-body)">
+                            <input type="radio" name="approval" value="approval" style="accent-color:var(--ink)">
+                            Request — you approve each player
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-ghost btn-lg" onclick="goToStep(2)">← Back</button>
+                    <button class="btn btn-acid btn-lg" onclick="goToStep(4)">Next: Review →</button>
+                </div>
+            </div>
+
+            <!-- Step 4 : Review and Publish -->
+            <div class="form-panel" id="step-4">
+                <div>
+                    <div class="form-section-title">Review &amp; publish</div>
+                    <div class="form-section-desc">Everything look good? Hit publish to go live.</div>
+                </div>
+
+                <!-- Summary rows -->
+                <div class="card" style="display:flex;flex-direction:column;gap:14px;border-width:1px;border-color:var(--border);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Sport</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-sport">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Title</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-title">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Location</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-location">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Date &amp; time</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-datetime">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Max players</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-players">—</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Skill level</span>
+                        <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-skill">—</span>
+                    </div>
+                </div>
+
+                <!-- Error message -->
+                <div class="auth-error" id="publish-error">
+                    Please fill in all required fields before publishing.
+                </div>
+
+                <div class="form-nav">
+                    <button class="btn btn-ghost btn-lg" onclick="goToStep(3)">← Back</button>
+                    <button class="btn btn-acid btn-lg" id="publish-btn" onclick="publishEvent()">
+                        🚀 Publish event
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right : Live Preview -->
+        <div class="create-preview">
+            <div class="preview-label">Live preview</div>
+
+            <div class="preview-card">
+                <div class="preview-card-band band-default" id="preview-band"></div>
+                <div class="preview-card-body">
+                    <div class="preview-sport-badge" id="preview-sport-badge">🏅 Sport</div>
+                    <div class="preview-title empty" id="preview-title">Your event title will appear here</div>
+                    <hr class="preview-divider"/>
+                    <div class="preview-meta-row">
+                        <span class="preview-meta-icon">📅</span>
+                        <span id="preview-date">Date &amp; time not set</span>
+                    </div>
+                    <div class="preview-meta-row">
+                        <span class="preview-meta-icon">📍</span>
+                        <span id="preview-location">Location not set</span>
+                    </div>
+                    <div class="preview-meta-row">
+                        <span class="preview-meta-icon">👥</span>
+                        <span id="preview-players">10 max players</span>
+                    </div>
+                    <div class="preview-meta-row">
+                        <span class="preview-meta-icon">🎯</span>
+                        <span id="preview-skill">Skill level not set</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-tips">
+                <div class="preview-tips-title">💡 Tips for a great event</div>
+                <ul>
+                    <li>Add a clear title so players know exactly what to expect</li>
+                    <li>Include the exact entrance or meetup point in the description</li>
+                    <li>Set a realistic player limit for the venue size</li>
+                    <li>Mention if players need to bring their own gear</li>
+                </ul>
+            </div>
+        </div>        
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script>
+        // ── State
+        let currentStep = 1;
+        let eventData = {
+            sport: '', sportIcon: '', sportBand: '',
+            title: '', location: '', date: '', time: '',
+            players: 10, skill: ''
+        };
+
+        // ── Step navigation
+        function goToStep(step) {
+            // Hide current panel
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+
+            // Update progress bar
+            document.querySelectorAll('.step-item').forEach((item, i) => {
+                const n = i + 1;
+                item.classList.remove('active', 'completed');
+                if (n < step)  item.classList.add('completed');
+                if (n === step) item.classList.add('active');
+            });
+
+            // Show new panel
+            currentStep = step;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+
+            // Populate review step
+            if (step === 4) populateReview();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ── Sport selection
+        function selectSport(el, name, icon, band) {
+            document.querySelectorAll('.sport-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            eventData.sport = name;
+            eventData.sportIcon = icon;
+            eventData.sportBand = band;
+
+            // Update preview
+            document.getElementById('preview-sport-badge').textContent = `${icon} ${name}`;
+            const bandEl = document.getElementById('preview-band');
+            bandEl.className = `preview-card-band ${band}`;
+        }
+
+        // ── Skill level selection
+        function selectSkill(el, level) {
+            document.querySelectorAll('.skill-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            eventData.skill = level;
+            document.getElementById('preview-skill').textContent = level;
+        }
+
+        // ── Player count stepper
+        function changeCount(delta) {
+            eventData.players = Math.max(2, Math.min(50, eventData.players + delta));
+            document.getElementById('player-count').textContent = eventData.players;
+            document.getElementById('count-minus').disabled = eventData.players <= 2;
+            document.getElementById('count-plus').disabled  = eventData.players >= 50;
+            document.getElementById('preview-players').textContent = `${eventData.players} max players`;
+        }
+
+        // ── Live preview updates
+        function updatePreview(field, value) {
+            eventData[field] = value;
+
+            if (field === 'title') {
+                const el = document.getElementById('preview-title');
+                if (value.trim()) {
+                    el.textContent = value;
+                    el.classList.remove('empty');
+                } else {
+                    el.textContent = 'Your event title will appear here';
+                    el.classList.add('empty');
+                }
+            }
+
+            if (field === 'location') {
+                document.getElementById('preview-location').textContent = value || 'Location not set';
+            }
+
+            if (field === 'date' || field === 'time') {
+                const d = document.getElementById('event-date').value;
+                const t = document.getElementById('event-time').value;
+                const formatted = d && t
+                ? `${new Date(d).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' })} · ${t}`
+                : d ? new Date(d).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' })
+                : 'Date & time not set';
+                document.getElementById('preview-date').textContent = formatted;
+            }
+        }
+
+        // ── Map picker placeholder
+        function openMapPicker() {
+            // api.js will initialize Leaflet map in a modal here
+            document.getElementById('selected-address').textContent = 'Karpoš Sports Centre, Skopje (demo)';
+            updatePreview('location', 'Karpoš Sports Centre, Skopje');
+        }
+
+        // ── Populate review step
+        function populateReview() {
+            document.getElementById('review-sport').textContent    = eventData.sport    || '—';
+            document.getElementById('review-title').textContent    = eventData.title    || '—';
+            document.getElementById('review-location').textContent = eventData.location || '—';
+            document.getElementById('review-players').textContent  = eventData.players;
+            document.getElementById('review-skill').textContent    = eventData.skill    || '—';
+            const d = document.getElementById('event-date').value;
+            const t = document.getElementById('event-time').value;
+            document.getElementById('review-datetime').textContent = d && t ? `${d} at ${t}` : '—';
+        }
+
+        // ── Publish event
+        function publishEvent() {
+            const btn = document.getElementById('publish-btn');
+            btn.classList.add('loading');
+            btn.textContent = '';
+            // api.js will POST to /api/events and redirect to event-detail.html
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.textContent = '🚀 Publish event';
+            }, 1500);
+        }
+
+        // ── Mobile menu
+        function toggleMenu() {
+            const links = document.querySelector('.navbar-links');
+            links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Set today as min date
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('event-date').min = today;
+        });                    
+    </script>
+</body>
+</html>

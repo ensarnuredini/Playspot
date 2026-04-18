@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SportSpot — My Events</title>
+
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+
+  <!-- Page-specific styles -->
+  <link rel="stylesheet" href="css/pages/my-events.css"/>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════ -->
+  <nav class="navbar">
+    <a href="landing.html" class="navbar-logo">
+      <div class="navbar-logo-dot"></div>
+      SportSpot
+    </a>
+
+    <ul class="navbar-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="explore.html">Explore</a></li>
+      <li><a href="create-event.html">Host event</a></li>
+      <li><a href="my-events.html" class="active">My events</a></li>
+    </ul>
+
+    <div class="navbar-actions">
+      <a href="#" class="navbar-bell">🔔<span class="navbar-bell-dot"></span></a>
+      <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
+      <div class="navbar-avatar">A</div>
+    </div>
+
+    <div class="navbar-hamburger" onclick="toggleNavMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       PAGE
+  ══════════════════════════════════════════ -->
+  <div class="my-events-page">
+
+    <!-- HEADER -->
+    <div class="my-events-header">
+      <h1 class="my-events-heading">
+        My<br/><span>events</span>
+      </h1>
+      <div class="my-events-header-actions">
+        <a href="explore.html" class="btn btn-ghost">Browse events</a>
+        <a href="create-event.html" class="btn btn-acid">+ Host new event</a>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="my-events-stats">
+      <div class="my-stat">
+        <div class="my-stat-num">3</div>
+        <div class="my-stat-label">Hosting</div>
+      </div>
+      <div class="my-stat">
+        <div class="my-stat-num">7</div>
+        <div class="my-stat-label">Joined</div>
+      </div>
+      <div class="my-stat">
+        <div class="my-stat-num">24</div>
+        <div class="my-stat-label">Events played</div>
+      </div>
+      <div class="my-stat">
+        <div class="my-stat-num">4.8</div>
+        <div class="my-stat-label">Avg rating</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="my-events-tabs">
+      <button class="my-tab active" onclick="switchTab('hosting', this)">
+        Hosting <span class="my-tab-count">3</span>
+      </button>
+      <button class="my-tab" onclick="switchTab('joined', this)">
+        Joined <span class="my-tab-count">7</span>
+      </button>
+      <button class="my-tab" onclick="switchTab('past', this)">
+        Past <span class="my-tab-count">14</span>
+      </button>
+    </div>
+
+    <!-- HOSTING -->
+    <div class="my-tab-panel active" id="panel-hosting">
+
+      <div class="my-section-header">
+        <div class="my-section-title">Upcoming</div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(1)">
+        <div class="my-event-strip strip-football"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">⚽</span>
+          <div class="my-event-info">
+            <div class="my-event-title">5-a-side at Karpoš</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 Today · 6:00 PM</span>
+              <span class="my-event-meta-item">📍 Karpoš Sports Centre</span>
+              <span class="my-event-meta-item">👥 8 / 10 players</span>
+              <span class="badge badge-success">2 spots open</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <div class="manage-menu" id="menu-1">
+            <button class="btn btn-ghost btn-sm" onclick="toggleManageMenu('menu-1', event)">Manage ▾</button>
+            <div class="manage-dropdown">
+              <button class="manage-item" onclick="goToEvent(1)">View event</button>
+              <button class="manage-item" onclick="editEvent(1)">Edit details</button>
+              <button class="manage-item" onclick="messageAttendees(1)">Message attendees</button>
+              <button class="manage-item danger" onclick="cancelEvent(1)">Cancel event</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(2)">
+        <div class="my-event-strip strip-basketball"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">🏀</span>
+          <div class="my-event-info">
+            <div class="my-event-title">3-on-3 open run — all levels</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 Saturday · 4:30 PM</span>
+              <span class="my-event-meta-item">📍 Boris Trajkovski Arena</span>
+              <span class="my-event-meta-item">👥 5 / 6 players</span>
+              <span class="badge badge-warning">1 spot left</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <div class="manage-menu" id="menu-2">
+            <button class="btn btn-ghost btn-sm" onclick="toggleManageMenu('menu-2', event)">Manage ▾</button>
+            <div class="manage-dropdown">
+              <button class="manage-item" onclick="goToEvent(2)">View event</button>
+              <button class="manage-item" onclick="editEvent(2)">Edit details</button>
+              <button class="manage-item" onclick="messageAttendees(2)">Message attendees</button>
+              <button class="manage-item danger" onclick="cancelEvent(2)">Cancel event</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(3)">
+        <div class="my-event-strip strip-cycling"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">🚴</span>
+          <div class="my-event-info">
+            <div class="my-event-title">Sunday morning ride — 30K</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 Sunday · 8:00 AM</span>
+              <span class="my-event-meta-item">📍 Vodno Mountain</span>
+              <span class="my-event-meta-item">👥 4 / 12 players</span>
+              <span class="badge badge-success">8 spots open</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <div class="manage-menu" id="menu-3">
+            <button class="btn btn-ghost btn-sm" onclick="toggleManageMenu('menu-3', event)">Manage ▾</button>
+            <div class="manage-dropdown">
+              <button class="manage-item" onclick="goToEvent(3)">View event</button>
+              <button class="manage-item" onclick="editEvent(3)">Edit details</button>
+              <button class="manage-item" onclick="messageAttendees(3)">Message attendees</button>
+              <button class="manage-item danger" onclick="cancelEvent(3)">Cancel event</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- JOINED -->
+    <div class="my-tab-panel" id="panel-joined">
+
+      <div class="my-section-header">
+        <div class="my-section-title">Upcoming</div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(4)">
+        <div class="my-event-strip strip-tennis"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">🎾</span>
+          <div class="my-event-info">
+            <div class="my-event-title">Tennis singles — casual match</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 Tomorrow · 9:00 AM</span>
+              <span class="my-event-meta-item">📍 City Tennis Club</span>
+              <span class="my-event-meta-item">🎯 Intermediate</span>
+              <span class="badge badge-info">Confirmed</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <button class="btn btn-ghost btn-sm" onclick="leaveEvent(4)">Leave</button>
+        </div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(5)">
+        <div class="my-event-strip strip-running"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">🏃</span>
+          <div class="my-event-info">
+            <div class="my-event-title">Morning group run — 5K easy</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 Tomorrow · 7:00 AM</span>
+              <span class="my-event-meta-item">📍 City Park</span>
+              <span class="my-event-meta-item">🎯 All levels</span>
+              <span class="badge badge-info">Confirmed</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <button class="btn btn-ghost btn-sm" onclick="leaveEvent(5)">Leave</button>
+        </div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(6)">
+        <div class="my-event-strip strip-volleyball"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">🏐</span>
+          <div class="my-event-info">
+            <div class="my-event-title">Beach volleyball — open net</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 Saturday · 5:00 PM</span>
+              <span class="my-event-meta-item">📍 Skopje Beach Club</span>
+              <span class="my-event-meta-item">🎯 All levels</span>
+              <span class="badge badge-info">Confirmed</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <button class="btn btn-ghost btn-sm" onclick="leaveEvent(6)">Leave</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PAST -->
+    <div class="my-tab-panel" id="panel-past">
+
+      <div class="my-section-header">
+        <div class="my-section-title">Last 30 days</div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(7)" style="opacity:.75;">
+        <div class="my-event-strip strip-football"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">⚽</span>
+          <div class="my-event-info">
+            <div class="my-event-title">5-a-side — last week</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 Last Saturday · 6:00 PM</span>
+              <span class="my-event-meta-item">📍 Karpoš Sports Centre</span>
+              <span class="badge badge-muted">Completed</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <button class="btn btn-ghost btn-sm" onclick="rateEvent(7)">Rate ⭐</button>
+        </div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(8)" style="opacity:.75;">
+        <div class="my-event-strip strip-running"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">🏃</span>
+          <div class="my-event-info">
+            <div class="my-event-title">5K park run</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 2 weeks ago · 7:00 AM</span>
+              <span class="my-event-meta-item">📍 City Park</span>
+              <span class="badge badge-muted">Completed</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <button class="btn btn-ghost btn-sm" onclick="rateEvent(8)">Rate ⭐</button>
+        </div>
+      </div>
+
+      <div class="my-event-row" onclick="goToEvent(9)" style="opacity:.75;">
+        <div class="my-event-strip strip-basketball"></div>
+        <div class="my-event-body">
+          <span class="my-event-icon">🏀</span>
+          <div class="my-event-info">
+            <div class="my-event-title">Pick-up basketball</div>
+            <div class="my-event-meta">
+              <span class="my-event-meta-item">📅 3 weeks ago · 5:00 PM</span>
+              <span class="my-event-meta-item">📍 Boris Trajkovski Arena</span>
+              <span class="badge badge-success">Rated ⭐ 5</span>
+            </div>
+          </div>
+        </div>
+        <div class="my-event-actions" onclick="event.stopPropagation()">
+          <button class="btn btn-ghost btn-sm" disabled style="opacity:.4">Rated</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/auth.js" defer></script>
+  <script src="js/api.js" defer></script>
+
+  <script>
+    function toggleNavMenu() {
+      const links = document.querySelector('.navbar-links');
+      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function toggleManageMenu(menuId, e) {
+      e.stopPropagation();
+      const menu = document.getElementById(menuId);
+      const isOpen = menu.classList.contains('open');
+
+      document.querySelectorAll('.manage-menu').forEach(m => m.classList.remove('open'));
+
+      if (!isOpen) menu.classList.add('open');
+    }
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.manage-menu').forEach(m => m.classList.remove('open'));
+    });
+
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.my-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.my-tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`panel-${tab}`).classList.add('active');
+    }
+
+    function goToEvent(id) {
+      window.location.href = `event-detail.html?id=${id}`;
+    }
+
+    function editEvent(id) {
+      window.location.href = `create-event.html?edit=${id}`;
+    }
+
+    function cancelEvent(id) {
+      if (confirm('Are you sure you want to cancel this event? All attendees will be notified.')) {
+        console.log('Cancel event:', id);
+      }
+    }
+
+    function messageAttendees(id) {
+      console.log('Message attendees of event:', id);
+    }
+
+    function leaveEvent(id) {
+      if (confirm('Leave this event?')) {
+        console.log('Leave event:', id);
+      }
+    }
+
+    function rateEvent(id) {
+      console.log('Rate event:', id);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab');
+
+    if (tabParam) {
+      const btn = document.querySelector(`.my-tab[onclick*="'${tabParam}'"]`);
+      if (btn) switchTab(tabParam, btn);
+    }
+  </script>
+
+</body>
+</html>

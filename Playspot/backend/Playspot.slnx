@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Playspot.API/Playspot.API.csproj" />
+  <Project Path="Playspot.Application/Playspot.Application.csproj" />
+  <Project Path="Playspot.Domain/Playspot.Domain.csproj" />
+  <Project Path="Playspot.Infrastructure/Playspot.Infrastructure.csproj" />
+</Solution>

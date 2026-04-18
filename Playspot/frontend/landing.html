@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaySpot - Find Local Sports Events</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages/landing.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="landing.html" class="navbar-logo">
+            <div class="navbar-logo-dot"></div>
+            PlaySpot
+        </a>
+
+        <ul class="navbar-links">
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#sports">Sports</a></li>
+            <li><a href="explore.html">Explore events</a></li>
+        </ul>
+
+        <div class="navbar-actions">
+            <a href="auth.html" class="btn btn-ghost">Log in</a>
+            <a href="auth.html" class="btn btn-primary">Sign up free</a>
+        </div>
+
+        <div class="navbar-hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section>
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <span class="hero-eyebrow-tag">New</span>
+                    Now live in Skopje &amp; 12+ cities!
+                </div>
+
+                <h1 class="hero=title">
+                    Play <br>
+                    <em>with</em> <br>
+                    your city
+                </h1>
+
+                <p class="hero-desc">
+                    Find pick-up games, weekend tournaments, and casual sessions near you.
+                    Join in seconds — no memberships, no fees.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="explore.html" class="btn btn-acid btn-lg">Find events near me</a>
+                    <a href="create-event.html" class="btn btn-ghost btn-lg">Host an event</a>
+                </div>
+
+                <p class="hero-note">Free to join · No credit card required</p>
+            </div>
+
+            <div class="hero-visual">
+                <div class="event-card-stack">
+                    <div class="stack-card stack-card-back">
+                        <div class="stack-card-badge">🏊 Swimming</div>
+                        <div class="stack-card-title">Morning lane session</div>
+                        <div class="stack-card-meta">
+                            Tomorrow · 7:00 AM<br/>
+                            Olimpic Bazen, Skopje
+                        </div>
+                    </div>
+
+                    <div class="stack-card stack-card-mid">
+                        <div class="stack-card-badge">⚽ Football</div>
+                        <div class="stack-card-title">5-a-side at Cair</div>
+                        <div class="stack-card-meta">
+                            Saturday · 6:00 PM<br/>
+                            Albion Sports Centre
+                        </div>
+                        <div class="stack-card-footer">
+                            <div class="avatars">
+                                <div class="avatar avatar-blue">M</div>
+                                <div class="avatar avatar-pink">J</div>
+                                <div class="avatar avatar-green">A</div>
+                            </div>
+                            <span class="spots=left"><strong>2</strong>spots left</span>
+                        </div>
+                    </div>
+
+                    <div class="stack-card stack-card-main">
+                        <div class="stack-card-badge">🏀 Basketball</div>
+                        <div class="stack-card-title">3-on-3 open run <br/>— all levels</div>
+                        <div class="stack-card-meta">
+                            Today · 4:30 PM<br/>
+                            Shaban Trstena Arena
+                        </div>
+                        <div class="stack-card-footer">
+                            <div class="avatars">
+                                <div class="avatar avatar-pink">S</div>
+                                <div class="avatar avatar-green">R</div>
+                                <div class="avatar avatar-amber">T</div>
+                                <div class="avatar avatar-blue">K</div>
+                            </div>
+                            <button class="stack-join-btn">Join</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-strip">
+        <div class="stat">
+            <div class="stat-num">4,200+</div>
+            <div class="stat-label">Events created</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">18K</div>
+            <div class="stat-label">Active players</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">32</div>
+            <div class="stat-label">Sports covered</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">12</div>
+            <div class="stat-label">Cities live</div>
+        </div>
+    </div>
+
+    <section class="section" id="how">
+        <div class="section-label">How it works</div>
+        <h2 class="section-title">Three steps <br> to your next game</h2>
+
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-title">Find</div>
+                <p class="step-desc">
+                     Browse the map or search by sport, location, and skill level.
+                    Filter by today, this week, or anytime.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-title">Join</div>
+                <p class="step-desc">
+                    Tap to join in one click. You'll get a confirmation and a reminder
+                    24 hours before the event starts.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-title">Play</div>
+                <p class="step-desc">
+                    Show up, meet new people, and play. Rate the event after —
+                    it helps other players find the best spots.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="sports-section" id="sports">
+        <div class="container">
+            <div class="section-label">What we cover</div>
+            <div class="section-title">Your sport <br> is here</div>
+            <div class="sports-scroll">
+
+                <a href="explore.html?sport=football"    class="sport-chip"><span class="sport-icon">⚽</span><span class="sport-name">Football</span>   <span class="sport-count">342 events</span></a>
+
+                <a href="explore.html?sport=basketball"  class="sport-chip"><span class="sport-icon">🏀</span><span class="sport-name">Basketball</span> <span class="sport-count">214 events</span></a>
+
+                <a href="explore.html?sport=tennis"      class="sport-chip"><span class="sport-icon">🎾</span><span class="sport-name">Tennis</span>     <span class="sport-count">187 events</span></a>
+
+                <a href="explore.html?sport=volleyball"  class="sport-chip"><span class="sport-icon">🏐</span><span class="sport-name">Volleyball</span> <span class="sport-count">156 events</span></a>
+
+                <a href="explore.html?sport=running"     class="sport-chip"><span class="sport-icon">🏃</span><span class="sport-name">Running</span>    <span class="sport-count">203 events</span></a>
+
+                <a href="explore.html?sport=swimming"    class="sport-chip"><span class="sport-icon">🏊</span><span class="sport-name">Swimming</span>   <span class="sport-count">74 events</span></a>
+
+                  <a href="explore.html?sport=tabletennis" class="sport-chip"><span class="sport-icon">🏓</span><span class="sport-name">Table tennis</span><span class="sport-count">45 events</span></a>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-banner">
+        <div class="cta-banner-title">Ready to get off the couch?</div>
+        <div class="cta-banner-actions">
+            <a href="auth.html" class="btn btn-primary btn-lg">Create a free account</a>
+            <a href="explore.html" class="btn btn-ghost btn-lg">Browse events first</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <a href="index.html" class="navbar-logo">
+            <div class="navbar-logo-dot"></div>
+            PlaySpot
+        </a>
+
+        <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+
+        <span class="footer-copy">© 2026 PlaySpot. All rights reserved.</span>
+    </footer>
+
+
+
+
+
+</body>
+</html>

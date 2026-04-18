@@ -1,0 +1,336 @@
+/* ============================================================
+   MY-EVENTS.CSS — My Events page styles
+   SportSpot · requires base.css + components.css
+   ============================================================ */
+
+/* ── PAGE LAYOUT ── */
+.my-events-page {
+  padding-top: 64px;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 48px;
+  padding-right: 48px;
+  padding-bottom: 80px;
+}
+
+/* ── PAGE HEADER ── */
+.my-events-header {
+  padding: 48px 0 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid rgba(13,13,13,.14);
+}
+
+.my-events-heading {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(40px, 5vw, 64px);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #0d0d0d;
+}
+.my-events-heading span { color: #6b6b5e; }
+
+.my-events-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ── STATS ROW ── */
+.my-events-stats {
+  display: flex;
+  gap: 0;
+  border: 1.5px solid #0d0d0d;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.my-stat {
+  flex: 1;
+  padding: 20px 24px;
+  border-right: 1.5px solid #0d0d0d;
+  text-align: center;
+  transition: background .2s ease;
+}
+.my-stat:last-child { border-right: none; }
+.my-stat:hover { background: #c8ff00; }
+
+.my-stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 36px;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #0d0d0d;
+  margin-bottom: 4px;
+}
+.my-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #6b6b5e;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── TABS ── */
+.my-events-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1.5px solid rgba(13,13,13,.14);
+  margin-bottom: 32px;
+}
+
+.my-tab {
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b6b5e;
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2.5px solid transparent;
+  margin-bottom: -1.5px;
+  transition: all .2s ease;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.my-tab:hover { color: #0d0d0d; }
+.my-tab.active {
+  color: #0d0d0d;
+  border-bottom-color: #0d0d0d;
+}
+
+.my-tab-count {
+  background: rgba(13,13,13,.14);
+  border-radius: 100px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b6b5e;
+  transition: all .2s ease;
+}
+.my-tab.active .my-tab-count {
+  background: #0d0d0d;
+  color: #c8ff00;
+}
+
+/* ── TAB PANELS ── */
+.my-tab-panel { display: none; }
+.my-tab-panel.active {
+  display: block;
+  animation: fadeIn .25s ease both;
+}
+
+/* ── EVENT ROW ── */
+/* IMPORTANT: NO overflow:hidden here — it was clipping the manage dropdown */
+.my-event-row {
+  display: grid;
+  grid-template-columns: 6px 1fr auto;
+  gap: 0;
+  background: #ffffff;
+  border: 1.5px solid rgba(13,13,13,.14);
+  border-radius: 14px;
+  /* overflow: hidden  ← REMOVED — was clipping the dropdown */
+  margin-bottom: 12px;
+  transition: all .2s ease;
+  cursor: pointer;
+  position: relative; /* needed so dropdown stacks correctly */
+}
+.my-event-row:hover {
+  border-color: #0d0d0d;
+  transform: translateX(4px);
+  box-shadow: 3px 3px 0 #0d0d0d;
+}
+
+/* Left color strip — needs border-radius on left side since row has no overflow:hidden */
+.my-event-strip {
+  background: #c8ff00;
+  border-radius: 12px 0 0 12px; /* match row radius on left side only */
+}
+.strip-football   { background: #3b8f5e; }
+.strip-basketball { background: #e67e22; }
+.strip-tennis     { background: #2ecc71; }
+.strip-running    { background: #e74c3c; }
+.strip-volleyball { background: #9b59b6; }
+.strip-cycling    { background: #3498db; }
+.strip-default    { background: #c8ff00; }
+
+/* Main content of row */
+.my-event-body {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.my-event-icon { font-size: 28px; flex-shrink: 0; }
+.my-event-info { flex: 1; min-width: 0; }
+
+.my-event-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  text-transform: uppercase;
+  letter-spacing: -.3px;
+  color: #0d0d0d;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.my-event-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.my-event-meta-item {
+  font-size: 12px;
+  color: #6b6b5e;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Right side actions */
+.my-event-actions {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(13,13,13,.14);
+  position: relative; /* anchor for the dropdown */
+}
+
+/* ── SECTION HEADERS ── */
+.my-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+.my-section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #6b6b5e;
+}
+
+/* ── EMPTY STATE ── */
+.my-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 64px 24px;
+  gap: 16px;
+  border: 1.5px dashed rgba(13,13,13,.14);
+  border-radius: 14px;
+}
+.my-empty-icon { font-size: 48px; opacity: .25; }
+.my-empty-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #0d0d0d;
+}
+.my-empty-desc {
+  font-size: 14px;
+  color: #6b6b5e;
+  font-weight: 300;
+  max-width: 280px;
+  line-height: 1.65;
+}
+
+/* ── MANAGE DROPDOWN ── */
+.manage-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.manage-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #ffffff;
+  border: 1.5px solid #0d0d0d;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #0d0d0d;
+  min-width: 180px;
+  z-index: 100;
+}
+.manage-menu.open .manage-dropdown {
+  display: block;
+  animation: fadeIn .15s ease both;
+}
+
+.manage-item {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #0d0d0d;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s ease;
+  border: none;
+  background: none;
+  font-family: 'DM Sans', sans-serif;
+  border-bottom: 1px solid rgba(13,13,13,.14);
+}
+.manage-item:last-child { border-bottom: none; }
+.manage-item:hover { background: #c8ff00; }
+.manage-item.danger { color: #b53030; }
+.manage-item.danger:hover { background: #fdeaea; }
+
+/* When dropdown is open, add bottom padding to the row
+   so the dropdown doesn't overlap the event below it.
+   4 items × 41px each + 6px gap from button = ~170px */
+.my-event-row:has(.manage-menu.open) {
+  padding-bottom: 175px;
+  transition: padding-bottom .15s ease;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .my-events-page {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .my-events-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 0 24px;
+  }
+  .my-events-stats { flex-wrap: wrap; }
+  .my-stat {
+    flex: 1 1 40%;
+    border-bottom: 1.5px solid #0d0d0d;
+  }
+  .my-event-body { gap: 12px; }
+  .my-event-icon { display: none; }
+  .my-event-actions { padding: 12px; }
+  .my-tab { padding: 12px 16px; font-size: 13px; }
+}
