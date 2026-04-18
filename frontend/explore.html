@@ -161,7 +161,12 @@
                 <!-- Distance -->
                 <div class="filter-group">
                     <div class="filter-group-title">Distance</div>
+<<<<<<< HEAD
                     <input type="range" class="filter-range" min="1" max="50" value="10" oninput="updateDistance(this.value)" id="distance-slider">
+=======
+                    <label for="distance-slider" class="sr-only">Distance radius in kilometers</label>
+                    <input type="range" class="filter-range" min="1" max="50" value="10" oninput="updateDistance(this.value)" id="distance-slider" title="Adjust search distance">
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
                     <div class="filter-range-labels">
                         <span>1 km</span>
                         <span id="distance-label">10 km</span>
@@ -191,7 +196,12 @@
                     </div>
 
                     <div class="results-controls">
+<<<<<<< HEAD
                         <select class="results-sort" onchange="sortResults(this.value)">
+=======
+                        <label for="results-sort-select" class="sr-only">Sort events by</label>
+                        <select class="results-sort" id="results-sort-select" title="Sort search results" onchange="sortResults(this.value)">
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
                             <option value="distance">Nearest first</option>
                             <option value="date">Soonest first</option>
                             <option value="spots">Most spots</option>

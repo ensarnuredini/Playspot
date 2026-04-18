@@ -112,7 +112,11 @@
                 </div>
 
                 <div class="form-group">
+<<<<<<< HEAD
                     <label class="form-label" for="event-desc">Description <span style="color:var(--muted);font-weight:300">(optional)</span></label>
+=======
+                    <label class="form-label" for="event-desc">Description <span class="desc-label-optional">(optional)</span></label>
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
                     <textarea class="form-input form-textarea" id="event-desc" placeholder="Any extra info players should know — gear needed, format, meetup point..." rows="3"></textarea>
                 </div>
 
@@ -248,6 +252,7 @@
                 <!-- Requires approval -->
                 <div class="form-group">
                     <label class="form-label">Join requires approval?</label>
+<<<<<<< HEAD
                     <div style="display:flex;gap:12px;margin-top:4px;">
                          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--muted);font-family:var(--font-body)">
                              <input type="radio" name="approval" value="open" checked style="accent-color:var(--ink)">
@@ -257,6 +262,17 @@
                     <div style="display:flex;gap:12px;margin-top:8px;">
                         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--muted);font-family:var(--font-body)">
                             <input type="radio" name="approval" value="approval" style="accent-color:var(--ink)">
+=======
+                    <div class="approval-flex">
+                         <label class="approval-label">
+                             <input type="radio" name="approval" value="open" checked class="approval-input">
+                             Open — anyone can join instantly
+                         </label>
+                    </div>
+                    <div class="approval-flex-spacer">
+                        <label class="approval-label">
+                            <input type="radio" name="approval" value="approval" class="approval-input">
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
                             Request — you approve each player
                         </label>
                     </div>
@@ -276,6 +292,7 @@
                 </div>
 
                 <!-- Summary rows -->
+<<<<<<< HEAD
                 <div class="card" style="display:flex;flex-direction:column;gap:14px;border-width:1px;border-color:var(--border);">
                     <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
                         <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Sport</span>
@@ -300,6 +317,32 @@
                     <div style="display:flex;justify-content:space-between;align-items:center;">
                         <span style="font-size:13px;color:var(--muted);font-family:var(--font-body)">Skill level</span>
                         <span style="font-size:14px;font-weight:500;color:var(--ink);font-family:var(--font-body)" id="review-skill">—</span>
+=======
+                <div class="card review-card">
+                    <div class="review-row">
+                        <span class="review-label">Sport</span>
+                        <span class="review-value" id="review-sport">—</span>
+                    </div>
+                    <div class="review-row">
+                        <span class="review-label">Title</span>
+                        <span class="review-value" id="review-title">—</span>
+                    </div>
+                    <div class="review-row">
+                        <span class="review-label">Location</span>
+                        <span class="review-value" id="review-location">—</span>
+                    </div>
+                    <div class="review-row">
+                        <span class="review-label">Date &amp; time</span>
+                        <span class="review-value" id="review-datetime">—</span>
+                    </div>
+                    <div class="review-row">
+                        <span class="review-label">Max players</span>
+                        <span class="review-value" id="review-players">—</span>
+                    </div>
+                    <div class="review-row-last">
+                        <span class="review-label">Skill level</span>
+                        <span class="review-value" id="review-skill">—</span>
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
                     </div>
                 </div>
 
@@ -359,6 +402,7 @@
     </div>
 
     <!-- Scripts -->
+<<<<<<< HEAD
     <script src="js/auth.js" defer></script>
     <script src="js/api.js" defer></script>
     <script>
@@ -497,5 +541,8 @@
             document.getElementById('event-date').min = today;
         });                    
     </script>
+=======
+    <script type="module" src="js/create-event.js"></script>
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
 </body>
 </html>

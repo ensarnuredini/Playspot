@@ -12,6 +12,12 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.5" />
+<<<<<<< HEAD
+=======
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.2.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
   </ItemGroup>
 
   <PropertyGroup>

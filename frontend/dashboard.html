@@ -7,6 +7,11 @@
          <link rel="stylesheet" href="css/base.css">
          <link rel="stylesheet" href="css/components.css">
          <link rel="stylesheet" href="css/pages/dashboard.css">
+<<<<<<< HEAD
+=======
+         <!-- Leaflet Map Library -->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
     </head>
     <body>
         <!-- NAVBAR - loged in state -->
@@ -75,7 +80,11 @@
 
              <!-- DATE FILTER -->
 
+<<<<<<< HEAD
              <select class="filter-select" onchange="setDateFilter(this.value)">
+=======
+             <select class="filter-select" title="Filter events by date" onchange="setDateFilter(this.value)">
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
                 <option value="today">Today</option>
                 <option value="tomorrow">Tomorrow</option>
                 <option value="week">This week</option>
@@ -297,6 +306,7 @@
 
                 <div class="dashboard-map" id="map-container">
 
+<<<<<<< HEAD
                     <!-- Placeholder grid — replaced by real map via api.js + Leaflet -->
 
                     <div class="map-placeholder">
@@ -330,6 +340,10 @@
                         <div class="map-pin-bubble">🏐 Volleyball</div>
                         <div class="map-pin-tail"></div>
                     </div>
+=======
+                    <!-- Map Container -->
+                    <div id="map" class="dashboard-map-container"></div>
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
 
                     <!-- Map Control -->
 
@@ -348,6 +362,7 @@
         </div>
 
 
+<<<<<<< HEAD
         <!-- Scripts -->
 
         <script src="js/auth.js" defer></script>
@@ -418,5 +433,13 @@
                 links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
             }
         </script>
+=======
+        <!-- Leaflet Script -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+        <!-- Scripts -->
+
+        <script type="module" src="js/dashboard.js"></script>
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
     </body>
 </html>

@@ -16,7 +16,10 @@
   gap: 12px;
   background: var(--paper);
   overflow-x: auto;
+<<<<<<< HEAD
   scrollbar-width: none;
+=======
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
   flex-shrink: 0;
 }
 
@@ -177,8 +180,24 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+<<<<<<< HEAD
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
+=======
+}
+
+.sidebar-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-list::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 3px;
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
 }
 
 /* Dashboard event card — compact version */
@@ -393,6 +412,16 @@
   border-top-color: var(--acid);
 }
 
+<<<<<<< HEAD
+=======
+/* Map pin positions */
+.map-pin-1 { top: 38%; left: 42%; }
+.map-pin-2 { top: 52%; left: 58%; }
+.map-pin-3 { top: 30%; left: 65%; }
+.map-pin-4 { top: 62%; left: 35%; }
+.map-pin-5 { top: 45%; left: 75%; }
+
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
 /* Locate me button */
 .map-locate-btn {
   position: absolute;
@@ -456,3 +485,65 @@
     max-height: none;
   }
 }
+<<<<<<< HEAD
+=======
+
+/* Map Container */
+#map {
+  background-color: #e5e3e3;
+  border-radius: 0;
+}
+
+.dashboard-map-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #e5e3e3;
+}
+
+.custom-marker {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.leaflet-popup-content {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.leaflet-popup-content h4 {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.leaflet-popup-content button {
+  background-color: var(--acid);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  transition: all var(--ease);
+}
+
+.leaflet-popup-content button:hover {
+  background-color: var(--ink);
+  color: var(--acid);
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)

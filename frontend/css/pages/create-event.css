@@ -531,4 +531,74 @@
   .skill-selector { grid-template-columns: repeat(2, 1fr); }
   .form-row-2, .form-row-3 { grid-template-columns: 1fr; }
   .step-label { display: none; }
+<<<<<<< HEAD
+=======
+}
+
+/* Inline styles moved to classes */
+.desc-label-optional {
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.approval-flex {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.approval-flex-spacer {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.approval-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--muted);
+  font-family: var(--font-body);
+}
+
+.approval-input {
+  accent-color: var(--ink);
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-width: 1px;
+  border-color: var(--border);
+}
+
+.review-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.review-row-last {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-label {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--font-body);
+}
+
+.review-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  font-family: var(--font-body);
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
 }

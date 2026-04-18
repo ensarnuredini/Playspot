@@ -30,6 +30,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
+<<<<<<< HEAD
+=======
+  -webkit-user-select: none;
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
   user-select: none;
   white-space: nowrap;
 }
@@ -624,4 +628,20 @@
   .events-grid {
     grid-template-columns: 1fr;
   }
+<<<<<<< HEAD
+=======
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+>>>>>>> f781fd9 (feat: JavaScript frontend implementation with API integration, dashboard with Leaflet map, create-event form, authentication, and CSS refinements)
 }
