@@ -4,7 +4,6 @@ public class JoinRequestResponseDto
 {
     public int Id { get; set; }
     public int EventId { get; set; }
-    public string EventTitle { get; set; } = string.Empty;
     public int UserId { get; set; }
     public string Username { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;

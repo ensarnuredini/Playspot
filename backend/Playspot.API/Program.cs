@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Playspot.Application.Interfaces;
 using Playspot.Infrastructure.Data;
 using Playspot.Infrastructure.Services;
-using Scalar.AspNetCore;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IJoinRequestService, JoinRequestService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ISavedEventService, SavedEventService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -44,12 +47,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.MapOpenApi();
-app.MapScalarApiReference(); // UI at /scalar/v1
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();

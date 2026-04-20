@@ -39,4 +39,12 @@ public class JoinRequestController : ControllerBase
         return await _joinRequest.UpdateStatusAsync(requestId, status, userId) 
             ? NoContent() : Forbid();
     }
+
+    [HttpDelete("{eventId}")]
+    public async Task<IActionResult> Withdraw(int eventId)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        return await _joinRequest.WithdrawAsync(eventId, userId)
+            ? NoContent() : NotFound();
+    }
 }
