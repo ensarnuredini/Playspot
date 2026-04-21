@@ -1,7 +1,9 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Playspot.Application.DTOs.Events;
-using Playspot.Application.Interfaces;
+using Playspot.Application.Features.Events.Commands;
+using Playspot.Application.Features.Events.Queries;
 using System.Security.Claims;
 
 namespace Playspot.API.Controllers;
@@ -10,20 +12,17 @@ namespace Playspot.API.Controllers;
 [Route("api/[controller]")]
 public class EventController : ControllerBase
 {
-    private readonly IEventService _events;
-    public EventController(IEventService events) => _events = events;
+    private readonly IMediator _mediator;
+    public EventController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] EventFilterDto filters)
-    {
-        var result = await _events.GetFilteredAsync(filters);
-        return Ok(result);
-    }
+        => Ok(await _mediator.Send(new GetFilteredEventsQuery(filters)));
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var ev = await _events.GetByIdAsync(id);
+        var ev = await _mediator.Send(new GetEventByIdQuery(id));
         return ev == null ? NotFound() : Ok(ev);
     }
 
@@ -32,7 +31,7 @@ public class EventController : ControllerBase
     public async Task<IActionResult> Create(CreateEventDto dto)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var result = await _events.CreateAsync(dto, userId);
+        var result = await _mediator.Send(new CreateEventCommand(dto, userId));
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 
@@ -41,7 +40,7 @@ public class EventController : ControllerBase
     public async Task<IActionResult> Update(int id, UpdateEventDto dto)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var result = await _events.UpdateAsync(id, dto, userId);
+        var result = await _mediator.Send(new UpdateEventCommand(id, dto, userId));
         return result == null ? Forbid() : Ok(result);
     }
 
@@ -50,7 +49,7 @@ public class EventController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        return await _events.DeleteAsync(id, userId) ? NoContent() : Forbid();
+        return await _mediator.Send(new DeleteEventCommand(id, userId)) ? NoContent() : Forbid();
     }
 
     [Authorize]
@@ -58,7 +57,7 @@ public class EventController : ControllerBase
     public async Task<IActionResult> GetMyHosting()
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        return Ok(await _events.GetMyHostingAsync(userId));
+        return Ok(await _mediator.Send(new GetMyHostingQuery(userId)));
     }
 
     [Authorize]
@@ -66,7 +65,7 @@ public class EventController : ControllerBase
     public async Task<IActionResult> GetMyJoined()
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        return Ok(await _events.GetMyJoinedAsync(userId));
+        return Ok(await _mediator.Send(new GetMyJoinedQuery(userId)));
     }
 
     [Authorize]
@@ -74,12 +73,10 @@ public class EventController : ControllerBase
     public async Task<IActionResult> GetMyPast()
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        return Ok(await _events.GetMyPastAsync(userId));
+        return Ok(await _mediator.Send(new GetMyPastQuery(userId)));
     }
 
     [HttpGet("{id}/similar")]
     public async Task<IActionResult> GetSimilar(int id)
-    {
-        return Ok(await _events.GetSimilarAsync(id));
-    }
+        => Ok(await _mediator.Send(new GetSimilarEventsQuery(id)));
 }

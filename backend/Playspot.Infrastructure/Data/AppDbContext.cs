@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Playspot.Application.Interfaces;
 using Playspot.Domain.Entities;
 
 namespace Playspot.Infrastructure.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext : DbContext, IAppDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

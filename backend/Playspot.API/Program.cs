@@ -8,27 +8,42 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Database
+// ── Database ──
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Services
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IEventService, EventService>();
-builder.Services.AddScoped<IJoinRequestService, JoinRequestService>();
-builder.Services.AddScoped<ICommentService, CommentService>();
-builder.Services.AddScoped<ISavedEventService, SavedEventService>();
-builder.Services.AddScoped<IReportService, ReportService>();
-builder.Services.AddScoped<IRatingService, RatingService>();
+// Register IAppDbContext → AppDbContext
+builder.Services.AddScoped<IAppDbContext>(provider =>
+    provider.GetRequiredService<AppDbContext>());
 
-// CORS
+// ── MediatR ──
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(IAppDbContext).Assembly));
+
+// ── Infrastructure Services ──
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+
+// ── CORS ──
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
+        policy
+            .WithOrigins(
+                "http://localhost:5500",     // VS Code Live Server
+                "http://127.0.0.1:5500",    // VS Code Live Server (alt)
+                "http://localhost:3000",     // Common dev server
+                "http://localhost:8080"      // Other dev server
+            )
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+
+    // Fallback for any origin (development convenience)
+    options.AddPolicy("AllowAll", policy =>
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
-// JWT Authentication
+// ── JWT Authentication ──
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -54,7 +69,13 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseCors();
+
+// Use AllowAll for development, use default policy for production
+if (app.Environment.IsDevelopment())
+    app.UseCors("AllowAll");
+else
+    app.UseCors();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
