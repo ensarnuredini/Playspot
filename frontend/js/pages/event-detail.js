@@ -264,7 +264,6 @@ window.toggleJoin = async function() {
             btn.classList.add('joined');
             let spots = parseInt(spotsEl.textContent);
             spotsEl.textContent = Math.max(0, spots - 1);
-            // Optionally refresh attendees visually by reloading window or calling endpoints
             location.reload(); 
         }
     } else {
@@ -311,8 +310,3 @@ window.reportEvent = async function() {
     if (result && result.ok) alert('Report submitted. Thank you.');
     else alert('Already reported or error.');
 };
-
-window.toggleMenu = function() {
-    const links = document.querySelector('.navbar-links');
-    if(links) links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-}

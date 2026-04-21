@@ -164,7 +164,6 @@ window.setDateFilter = function(value) {
     const searchInput = document.querySelector('.sidebar-search-input');
     let sport = 'all';
     if(sportEl) {
-        // extract string from onclick attribute if possible or use class logic
         if(sportEl.innerText.toLowerCase().includes('football')) sport = 'football';
         else if(sportEl.innerText.toLowerCase().includes('basketball')) sport = 'basketball';
         else if(sportEl.innerText.toLowerCase().includes('tennis')) sport = 'tennis';
@@ -183,7 +182,6 @@ window.handleSearch = function(query) {
         let sport = 'all';
         if(sportEl) {
              if(sportEl.innerText.toLowerCase().includes('football')) sport = 'football';
-             // simplified extraction
              if(sportEl.innerText.toLowerCase().includes('all sports')) sport = 'all';
         }
         loadDashboardEvents({ search: query, sport: sport });
@@ -225,9 +223,4 @@ window.locateMe = function() {
             L.circleMarker([lat, lng], { color: '#0066ff', radius: 8 }).addTo(map);
         });
     }
-}
-
-window.toggleMenu = function() {
-    const links = document.querySelector('.navbar-links');
-    if(links) links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
 }

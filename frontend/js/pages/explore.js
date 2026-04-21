@@ -184,11 +184,3 @@ window.updateDistance = function(val) {
 window.sortResults = function(value) {
     applyFilters();
 }
-
-// ── Mobile menu
-window.toggleMenu = function() {
-    const links = document.querySelector('.navbar-links');
-    if (links) {
-        links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-    }
-}

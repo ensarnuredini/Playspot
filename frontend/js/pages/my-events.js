@@ -140,23 +140,9 @@ document.addEventListener('click', () => {
     document.querySelectorAll('.manage-dropdown').forEach(d => d.style.display = 'none');
 });
 
-window.toggleMenu = function() {
-    const links = document.querySelector('.navbar-links');
-    if(links) links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-}
-
 window.switchTab = function(tab, btn) {
     document.querySelectorAll('.my-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.my-tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
-    const panel = document.getElementById(`panel-${tab}`);
-    if (panel) panel.classList.add('active');
-}
-
-// ── Read param from URL
-const urlParams = new URLSearchParams(window.location.search);
-const tabParam = urlParams.get('tab');
-if (tabParam) {
-    const btn = document.querySelector(`.my-tab[onclick*="'${tabParam}'"]`);
-    if (btn) switchTab(tabParam, btn);
+    document.getElementById(`panel-${tab}`).classList.add('active');
 }
