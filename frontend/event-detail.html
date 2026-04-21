@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/base.css"/>
     <link rel="stylesheet" href="css/components.css"/>
     <link rel="stylesheet" href="css/pages/event-detail.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     
@@ -183,33 +184,7 @@
                             </div>
                         </div>
 
-                        <div class="comment">
-                            <div class="comment-avatar avatar-green">A</div>
-                            <div class="comment-body">
-                                <div class="comment-header">
-                                    <span class="comment-name">Altin H.</span>
-                                    <span class="comment-time">1 hour ago</span>
-                                </div>
-                                <div class="comment-text">
-                                    Perfect, I'll be there a few minutes early. Do we need to bring a ball?
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="comment">
-                            <div class="comment-avatar avatar-blue">E</div>
-                            <div class="comment-body">
-                                <div class="comment-header">
-                                    <span class="comment-name">Erblin D.</span>
-                                    <span class="comment-time">45 min ago</span>
-                                    <span class="badge badge-acid" style="font-size:9px;padding:2px 7px;">Host</span>
-                                </div>
-                                <div class="comment-text">
-                                    No need, the centre provides one. Just bring indoor shoes and water!
-                                </div>
-                            </div>
-                        </div>
-                        
+                        <!-- Comments populated by api.js -->
                     </div>
 
                     <!-- Comment input -->
@@ -234,11 +209,10 @@
 
                     <div class="action-card-header">
                         <div>
-                            <div class="action-card-spots" id="spots-count">2</div>
+                            <div class="action-card-spots" id="spots-count">—</div>
                             <div class="action-card-spots-label">spots remaining</div>
-                            <!-- Capacity bar: 8/10 = 80% filled -->
                             <div class="capacity-bar">
-                                <div class="capacity-fill" style="width: 80%;"></div>
+                                <div class="capacity-fill" style="width: 0%;"></div>
                             </div>
                         </div>
                         <span class="badge badge-acid">Open</span>
@@ -248,10 +222,10 @@
 
                         <!-- Host -->
                         <div class="action-host">
-                            <div class="action-host-avatar">E</div>
+                            <div class="action-host-avatar">?</div>
                             <div class="action-host-info">
                                 <div class="action-host-label">Hosted by</div>
-                                <div class="action-host-name">Erblin D.</div>
+                                <div class="action-host-name">Loading...</div>
                             </div>
                         </div>
 
@@ -259,31 +233,31 @@
                         <div class="action-info-row">
                             <span class="action-info-icon">📅</span>
                             <span class="action-info-label">Date</span>
-                            <span class="action-info-value">Today, 6:00 PM</span>
+                            <span class="action-info-value" id="action-date">—</span>
                         </div>
 
                         <div class="action-info-row">
                             <span class="action-info-icon">⏱</span>
                             <span class="action-info-label">Duration</span>
-                            <span class="action-info-value">90 minutes</span>
+                            <span class="action-info-value" id="action-duration">—</span>
                         </div>
 
                         <div class="action-info-row">
                             <span class="action-info-icon">📍</span>
                             <span class="action-info-label">Location</span>
-                            <span class="action-info-value">Karpoš Centre</span>
+                            <span class="action-info-value" id="action-location">—</span>
                         </div>
 
                         <div class="action-info-row">
                             <span class="action-info-icon">🎯</span>
                             <span class="action-info-label">Level</span>
-                            <span class="action-info-value">All levels</span>
+                            <span class="action-info-value" id="action-level">—</span>
                         </div>
 
                         <div class="action-info-row">
                             <span class="action-info-icon">🔓</span>
                             <span class="action-info-label">Join</span>
-                            <span class="action-info-value">Instant</span>
+                            <span class="action-info-value" id="action-join-type">—</span>
                         </div>
 
                         <!-- Join button -->
@@ -301,130 +275,18 @@
                 <div>
                     <div class="section-label" style="margin-bottom:12px;">Similar events nearby</div>
                     <div class="similar-events">
-
-                        <a href="event-detail.html?id=10" class="similar-event-row">
-                            <span class="similar-icon">⚽</span>
-                            <div class="similar-info">
-                                <div class="similar-title">7-a-side weekend league</div>
-                                <div class="similar-meta">Sunday · 10:00 AM · 1.2 km away</div>
-                            </div>
-                            <span class="badge badge-success">Open</span>
-                        </a>
-
-                        <a href="event-detail.html?id=11" class="similar-event-row">
-                            <span class="similar-icon">⚽</span>
-                            <div class="similar-info">
-                                <div class="similar-title">Futsal — Tuesday evening</div>
-                                <div class="similar-meta">Tuesday · 8:00 PM · 2.4 km away</div>
-                            </div>
-                            <span class="badge badge-warning">1 spot</span>
-                        </a>
-
-                        <a href="event-detail.html?id=12" class="similar-event-row">
-                            <span class="similar-icon">⚽</span>
-                            <div class="similar-info">
-                                <div class="similar-title">Mixed 6-a-side — all welcome</div>
-                                <div class="similar-meta">Next Sat · 5:00 PM · 3.1 km away</div>
-                            </div>
-                            <span class="badge badge-success">Open</span>
-                        </a>
+                        <!-- Populated by api.js -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="js/core/api.js" defer></script>
+    <script src="js/core/ui.js" defer></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
+    <script src="js/pages/event-detail.js" defer></script>
     <script src="js/auth.js" defer></script>
-    <script src="js/api.js" defer></script>
-    <script>
-        // ── Join / Leave toggle
-        let isJoined = false;
-
-        function toggleJoin() {
-            isJoined = !isJoined;
-            const btn = document.getElementById('join-btn');
-            const spotsEl = document.getElementById('spots-count');
-            let spots = parseInt(spotsEl.textContent);
-
-            if (isJoined) {
-                btn.textContent = '✓ Joined — leave event';
-                btn.classList.add('joined');
-                spots = Math.max(0, spots - 1);
-                // api.js: POST /api/events/:id/join
-            } else {
-                btn.textContent = 'Join event →';
-                btn.classList.remove('joined');
-                spots = spots + 1;
-                // api.js: DELETE /api/events/:id/join
-            }
-
-            spotsEl.textContent = spots;
-            document.querySelector('.capacity-fill').style.width =
-            ((10 - spots) / 10 * 100) + '%';
-
-            if (spots === 0) {
-                btn.disabled = !isJoined;
-            }
-        }
-
-        // ── Post comment
-        function postComment() {
-            const input = document.getElementById('comment-input');
-            const text = input.value.trim();
-            if (!text) return;
-
-            // Build comment element
-            const list = document.querySelector('.comments-list');
-            const div = document.createElement('div');
-            div.className = 'comment fade-up';
-            div.innerHTML = `
-            <div class="comment-avatar avatar-purple">A</div>
-            <div class="comment-body">
-                <div class="comment-header">
-                    <span class="comment-name">You</span>
-                    <span class="comment-time">Just now</span>
-                </div>
-                <div class="comment-text">${text}</div>
-            </div>`;
-            list.appendChild(div);
-            input.value = '';
-            div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            // api.js: POST /api/events/:id/comments
-        }
-
-        // ── Share
-        function shareEvent() {
-            if (navigator.share) {
-                navigator.share({ title: '5-a-side at Karpoš', url: window.location.href });
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert('Link copied to clipboard!');
-            }
-        }
-
-        // ── Save / Report stubs
-        function saveEvent() {
-            console.log('Save event — api.js: POST /api/events/:id/save');
-        }
-
-        function reportEvent() {
-            console.log('Report event — api.js: POST /api/events/:id/report');
-        }
-
-        // ── Mobile menu
-        function toggleMenu() {
-            const links = document.querySelector('.navbar-links');
-            links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        // ── Read event id from URL and fetch data
-        const params = new URLSearchParams(window.location.search);
-        const eventId = params.get('id');
-        if (eventId) {
-            console.log('Load event from API:', eventId);
-            // api.js: GET /api/events/:id — will populate all page content dynamically
-        }
-    </script>
 
 
 

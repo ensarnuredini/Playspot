@@ -113,19 +113,19 @@
 
     <div class="stats-strip">
         <div class="stat">
-            <div class="stat-num">4,200+</div>
+            <div class="stat-num" id="stat-events">0</div>
             <div class="stat-label">Events created</div>
         </div>
         <div class="stat">
-            <div class="stat-num">18K</div>
+            <div class="stat-num" id="stat-players">0</div>
             <div class="stat-label">Active players</div>
         </div>
         <div class="stat">
-            <div class="stat-num">32</div>
+            <div class="stat-num">8</div>
             <div class="stat-label">Sports covered</div>
         </div>
         <div class="stat">
-            <div class="stat-num">12</div>
+            <div class="stat-num">1</div>
             <div class="stat-label">Cities live</div>
         </div>
     </div>
@@ -170,19 +170,19 @@
             <div class="section-title">Your sport <br> is here</div>
             <div class="sports-scroll">
 
-                <a href="explore.html?sport=football"    class="sport-chip"><span class="sport-icon">⚽</span><span class="sport-name">Football</span>   <span class="sport-count">342 events</span></a>
+                <a href="explore.html?sport=football"    class="sport-chip"><span class="sport-icon">⚽</span><span class="sport-name">Football</span>   <span class="sport-count">Explore →</span></a>
 
-                <a href="explore.html?sport=basketball"  class="sport-chip"><span class="sport-icon">🏀</span><span class="sport-name">Basketball</span> <span class="sport-count">214 events</span></a>
+                <a href="explore.html?sport=basketball"  class="sport-chip"><span class="sport-icon">🏀</span><span class="sport-name">Basketball</span> <span class="sport-count">Explore →</span></a>
 
-                <a href="explore.html?sport=tennis"      class="sport-chip"><span class="sport-icon">🎾</span><span class="sport-name">Tennis</span>     <span class="sport-count">187 events</span></a>
+                <a href="explore.html?sport=tennis"      class="sport-chip"><span class="sport-icon">🎾</span><span class="sport-name">Tennis</span>     <span class="sport-count">Explore →</span></a>
 
-                <a href="explore.html?sport=volleyball"  class="sport-chip"><span class="sport-icon">🏐</span><span class="sport-name">Volleyball</span> <span class="sport-count">156 events</span></a>
+                <a href="explore.html?sport=volleyball"  class="sport-chip"><span class="sport-icon">🏐</span><span class="sport-name">Volleyball</span> <span class="sport-count">Explore →</span></a>
 
-                <a href="explore.html?sport=running"     class="sport-chip"><span class="sport-icon">🏃</span><span class="sport-name">Running</span>    <span class="sport-count">203 events</span></a>
+                <a href="explore.html?sport=running"     class="sport-chip"><span class="sport-icon">🏃</span><span class="sport-name">Running</span>    <span class="sport-count">Explore →</span></a>
 
-                <a href="explore.html?sport=swimming"    class="sport-chip"><span class="sport-icon">🏊</span><span class="sport-name">Swimming</span>   <span class="sport-count">74 events</span></a>
+                <a href="explore.html?sport=swimming"    class="sport-chip"><span class="sport-icon">🏊</span><span class="sport-name">Swimming</span>   <span class="sport-count">Explore →</span></a>
 
-                  <a href="explore.html?sport=tabletennis" class="sport-chip"><span class="sport-icon">🏓</span><span class="sport-name">Table tennis</span><span class="sport-count">45 events</span></a>
+                  <a href="explore.html?sport=tabletennis" class="sport-chip"><span class="sport-icon">🏓</span><span class="sport-name">Table tennis</span><span class="sport-count">Explore →</span></a>
 
 
             </div>
@@ -216,6 +216,18 @@
 
 
 
-
+    <script src="js/core/api.js" defer></script>
+    <script src="js/core/ui.js" defer></script>
+    <script>
+        // Load real stats from API
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const events = await apiGet('/event');
+                if (events) {
+                    document.getElementById('stat-events').textContent = events.length;
+                }
+            } catch(e) { /* API not available, keep defaults */ }
+        });
+    </script>
 </body>
 </html>
