@@ -128,9 +128,9 @@ function renderMapMarkers(events) {
         // Custom div icon
         const icon = L.divIcon({
             className: 'custom-map-icon',
-            html: `<div class="map-pin-bubble" id="pin-${ev.id}">${emoji}</div>`,
-            iconSize: [30, 30],
-            iconAnchor: [15, 30]
+            html: `<div class="map-pin-bubble" id="pin-${ev.id}">${emoji}</div><div class="map-pin-tail" id="pin-tail-${ev.id}"></div>`,
+            iconSize: [40, 48],
+            iconAnchor: [20, 48]
         });
 
         const marker = L.marker([lat, lng], { icon }).addTo(map);
@@ -194,8 +194,11 @@ window.selectEvent = function(el, id) {
 
     // Highlight map pin
     document.querySelectorAll('.map-pin-bubble').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.map-pin-tail').forEach(t => t.classList.remove('active'));
     const pin = document.getElementById(`pin-${id}`);
     if (pin) pin.classList.add('active');
+    const tail = document.getElementById(`pin-tail-${id}`);
+    if (tail) tail.classList.add('active');
 }
 
 window.selectPin = function(id) {
@@ -209,8 +212,11 @@ window.selectPin = function(id) {
     }
 
     document.querySelectorAll('.map-pin-bubble').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.map-pin-tail').forEach(t => t.classList.remove('active'));
     const pin = document.getElementById(`pin-${id}`);
     if(pin) pin.classList.add('active');
+    const tail = document.getElementById(`pin-tail-${id}`);
+    if(tail) tail.classList.add('active');
 }
 
 window.locateMe = function() {

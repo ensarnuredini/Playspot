@@ -20,6 +20,7 @@ public class EventResponseDto
     public string Status { get; set; } = string.Empty;
     public int OrganizerId { get; set; }
     public string OrganizerName { get; set; } = string.Empty;
+    public string OrganizerImageUrl { get; set; } = string.Empty;
     public int ApprovedParticipantCount { get; set; }
     public List<ParticipantDto> Participants { get; set; } = new();
 }
@@ -29,4 +30,5 @@ public class ParticipantDto
     public int UserId { get; set; }
     public string Username { get; set; } = string.Empty;
     public bool IsHost { get; set; }
+    public string ProfileImageUrl { get; set; } = string.Empty;
 }

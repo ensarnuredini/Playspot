@@ -1,118 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SportSpot — My Events</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SportSpot — My Events</title>
 
-  <!-- Shared styles -->
-  <link rel="stylesheet" href="css/base.css"/>
-  <link rel="stylesheet" href="css/components.css"/>
+    <!-- Shared styles -->
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
 
-  <!-- Page-specific styles -->
-  <link rel="stylesheet" href="css/pages/my-events.css"/>
-</head>
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="css/pages/my-events.css" />
+  </head>
 
-<body>
-
-  <!-- ══════════════════════════════════════════
+  <body>
+    <!-- ══════════════════════════════════════════
        NAVBAR
   ══════════════════════════════════════════ -->
-  <nav class="navbar">
-    <a href="landing.html" class="navbar-logo">
-      <div class="navbar-logo-dot"></div>
-      SportSpot
-    </a>
+    <nav class="navbar">
+      <a href="landing.html" class="navbar-logo">
+        <div class="navbar-logo-dot"></div>
+        PlaySpot
+      </a>
 
-    <ul class="navbar-links">
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="explore.html">Explore</a></li>
-      <li><a href="create-event.html">Host event</a></li>
-      <li><a href="my-events.html" class="active">My events</a></li>
-    </ul>
+      <ul class="navbar-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="create-event.html">Host event</a></li>
+        <li><a href="my-events.html" class="active">My events</a></li>
+      </ul>
 
-    <div class="navbar-actions">
-      <a href="#" class="navbar-bell">🔔<span class="navbar-bell-dot"></span></a>
-      <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
-      <div class="navbar-avatar">A</div>
-    </div>
+      <div class="navbar-actions">
+        <a href="#" class="navbar-bell"
+          >🔔<span class="navbar-bell-dot"></span
+        ></a>
+        <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
+        <div class="navbar-avatar">A</div>
+      </div>
 
-    <div class="navbar-hamburger" onclick="toggleNavMenu()">
-      <span></span><span></span><span></span>
-    </div>
-  </nav>
+      <div class="navbar-hamburger" onclick="toggleNavMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
 
-  <!-- ══════════════════════════════════════════
+    <!-- ══════════════════════════════════════════
        PAGE
   ══════════════════════════════════════════ -->
-  <div class="my-events-page">
+    <div class="my-events-page">
+      <!-- HEADER -->
+      <div class="my-events-header">
+        <h1 class="my-events-heading">My<br /><span>events</span></h1>
+        <div class="my-events-header-actions">
+          <a href="explore.html" class="btn btn-ghost">Browse events</a>
+          <a href="create-event.html" class="btn btn-acid">+ Host new event</a>
+        </div>
+      </div>
 
-    <!-- HEADER -->
-    <div class="my-events-header">
-      <h1 class="my-events-heading">
-        My<br/><span>events</span>
-      </h1>
-      <div class="my-events-header-actions">
-        <a href="explore.html" class="btn btn-ghost">Browse events</a>
-        <a href="create-event.html" class="btn btn-acid">+ Host new event</a>
+      <!-- STATS -->
+      <div class="my-events-stats">
+        <div class="my-stat">
+          <div class="my-stat-num"></div>
+          <div class="my-stat-label">Hosting</div>
+        </div>
+        <div class="my-stat">
+          <div class="my-stat-num"></div>
+          <div class="my-stat-label">Joined</div>
+        </div>
+        <div class="my-stat">
+          <div class="my-stat-num"></div>
+          <div class="my-stat-label">Events played</div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="my-events-tabs">
+        <button class="my-tab active" onclick="switchTab('hosting', this)">
+          Hosting <span class="my-tab-count">3</span>
+        </button>
+        <button class="my-tab" onclick="switchTab('joined', this)">
+          Joined <span class="my-tab-count">7</span>
+        </button>
+        <button class="my-tab" onclick="switchTab('past', this)">
+          Past <span class="my-tab-count">14</span>
+        </button>
+      </div>
+
+      <!-- HOSTING -->
+      <div class="my-tab-panel active" id="panel-hosting">
+        <!-- Populated dynamically by api.js -->
+      </div>
+
+      <!-- JOINED -->
+      <div class="my-tab-panel" id="panel-joined">
+        <!-- Populated dynamically by api.js -->
+      </div>
+
+      <!-- PAST -->
+      <div class="my-tab-panel" id="panel-past">
+        <!-- Populated dynamically by api.js -->
       </div>
     </div>
 
-    <!-- STATS -->
-    <div class="my-events-stats">
-      <div class="my-stat">
-        <div class="my-stat-num">3</div>
-        <div class="my-stat-label">Hosting</div>
-      </div>
-      <div class="my-stat">
-        <div class="my-stat-num">7</div>
-        <div class="my-stat-label">Joined</div>
-      </div>
-      <div class="my-stat">
-        <div class="my-stat-num">24</div>
-        <div class="my-stat-label">Events played</div>
-      </div>
-      <div class="my-stat">
-        <div class="my-stat-num">4.8</div>
-        <div class="my-stat-label">Avg rating</div>
-      </div>
-    </div>
-
-    <!-- TABS -->
-    <div class="my-events-tabs">
-      <button class="my-tab active" onclick="switchTab('hosting', this)">
-        Hosting <span class="my-tab-count">3</span>
-      </button>
-      <button class="my-tab" onclick="switchTab('joined', this)">
-        Joined <span class="my-tab-count">7</span>
-      </button>
-      <button class="my-tab" onclick="switchTab('past', this)">
-        Past <span class="my-tab-count">14</span>
-      </button>
-    </div>
-
-    <!-- HOSTING -->
-    <div class="my-tab-panel active" id="panel-hosting">
-      <!-- Populated dynamically by api.js -->
-    </div>
-
-    <!-- JOINED -->
-    <div class="my-tab-panel" id="panel-joined">
-      <!-- Populated dynamically by api.js -->
-    </div>
-
-    <!-- PAST -->
-    <div class="my-tab-panel" id="panel-past">
-      <!-- Populated dynamically by api.js -->
-    </div>
-
-  </div>
-
-  <!-- Scripts -->
-  <script src="js/core/api.js" defer></script>
-  <script src="js/core/ui.js" defer></script>
-  <script src="js/pages/my-events.js" defer></script>
-  <script src="js/auth.js" defer></script>
-
-</body>
+    <!-- Scripts -->
+    <script src="js/core/api.js" defer></script>
+    `n
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"
+      defer
+    ></script>
+    <script src="js/core/ui.js" defer></script>
+    <script src="js/pages/my-events.js" defer></script>
+    <script src="js/auth.js" defer></script>
+  </body>
 </html>

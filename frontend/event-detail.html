@@ -1,294 +1,347 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PlaySpot - Event Details</title>
-    <link rel="stylesheet" href="css/base.css"/>
-    <link rel="stylesheet" href="css/components.css"/>
-    <link rel="stylesheet" href="css/pages/event-detail.css"/>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/pages/event-detail.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-</head>
-<body>
-    
+  </head>
+  <body>
     <!-- =========================NAVBAR ========================== -->
     <nav class="navbar">
-        <a href="index.html" class="navbar-logo">
-            <div class="navbar-logo-dot"></div>
-            PlaySpot
-        </a>
+      <a href="index.html" class="navbar-logo">
+        <div class="navbar-logo-dot"></div>
+        PlaySpot
+      </a>
 
-        <ul class="navbar-links">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="explore.html">Explore</a></li>
-            <li><a href="create-event.html">Host event</a></li>
-            <li><a href="my-events.html">My events</a></li>
-        </ul>
+      <ul class="navbar-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="create-event.html">Host event</a></li>
+        <li><a href="my-events.html">My events</a></li>
+      </ul>
 
-        <div class="navbar-actions">
-            <a href="#" class="navbar-bell">🔔<span class="navbar-bell-dot"></span></a>
-            <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
-            <div class="navbar-avatar">A</div>
-        </div>
+      <div class="navbar-actions">
+        <a href="#" class="navbar-bell"
+          >🔔<span class="navbar-bell-dot"></span
+        ></a>
+        <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
+        <div class="navbar-avatar">A</div>
+      </div>
 
-        <div class="navbar-hamburger" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
+      <div class="navbar-hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
     </nav>
 
-
     <div class="detail-page">
-
-        <!-- =================HERO================== -->
-        <div class="detail-hero" data-sport-icon="⚽">
-            <div class="detail-hero-inner">
-                <a href="explore.html" class="detail-back">← Back to events</a>
-                <div class="detail-sport-badge">⚽ Football</div>
-                <h1 class="detail-title">5-a-side<br/>at Karpoš</h1>
-                <div class="detail-meta-strip">
-                    <div class="detail-meta-item">
-                        <span class="detail-meta-icon">📅</span>
-                        <span>Today · <span class="detail-meta-value">Saturday, 6:00 PM</span></span>
-                    </div>
-                    <div class="detail-meta-item">
-                        <span class="detail-meta-icon">⏱</span>
-                        <span>Duration: <span class="detail-meta-value">90 minutes</span></span>
-                    </div>
-                    <div class="detail-meta-item">
-                        <span class="detail-meta-icon">📍</span>
-                        <span><span class="detail-meta-value">Karpoš Sports Centre</span>, Skopje</span>
-                    </div>
-                    <div class="detail-meta-item">
-                        <span class="detail-meta-icon">🎯</span>
-                        <span>Level: <span class="detail-meta-value">All levels</span></span>
-                    </div>
-                    <div class="detail-meta-item">
-                        <span class="detail-meta-icon">👥</span>
-                        <span><span class="detail-meta-value">8 / 10</span> players</span>
-                    </div>
-                </div>
+      <!-- =================HERO================== -->
+      <div class="detail-hero" data-sport-icon="⚽">
+        <div class="detail-hero-inner">
+          <a href="explore.html" class="detail-back">← Back to events</a>
+          <div class="detail-sport-badge">⚽ Football</div>
+          <h1 class="detail-title">5-a-side<br />at Karpoš</h1>
+          <div class="detail-meta-strip">
+            <div class="detail-meta-item">
+              <span class="detail-meta-icon">📅</span>
+              <span
+                ><span class="detail-meta-value"></span> ·
+                <span class="detail-meta-value"></span
+              ></span>
             </div>
-            <div class="detail-hero-band hero-band-football"></div>
+            <div class="detail-meta-item">
+              <span class="detail-meta-icon">⏱</span>
+              <span>Duration: <span class="detail-meta-value"></span></span>
+            </div>
+            <div class="detail-meta-item">
+              <span class="detail-meta-icon">📍</span>
+              <span
+                ><span class="detail-meta-value"></span>,
+                <span class="detail-meta-value"></span
+              ></span>
+            </div>
+            <div class="detail-meta-item">
+              <span class="detail-meta-icon">🎯</span>
+              <span>Level: <span class="detail-meta-value"></span></span>
+            </div>
+            <div class="detail-meta-item">
+              <span class="detail-meta-icon">👥</span>
+              <span
+                ><span class="detail-meta-value"></span> /
+                <span class="detail-meta-value"></span> players</span
+              >
+            </div>
+          </div>
         </div>
+        <div class="detail-hero-band hero-band-football"></div>
+      </div>
 
-        <!-- ============================= MAIN BODY ============================= -->
-        <div class="detail-body">
+      <!-- ============================= MAIN BODY ============================= -->
+      <div class="detail-body">
+        <!-- LEFT COLUMN -->
+        <div class="detail-left">
+          <!-- About -->
+          <div class="detail-section">
+            <div class="detail-section-title">About this event</div>
+            <p class="detail-desc">
+              Casual 5-a-side football session at the Karpoš Sports Centre
+              indoor pitch. All skill levels are welcome — we keep it friendly
+              and fun. Bibs provided, just bring your indoor football shoes. We
+              usually do two 40-minute halves with a short break in between.
+              Show up 10 minutes early to warm up and sort teams.
+            </p>
+          </div>
 
-            <!-- LEFT COLUMN -->
-            <div class="detail-left">
+          <!-- Attendees -->
+          <div class="detail-section">
+            <div class="detail-section-title">Players (8 / 10)</div>
 
-                <!-- About -->
-                <div class="detail-section">
-                    <div class="detail-section-title">About this event</div>
-                    <p class="detail-desc">
-                        Casual 5-a-side football session at the Karpoš Sports Centre indoor pitch.
-                        All skill levels are welcome — we keep it friendly and fun.
-                        Bibs provided, just bring your indoor football shoes.
-                        We usually do two 40-minute halves with a short break in between.
-                        Show up 10 minutes early to warm up and sort teams.
-                    </p>
-                </div>
-
-                <!-- Attendees -->
-                <div class="detail-section">
-                    <div class="detail-section-title">Players (8 / 10)</div>
-                    
-                    <div class="attendees-grid">
-
-                        <div class="attendee-card host">
-                            <div class="attendee-avatar avatar-blue">E</div>
-                            <div>
-                                <div class="attendee-name">Erblin D.</div>
-                                <div class="attendee-role">Host</div>
-                            </div>
-                        </div>
-
-                        <div class="attendee-card">
-                            <div class="attendee-avatar avatar-pink">J</div>
-                            <div class="attendee-name">Jetmir K.</div>
-                        </div>
-
-                        <div class="attendee-card">
-                            <div class="attendee-avatar avatar-green">A</div>
-                            <div class="attendee-name">Altin H.</div>
-                        </div>
-
-                        <div class="attendee-card">
-                            <div class="attendee-avatar avatar-amber">R</div>
-                            <div class="attendee-name">Rron P.</div>
-                        </div>
-
-                        <div class="attendee-card">
-                            <div class="attendee-avatar avatar-purple">S</div>
-                            <div class="attendee-name">Sufjan D.</div>
-                        </div>
-
-                        <div class="attendee-card">
-                            <div class="attendee-avatar avatar-blue">N</div>
-                            <div class="attendee-name">Nderim T.</div>
-                        </div>
-
-                        <div class="attendee-card">
-                            <div class="attendee-avatar avatar-pink">E</div>
-                            <div class="attendee-name">Eleonora B.</div>
-                        </div>
-
-                        <div class="attendee-card">
-                            <div class="attendee-avatar avatar-green">D</div>
-                            <div class="attendee-name">Darko L.</div>
-                        </div>
-                    </div>
-
-                    <!-- Empty spots -->
-                    <div class="spots-grid">
-                        <div class="spot-empty" title="Open spot — join to fill it!">+</div>
-                        <div class="spot-empty" title="Open spot — join to fill it!">+</div>
-                    </div>
-                </div>
-
-                <!-- Location -->
-                <div class="detail-section">
-                    <div class="detail-section-title">Location</div>
-
-                    <!-- Map placeholder — Leaflet initialized by api.js -->
-                    <div class="detail-map" id="event-map">
-                        <div class="detail-map-pin">📍</div>
-                        <div class="detail-map-label">Karpoš Sports Centre, Skopje</div>
-                    </div>
-
-                    <div class="detail-map-footer">
-                        <span class="detail-map-address">Karpoš Sports Centre, ul. 11 Oktomvri, Skopje 1000</span>
-                        <a href="https://maps.google.com/?q=Karpos+Sports+Centre+Skopje" target="_blank" 
-                        class="btn btn-ghost btn-sm">Open in Maps →</a>
-                    </div>
-                </div>
-
-                <!-- Comments -->
-                <div class="detail-section">
-                    <div class="detail-section-title">Comments (3)</div>
-
-                    <div class="comments-list">
-
-                        <div class="comment">
-                            <div class="comment-avatar avatar-blue">E</div>
-                            <div class="comment-body">
-                                <div class="comment-header">
-                                    <span class="comment-name">Erblin D.</span>
-                                    <span class="comment-time">2 hours ago</span>
-                                    <span class="badge badge-acid" style="font-size:9px;padding:2px 7px;">Host</span>
-                                </div>
-                                <div class="comment-text">
-                                    Hey everyone! Pitch is confirmed booked. Meet at the main entrance,
-                                    I'll have the bibs. See you there! 🙌
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Comments populated by api.js -->
-                    </div>
-
-                    <!-- Comment input -->
-                    <div class="comment-form">
-                        <div class="comment-avatar avatar-purple">A</div>
-                        <div class="comment-input-wrap">
-                            <textarea class="comment-input" id="comment-input" placeholder="Add a comment..." 
-                            rows="2"></textarea>
-                            <div style="display:flex;justify-content:flex-end;margin-top:8px;">
-                                <button class="btn btn-primary btn-sm" onclick="postComment()">Post comment</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ==========RIGHT COLUMN ==============-->
-            <div class="detail-right">
-
-                <!-- Action Card -->
-                <div class="detail-action-card">
-
-                    <div class="action-card-header">
-                        <div>
-                            <div class="action-card-spots" id="spots-count">—</div>
-                            <div class="action-card-spots-label">spots remaining</div>
-                            <div class="capacity-bar">
-                                <div class="capacity-fill" style="width: 0%;"></div>
-                            </div>
-                        </div>
-                        <span class="badge badge-acid">Open</span>
-                    </div>
-
-                    <div class="action-card-body">
-
-                        <!-- Host -->
-                        <div class="action-host">
-                            <div class="action-host-avatar">?</div>
-                            <div class="action-host-info">
-                                <div class="action-host-label">Hosted by</div>
-                                <div class="action-host-name">Loading...</div>
-                            </div>
-                        </div>
-
-                        <!-- Info rows -->
-                        <div class="action-info-row">
-                            <span class="action-info-icon">📅</span>
-                            <span class="action-info-label">Date</span>
-                            <span class="action-info-value" id="action-date">—</span>
-                        </div>
-
-                        <div class="action-info-row">
-                            <span class="action-info-icon">⏱</span>
-                            <span class="action-info-label">Duration</span>
-                            <span class="action-info-value" id="action-duration">—</span>
-                        </div>
-
-                        <div class="action-info-row">
-                            <span class="action-info-icon">📍</span>
-                            <span class="action-info-label">Location</span>
-                            <span class="action-info-value" id="action-location">—</span>
-                        </div>
-
-                        <div class="action-info-row">
-                            <span class="action-info-icon">🎯</span>
-                            <span class="action-info-label">Level</span>
-                            <span class="action-info-value" id="action-level">—</span>
-                        </div>
-
-                        <div class="action-info-row">
-                            <span class="action-info-icon">🔓</span>
-                            <span class="action-info-label">Join</span>
-                            <span class="action-info-value" id="action-join-type">—</span>
-                        </div>
-
-                        <!-- Join button -->
-                        <button class="action-join-btn" id="join-btn" onclick="toggleJoin()">Join event →</button>
-                        <!-- Share -->
-                        <div class="action-share">
-                            <button class="action-share-btn" onclick="shareEvent()">🔗 Share</button>
-                            <button class="action-share-btn" onclick="saveEvent()">🔖 Save</button>
-                            <button class="action-share-btn" onclick="reportEvent()">⚑ Report</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Similar events -->
+            <div class="attendees-grid">
+              <div class="attendee-card host">
+                <div class="attendee-avatar avatar-blue">E</div>
                 <div>
-                    <div class="section-label" style="margin-bottom:12px;">Similar events nearby</div>
-                    <div class="similar-events">
-                        <!-- Populated by api.js -->
-                    </div>
+                  <div class="attendee-name">Erblin D.</div>
+                  <div class="attendee-role">Host</div>
                 </div>
+              </div>
+
+              <div class="attendee-card">
+                <div class="attendee-avatar avatar-pink">J</div>
+                <div class="attendee-name">Jetmir K.</div>
+              </div>
+
+              <div class="attendee-card">
+                <div class="attendee-avatar avatar-green">A</div>
+                <div class="attendee-name">Altin H.</div>
+              </div>
+
+              <div class="attendee-card">
+                <div class="attendee-avatar avatar-amber">R</div>
+                <div class="attendee-name">Rron P.</div>
+              </div>
+
+              <div class="attendee-card">
+                <div class="attendee-avatar avatar-purple">S</div>
+                <div class="attendee-name">Sufjan D.</div>
+              </div>
+
+              <div class="attendee-card">
+                <div class="attendee-avatar avatar-blue">N</div>
+                <div class="attendee-name">Nderim T.</div>
+              </div>
+
+              <div class="attendee-card">
+                <div class="attendee-avatar avatar-pink">E</div>
+                <div class="attendee-name">Eleonora B.</div>
+              </div>
+
+              <div class="attendee-card">
+                <div class="attendee-avatar avatar-green">D</div>
+                <div class="attendee-name">Darko L.</div>
+              </div>
             </div>
+
+            <!-- Empty spots -->
+            <div class="spots-grid">
+              <div class="spot-empty" title="Open spot — join to fill it!">
+                +
+              </div>
+              <div class="spot-empty" title="Open spot — join to fill it!">
+                +
+              </div>
+            </div>
+          </div>
+
+          <!-- Pending Join Requests (Visible only to Host) -->
+          <div
+            class="detail-section"
+            id="host-requests-section"
+            style="display: none"
+          >
+            <div class="detail-section-title">Pending Requests</div>
+            <div
+              id="host-requests-list"
+              style="display: flex; flex-direction: column; gap: 12px"
+            ></div>
+          </div>
+
+          <!-- Location -->
+          <div class="detail-section">
+            <div class="detail-section-title">Location</div>
+
+            <!-- Map placeholder — Leaflet initialized by api.js -->
+            <div class="detail-map" id="event-map">
+              <div class="detail-map-pin">📍</div>
+              <div class="detail-map-label">Karpoš Sports Centre, Skopje</div>
+            </div>
+
+            <div class="detail-map-footer">
+              <span class="detail-map-address"
+                >Karpoš Sports Centre, ul. 11 Oktomvri, Skopje 1000</span
+              >
+              <a
+                href="https://maps.google.com/?q=Karpos+Sports+Centre+Skopje"
+                target="_blank"
+                class="btn btn-ghost btn-sm"
+                >Open in Maps →</a
+              >
+            </div>
+          </div>
+
+          <!-- Comments -->
+          <div class="detail-section">
+            <div class="detail-section-title">Comments (3)</div>
+
+            <div class="comments-list">
+              <div class="comment">
+                <div class="comment-avatar avatar-blue">E</div>
+                <div class="comment-body">
+                  <div class="comment-header">
+                    <span class="comment-name">Erblin D.</span>
+                    <span class="comment-time">2 hours ago</span>
+                    <span
+                      class="badge badge-acid"
+                      style="font-size: 9px; padding: 2px 7px"
+                      >Host</span
+                    >
+                  </div>
+                  <div class="comment-text">
+                    Hey everyone! Pitch is confirmed booked. Meet at the main
+                    entrance, I'll have the bibs. See you there! 🙌
+                  </div>
+                </div>
+              </div>
+
+              <!-- Comments populated by api.js -->
+            </div>
+
+            <!-- Comment input -->
+            <div class="comment-form">
+              <div class="comment-avatar avatar-purple">A</div>
+              <div class="comment-input-wrap">
+                <textarea
+                  class="comment-input"
+                  id="comment-input"
+                  placeholder="Add a comment..."
+                  rows="2"
+                ></textarea>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-top: 8px;
+                  "
+                >
+                  <button
+                    class="btn btn-primary btn-sm"
+                    onclick="postComment()"
+                  >
+                    Post comment
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- ==========RIGHT COLUMN ==============-->
+        <div class="detail-right">
+          <!-- Action Card -->
+          <div class="detail-action-card">
+            <div class="action-card-header">
+              <div>
+                <div class="action-card-spots" id="spots-count">—</div>
+                <div class="action-card-spots-label">spots remaining</div>
+                <div class="capacity-bar">
+                  <div class="capacity-fill" style="width: 0%"></div>
+                </div>
+              </div>
+              <span class="badge badge-acid">Open</span>
+            </div>
+
+            <div class="action-card-body">
+              <!-- Host -->
+              <div class="action-host">
+                <div class="action-host-avatar">?</div>
+                <div class="action-host-info">
+                  <div class="action-host-label">Hosted by</div>
+                  <div class="action-host-name">Loading...</div>
+                </div>
+              </div>
+
+              <!-- Info rows -->
+              <div class="action-info-row">
+                <span class="action-info-icon">📅</span>
+                <span class="action-info-label">Date</span>
+                <span class="action-info-value" id="action-date">—</span>
+              </div>
+
+              <div class="action-info-row">
+                <span class="action-info-icon">⏱</span>
+                <span class="action-info-label">Duration</span>
+                <span class="action-info-value" id="action-duration">—</span>
+              </div>
+
+              <div class="action-info-row">
+                <span class="action-info-icon">📍</span>
+                <span class="action-info-label">Location</span>
+                <span class="action-info-value" id="action-location">—</span>
+              </div>
+
+              <div class="action-info-row">
+                <span class="action-info-icon">🎯</span>
+                <span class="action-info-label">Level</span>
+                <span class="action-info-value" id="action-level">—</span>
+              </div>
+
+              <div class="action-info-row">
+                <span class="action-info-icon">🔓</span>
+                <span class="action-info-label">Join</span>
+                <span class="action-info-value" id="action-join-type">—</span>
+              </div>
+
+              <!-- Join button -->
+              <button
+                class="action-join-btn"
+                id="join-btn"
+                onclick="toggleJoin()"
+              >
+                Join event →
+              </button>
+              <!-- Share -->
+              <div class="action-share">
+                <button class="action-share-btn" onclick="shareEvent()">
+                  🔗 Share
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Similar events -->
+          <div>
+            <div class="section-label" style="margin-bottom: 12px">
+              Similar events nearby
+            </div>
+            <div class="similar-events">
+              <!-- Populated by api.js -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="js/core/api.js" defer></script>
+    `n
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"
+      defer
+    ></script>
     <script src="js/core/ui.js" defer></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
     <script src="js/pages/event-detail.js" defer></script>
     <script src="js/auth.js" defer></script>
-
-
-
-</body>
+  </body>
 </html>

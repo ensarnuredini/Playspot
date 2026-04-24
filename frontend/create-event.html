@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/base.css"/>
     <link rel="stylesheet" href="css/components.css"/>
     <link rel="stylesheet" href="css/pages/create-event.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
     <!-- NAVBAR -->
@@ -356,11 +357,27 @@
                 </ul>
             </div>
         </div>        
+        <!-- Map Modal -->
+        <div class="modal-overlay" id="map-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+            <div class="modal-content" style="background:var(--bg); width:90%; max-width:600px; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; max-height:80vh;">
+                <div style="padding:16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+                    <h3 style="margin:0; font-family:var(--font-heading);">Pick Location</h3>
+                    <button onclick="closeMapPicker()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--text);">&times;</button>
+                </div>
+                <div id="event-map" style="width:100%; height:400px; flex-shrink:0;"></div>
+                <div style="padding:16px; background:var(--bg-subtle); display:flex; justify-content:flex-end; gap:8px;">
+                    <button class="btn btn-ghost" onclick="closeMapPicker()">Cancel</button>
+                    <button class="btn btn-acid" onclick="confirmMapLocation()">Confirm</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Scripts -->
-    <script src="js/core/api.js" defer></script>
+    <script src="js/core/api.js" defer></script>`n        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js" defer></script>
     <script src="js/core/ui.js" defer></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
     <script src="js/create-event.js" defer></script>
     <script>
         // ── State
@@ -455,12 +472,7 @@
             }
         }
 
-        // ── Map picker placeholder
-        function openMapPicker() {
-            // api.js will initialize Leaflet map in a modal here
-            document.getElementById('selected-address').textContent = 'Karpoš Sports Centre, Skopje (demo)';
-            updatePreview('location', 'Karpoš Sports Centre, Skopje');
-        }
+        // Removed inline map picker, managed in create-event.js
 
         // ── Populate review step
         function populateReview() {

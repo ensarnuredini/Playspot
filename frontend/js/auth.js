@@ -25,7 +25,8 @@ window.handleLogin = async function(e) {
             setToken(result.data.token);
             setUser({
                 id: result.data.userId,
-                username: result.data.username
+                username: result.data.username,
+                profileImageUrl: result.data.profileImageUrl
             });
 
             // Redirect to dashboard
@@ -75,7 +76,8 @@ window.handleRegister = async function(e) {
             setToken(result.data.token);
             setUser({
                 id: result.data.userId,
-                username: result.data.username
+                username: result.data.username,
+                profileImageUrl: result.data.profileImageUrl
             });
 
             // Redirect to dashboard

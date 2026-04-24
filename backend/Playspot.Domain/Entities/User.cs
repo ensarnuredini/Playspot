@@ -9,6 +9,8 @@ public class User
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
+    public string ProfileImageUrl { get; set; } = string.Empty;
+    public string Bio { get; set; } = string.Empty;
 
     // Navigation
     public ICollection<Event> OrganizedEvents { get; set; } = new List<Event>();

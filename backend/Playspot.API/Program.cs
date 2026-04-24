@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Playspot.Application.Interfaces;
 using Playspot.Infrastructure.Data;
 using Playspot.Infrastructure.Services;
+using Playspot.API.Hubs;
+using Playspot.API.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,10 @@ builder.Services.AddMediatR(cfg =>
 
 // ── Infrastructure Services ──
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddScoped<INotificationService, NotificationHubService>();
+
+// ── SignalR ──
+builder.Services.AddSignalR();
 
 // ── CORS ──
 builder.Services.AddCors(options =>
@@ -58,6 +64,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs/notifications"))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
         };
     });
 
@@ -105,4 +124,5 @@ else
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<NotificationHub>("/hubs/notifications");
 app.Run();

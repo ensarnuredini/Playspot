@@ -44,7 +44,8 @@ public class RegisterHandler : IRequestHandler<RegisterCommand, AuthResponseDto?
         {
             Token = _jwt.GenerateToken(user),
             Username = user.Username,
-            UserId = user.Id
+            UserId = user.Id,
+            ProfileImageUrl = user.ProfileImageUrl
         };
     }
 }
@@ -73,7 +74,8 @@ public class LoginHandler : IRequestHandler<LoginCommand, AuthResponseDto?>
         {
             Token = _jwt.GenerateToken(user),
             Username = user.Username,
-            UserId = user.Id
+            UserId = user.Id,
+            ProfileImageUrl = user.ProfileImageUrl
         };
     }
 }

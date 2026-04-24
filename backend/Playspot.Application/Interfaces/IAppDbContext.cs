@@ -12,5 +12,6 @@ public interface IAppDbContext
     DbSet<SavedEvent> SavedEvents { get; }
     DbSet<EventReport> EventReports { get; }
     DbSet<EventRating> EventRatings { get; }
+    DbSet<Notification> Notifications { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

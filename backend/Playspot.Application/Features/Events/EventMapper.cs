@@ -25,6 +25,7 @@ public static class EventMapper
         Status = e.Status,
         OrganizerId = e.OrganizerId,
         OrganizerName = e.Organizer?.Username ?? "Unknown",
+        OrganizerImageUrl = e.Organizer?.ProfileImageUrl ?? string.Empty,
         ApprovedParticipantCount = e.JoinRequests.Count(jr => jr.Status == "Approved"),
         Participants = e.JoinRequests
             .Where(jr => jr.Status == "Approved")
@@ -32,7 +33,8 @@ public static class EventMapper
             {
                 UserId = jr.UserId,
                 Username = jr.User?.Username ?? "Unknown",
-                IsHost = jr.UserId == e.OrganizerId
+                IsHost = jr.UserId == e.OrganizerId,
+                ProfileImageUrl = jr.User?.ProfileImageUrl ?? string.Empty
             }).ToList()
     };
 }

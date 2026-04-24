@@ -15,6 +15,7 @@ public class AppDbContext : DbContext, IAppDbContext
     public DbSet<SavedEvent> SavedEvents => Set<SavedEvent>();
     public DbSet<EventReport> EventReports => Set<EventReport>();
     public DbSet<EventRating> EventRatings => Set<EventRating>();
+    public DbSet<Notification> Notifications => Set<Notification>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -103,6 +104,13 @@ public class AppDbContext : DbContext, IAppDbContext
             .HasOne(r => r.Reporter)
             .WithMany()
             .HasForeignKey(r => r.ReporterId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Notification → User
+        modelBuilder.Entity<Notification>()
+            .HasOne(n => n.User)
+            .WithMany()
+            .HasForeignKey(n => n.UserId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

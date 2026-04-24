@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Playspot.Application.DTOs.JoinRequests;
 using Playspot.Application.Interfaces;
 using Playspot.Domain.Entities;
+using Playspot.Application.DTOs.Notifications;
 
 namespace Playspot.Application.Features.JoinRequests;
 
@@ -12,7 +13,13 @@ public record RequestToJoinCommand(int EventId, int UserId) : IRequest<JoinReque
 public class RequestToJoinHandler : IRequestHandler<RequestToJoinCommand, JoinRequestResponseDto?>
 {
     private readonly IAppDbContext _db;
-    public RequestToJoinHandler(IAppDbContext db) => _db = db;
+    private readonly INotificationService _notificationService;
+    
+    public RequestToJoinHandler(IAppDbContext db, INotificationService notificationService)
+    {
+        _db = db;
+        _notificationService = notificationService;
+    }
 
     public async Task<JoinRequestResponseDto?> Handle(RequestToJoinCommand request, CancellationToken ct)
     {
@@ -31,10 +38,32 @@ public class RequestToJoinHandler : IRequestHandler<RequestToJoinCommand, JoinRe
         };
 
         _db.JoinRequests.Add(jr);
-        await _db.SaveChangesAsync(ct);
 
         var user = await _db.Users.FindAsync([request.UserId], ct);
-        return MapToDto(jr, user?.Username ?? "Unknown");
+        string username = user?.Username ?? "Unknown";
+
+        // Create and send notification
+        var notification = new Notification
+        {
+            UserId = ev.OrganizerId,
+            Message = $"{username} requested to join '{ev.Title}'.",
+            IsRead = false,
+            CreatedAt = DateTime.UtcNow
+        };
+        _db.Notifications.Add(notification);
+        await _db.SaveChangesAsync(ct);
+
+        var notificationDto = new NotificationDto
+        {
+            Id = notification.Id,
+            Message = notification.Message,
+            IsRead = notification.IsRead,
+            CreatedDateFormatted = notification.CreatedAt.ToString("MMM dd, HH:mm")
+        };
+        
+        await _notificationService.SendNotificationAsync(ev.OrganizerId, notificationDto, ct);
+
+        return MapToDto(jr, username);
     }
 
     private static JoinRequestResponseDto MapToDto(JoinRequest jr, string username) => new()

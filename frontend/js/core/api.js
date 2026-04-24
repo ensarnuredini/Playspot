@@ -84,6 +84,24 @@ async function apiPut(endpoint, body = {}) {
     }
 }
 
+async function apiPatch(endpoint, body = {}) {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = getToken();
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    try {
+        const res = await fetch(`${API_BASE}${endpoint}`, {
+            method: 'PATCH', headers, body: JSON.stringify(body)
+        });
+        if (res.status === 401) { logout(); return null; }
+        const text = await res.text();
+        return { ok: res.ok, status: res.status, data: text ? JSON.parse(text) : null };
+    } catch (e) {
+        console.warn('API PATCH failed:', endpoint, e.message);
+        return null;
+    }
+}
+
 async function apiDelete(endpoint) {
     const headers = { 'Content-Type': 'application/json' };
     const token = getToken();
@@ -99,4 +117,14 @@ async function apiDelete(endpoint) {
         console.warn('API DELETE failed:', endpoint, e.message);
         return null;
     }
+}
+
+// ── Notifications ───────────────────────────────────────
+
+async function getNotifications() {
+    return await apiGet('/notifications');
+}
+
+async function markNotificationRead(id) {
+    return await apiPatch(`/notifications/${id}/read`);
 }

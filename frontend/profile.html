@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaySpot — Profile</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages/profile.css">
+</head>
+<body>
+    <!-- Default Navbar -->
+    <nav class="navbar">
+        <a href="landing.html" class="navbar-logo">
+            <div class="navbar-logo-dot"></div>
+            PlaySpot
+        </a>
+        <ul class="navbar-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="create-event.html">Host event</a></li>
+            <li><a href="my-events.html">My events</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
+            <div class="navbar-avatar active" title="My profile"></div>
+        </div>
+        <div class="navbar-hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Profile Header / Main Page Content -->
+    <div class="profile-page">
+        <!-- Top Banner / Background -->
+        <div class="profile-banner"></div>
+
+        <div class="profile-container">
+            <!-- Left Side: Profile Info Card -->
+            <div class="profile-sidebar">
+                <div class="profile-card">
+                    <div class="profile-image-wrapper">
+                        <img id="profile-image" src="" alt="Profile Image" class="profile-img placeholder">
+                    </div>
+                    <div class="profile-info">
+                        <h1 id="profile-name" class="profile-name">Loading...</h1>
+                        <p id="profile-location" class="profile-location">Loading location...</p>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-box">
+                            <span id="stat-created" class="stat-value">0</span>
+                            <span class="stat-label">Events Host</span>
+                        </div>
+                        <div class="stat-box">
+                            <span id="stat-joined" class="stat-value">0</span>
+                            <span class="stat-label">Events Joined</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-bio-section">
+                        <h4>About</h4>
+                        <p id="profile-bio" class="profile-bio">Loading bio...</p>
+                    </div>
+
+                    <div class="profile-actions" id="profile-actions" style="display:none;">
+                        <button class="btn btn-outline" onclick="openEditModal()">Edit Profile</button>
+                        <button class="btn btn-danger" onclick="logout()" style="margin-top: 10px; border-color: #ef4444; color: #ef4444; width: 100%;">Log Out</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Events Feed / Tabs -->
+            <div class="profile-feed">
+                <!-- Profile Tabs -->
+                <div class="profile-tabs">
+                    <button class="tab-btn active" onclick="switchTab('hosting')">Events Hosting</button>
+                    <button class="tab-btn" onclick="switchTab('joined')">Events Joined</button>
+                </div>
+
+                <div id="events-loader" class="events-loading" style="display:none;">Loading events...</div>
+                
+                <!-- Events Hosting List -->
+                <div class="event-list fade-in" id="hosting-list">
+                    <!-- Event cards injected by JS -->
+                </div>
+
+                <!-- Events Joined List -->
+                <div class="event-list" id="joined-list" style="display: none;">
+                    <!-- Event cards injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal edit-modal" id="edit-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="edit-profile-form" onsubmit="handleEditProfile(event)">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="edit-fname" name="FirstName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="edit-lname" name="LastName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="edit-city" name="City" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Profile Image URL</label>
+                    <input type="url" id="edit-image" name="ProfileImageUrl" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea id="edit-bio" name="Bio" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-acid">Save Changes</button>
+                    <button type="button" class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/core/api.js" defer></script>
+    <script src="js/core/ui.js" defer></script>
+    <script src="js/pages/profile.js" defer></script>
+</body>
+</html>
