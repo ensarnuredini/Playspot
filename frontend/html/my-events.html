@@ -6,11 +6,11 @@
     <title>SportSpot — My Events</title>
 
     <!-- Shared styles -->
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
 
     <!-- Page-specific styles -->
-    <link rel="stylesheet" href="css/pages/my-events.css" />
+    <link rel="stylesheet" href="../css/pages/my-events.css" />
   </head>
 
   <body>
@@ -35,7 +35,7 @@
           >🔔<span class="navbar-bell-dot"></span
         ></a>
         <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
-        <div class="navbar-avatar">A</div>
+        <div class="navbar-avatar"></div>
       </div>
 
       <div class="navbar-hamburger" onclick="toggleNavMenu()">
@@ -75,13 +75,13 @@
       <!-- TABS -->
       <div class="my-events-tabs">
         <button class="my-tab active" onclick="switchTab('hosting', this)">
-          Hosting <span class="my-tab-count">3</span>
+          Hosting <span class="my-tab-count">0</span>
         </button>
         <button class="my-tab" onclick="switchTab('joined', this)">
-          Joined <span class="my-tab-count">7</span>
+          Joined <span class="my-tab-count">0</span>
         </button>
         <button class="my-tab" onclick="switchTab('past', this)">
-          Past <span class="my-tab-count">14</span>
+          Past <span class="my-tab-count">0</span>
         </button>
       </div>
 
@@ -102,14 +102,15 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/core/api.js" defer></script>
-    `n
+    <script type="module" src="../javascript/core/api.js" defer></script>
+    
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"
       defer
     ></script>
-    <script src="js/core/ui.js" defer></script>
-    <script src="js/pages/my-events.js" defer></script>
-    <script src="js/auth.js" defer></script>
+    <script type="module" src="../javascript/core/ui.js" defer></script>
+    <script type="module" src="../javascript/pages/my-events.js" defer></script>
+    <script type="module" src="../javascript/auth.js" defer></script>
   </body>
 </html>

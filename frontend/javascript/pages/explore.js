@@ -1,3 +1,6 @@
+import { apiGet } from '../core/api.js';
+import { sportEmoji, formatEventDate } from '../core/ui.js';
+
 // ═════════════════════════════════════════════════════════
 //  EXPLORE PAGE
 // ═════════════════════════════════════════════════════════

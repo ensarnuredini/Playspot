@@ -9,6 +9,7 @@
 }
 
 .dashboard-filterbar {
+  margin-top: var(--nav-h);
   border-bottom: 1px solid var(--border);
   padding: 12px var(--side-pad);
   display: flex;
@@ -20,8 +21,15 @@
   flex-shrink: 0;
 }
 
-.dashboard-filterbar::-webkit-scrollbar { 
-    display: none; 
+.dashboard-filterbar::-webkit-scrollbar {
+  display: none;
+}
+
+.sport-filters-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 /* Sport filter chips */
@@ -54,9 +62,9 @@
   color: var(--acid);
 }
 
-.filter-chip-icon { 
-    font-size: 14px; 
-    line-height: 1; 
+.filter-chip-icon {
+  font-size: 14px;
+  line-height: 1;
 }
 
 /* Date filter select */
@@ -77,8 +85,8 @@
 }
 
 .filter-select:hover,
-.filter-select:focus { 
-    border-color: var(--ink); 
+.filter-select:focus {
+  border-color: var(--ink);
 }
 
 .filter-divider {
@@ -118,7 +126,7 @@
   font-weight: 800;
   font-size: 22px;
   text-transform: uppercase;
-  letter-spacing: -.5px;
+  letter-spacing: -0.5px;
   color: var(--ink);
   margin-bottom: 4px;
 }
@@ -151,8 +159,8 @@
   position: relative;
 }
 
-.sidebar-search-input:focus { 
-    border-color: var(--ink); 
+.sidebar-search-input:focus {
+  border-color: var(--ink);
 }
 
 .sidebar-search-wrap {
@@ -223,7 +231,7 @@
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   white-space: nowrap;
 }
 
@@ -240,7 +248,7 @@
   font-weight: 700;
   font-size: 17px;
   text-transform: uppercase;
-  letter-spacing: -.3px;
+  letter-spacing: -0.3px;
   color: var(--ink);
   line-height: 1.1;
 }
@@ -260,9 +268,9 @@
   font-weight: 300;
 }
 
-.dash-event-meta-icon { 
-    font-size: 12px; 
-    flex-shrink: 0; 
+.dash-event-meta-icon {
+  font-size: 12px;
+  flex-shrink: 0;
 }
 
 .dash-event-footer {
@@ -278,13 +286,13 @@
   color: var(--muted);
 }
 
-.dash-spots strong { 
-    color: var(--ink); 
-    font-weight: 600; 
+.dash-spots strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
-.dash-spots.urgent strong { 
-    color: var(--danger); 
+.dash-spots.urgent strong {
+  color: var(--danger);
 }
 
 /* ── RIGHT PANEL — map ── */
@@ -304,15 +312,15 @@
   flex-direction: column;
   gap: 16px;
   background:
-    linear-gradient(rgba(13,13,13,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(13,13,13,.03) 1px, transparent 1px);
+    linear-gradient(rgba(13, 13, 13, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 13, 13, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
   background-color: #eceae3;
 }
 
 .map-placeholder-icon {
   font-size: 48px;
-  opacity: .3;
+  opacity: 0.3;
 }
 
 .map-placeholder-text {
@@ -346,11 +354,9 @@
   box-shadow: var(--shadow-sm);
 }
 
-.map-control-btn:hover { 
-    background: var(--acid); 
+.map-control-btn:hover {
+  background: var(--acid);
 }
-
-
 
 /* Locate me button */
 .map-locate-btn {
@@ -373,8 +379,8 @@
   color: var(--ink);
 }
 
-.map-locate-btn:hover { 
-    background: var(--acid); 
+.map-locate-btn:hover {
+  background: var(--acid);
 }
 
 /* ── UPCOMING STRIP (below map on mobile) ── */
@@ -391,25 +397,28 @@
 }
 
 @media (max-width: 768px) {
-  .dashboard-page { height: auto; overflow: auto; }
- 
+  .dashboard-page {
+    height: auto;
+    overflow: auto;
+  }
+
   .dashboard-body {
     grid-template-columns: 1fr;
     overflow: visible;
   }
- 
+
   .dashboard-map {
     height: 340px;
     order: -1;
   }
- 
+
   .dashboard-sidebar {
     border-right: none;
     border-top: 1px solid var(--border);
     overflow: visible;
     max-height: none;
   }
- 
+
   .sidebar-list {
     overflow: visible;
     max-height: none;

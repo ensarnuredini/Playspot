@@ -17,7 +17,7 @@ public class GetUserJoinedEventsHandler : IRequestHandler<GetUserJoinedEventsQue
     public async Task<List<EventResponseDto>> Handle(GetUserJoinedEventsQuery request, CancellationToken cancellationToken)
     {
         var joinedEventIds = await _context.JoinRequests
-            .Where(jr => jr.UserId == request.UserId && jr.Status == "Accepted")
+            .Where(jr => jr.UserId == request.UserId && jr.Status == "Approved")
             .Select(jr => jr.EventId)
             .ToListAsync(cancellationToken);
 
@@ -41,7 +41,7 @@ public class GetUserJoinedEventsHandler : IRequestHandler<GetUserJoinedEventsQue
             Longitude = e.Longitude,
             SkillLevel = e.SkillLevel,
             MaxParticipants = e.MaxParticipants,
-            ApprovedParticipantCount = e.JoinRequests.Count(jr => jr.Status == "Accepted"),
+            ApprovedParticipantCount = e.JoinRequests.Count(jr => jr.Status == "Approved"),
             OrganizerId = e.OrganizerId,
             OrganizerName = e.Organizer?.Username ?? "Unknown Organizer",
             OrganizerImageUrl = e.Organizer?.ProfileImageUrl ?? string.Empty

@@ -1,3 +1,5 @@
+import { getUser, setUser, apiGet, isLoggedIn, getNotifications, getToken, markNotificationRead } from './api.js';
+
 // ── Navbar Auth State ────────────────────────────────────
 
 async function updateNavbar() {
@@ -232,3 +234,5 @@ function showToast(message) {
         setTimeout(() => toast.remove(), 300);
     }, 4000);
 }
+
+export { updateNavbar, renderNavbarAuth, sportEmoji, formatEventDate, setupNotifications, updateBadge, renderNotifications, addNotificationToList, createNotificationElement, showToast };

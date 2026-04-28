@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlaySpot — Create Event</title>
-    <link rel="stylesheet" href="css/base.css"/>
-    <link rel="stylesheet" href="css/components.css"/>
-    <link rel="stylesheet" href="css/pages/create-event.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/components.css"/>
+    <link rel="stylesheet" href="../css/pages/create-event.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
@@ -375,10 +375,11 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/core/api.js" defer></script>`n        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js" defer></script>
-    <script src="js/core/ui.js" defer></script>
+    <script type="module" src="../javascript/core/api.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js" defer></script>
+    <script type="module" src="../javascript/core/ui.js" defer></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
-    <script src="js/create-event.js" defer></script>
+    <script type="module" src="../javascript/create-event.js" defer></script>
     <script>
         // ── State
         let currentStep = 1;

@@ -1,3 +1,6 @@
+import { isLoggedIn, apiGet } from '../core/api.js';
+import { sportEmoji, formatEventDate } from '../core/ui.js';
+
 // ═════════════════════════════════════════════════════════
 //  DASHBOARD PAGE
 // ═════════════════════════════════════════════════════════
@@ -17,6 +20,26 @@ async function initDashboardPage() {
 
     // Initialize map
     initMap();
+
+    // Auto-locate user on load
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(pos => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            if (map) {
+                map.setView([lat, lng], 13);
+                // Optional: add a 'You are here' indicator
+                L.circleMarker([lat, lng], {
+                    radius: 8,
+                    fillColor: "var(--acid)",
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map).bindPopup("You are here");
+            }
+        }, err => console.warn("Geolocation permission denied or failed."));
+    }
 
     // Load initial events
     await loadDashboardEvents();

@@ -1,3 +1,5 @@
+import { apiPost, setToken, setUser, isLoggedIn } from './core/api.js';
+
 // ═══════════════════════════════════════════════════════════
 //  PlaySpot — Auth Integration
 //  Handles login & register form submission

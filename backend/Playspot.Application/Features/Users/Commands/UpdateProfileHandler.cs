@@ -52,7 +52,7 @@ public class UpdateProfileHandler : IRequestHandler<UpdateProfileCommand, UserPr
             ProfileImageUrl = user.ProfileImageUrl,
             Bio = user.Bio,
             EventsCreatedCount = user.OrganizedEvents.Count,
-            EventsJoinedCount = user.JoinRequests.Count(jr => jr.Status == "Accepted") 
+            EventsJoinedCount = user.JoinRequests.Count(jr => jr.Status == "Approved") 
         };
     }
 }

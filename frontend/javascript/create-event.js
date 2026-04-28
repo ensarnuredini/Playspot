@@ -1,3 +1,5 @@
+import { apiPost, isLoggedIn } from './core/api.js';
+
 // ═══════════════════════════════════════════════════════════
 //  PlaySpot — Create Event Integration
 //  Overrides the inline publishEvent() to actually POST to API
@@ -92,6 +94,36 @@ let mapInstance = null;
 let mapMarker = null;
 let currentMapLatLng = { lat: 42.0003, lng: 21.4116 }; // Default to Skopje approx
 
+async function reverseGeocodeAndUpdate(lat, lng) {
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+        const data = await response.json();
+        
+        // Extract a sensible location name
+        let address = data.display_name || `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+        if (data.address) {
+            address = data.address.amenity || data.address.leisure || data.address.road || data.display_name;
+            if (data.address.city && address !== data.address.city) {
+                address += `, ${data.address.city}`;
+            }
+        }
+        
+        document.getElementById('selected-address').textContent = address;
+        document.getElementById('event-address').value = address;
+        if (typeof updatePreview === 'function') {
+            updatePreview('location', address);
+        }
+    } catch (e) {
+        console.error('Reverse geocoding failed', e);
+        const address = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+        document.getElementById('selected-address').textContent = address;
+        document.getElementById('event-address').value = address;
+        if (typeof updatePreview === 'function') {
+            updatePreview('location', address);
+        }
+    }
+}
+
 window.openMapPicker = function() {
     document.getElementById('map-modal').style.display = 'flex';
     if (!mapInstance) {
@@ -110,6 +142,26 @@ window.openMapPicker = function() {
         mapMarker.on('dragend', function(e) {
             currentMapLatLng = mapMarker.getLatLng();
         });
+
+        // Geolocation API integration
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                currentMapLatLng = { lat, lng };
+                
+                // Update map view and reusable marker
+                mapInstance.setView([lat, lng], 15);
+                mapMarker.setLatLng(currentMapLatLng);
+                
+                // Reverse geocode to update UI
+                await reverseGeocodeAndUpdate(lat, lng);
+            }, (error) => {
+                console.warn("Geolocation failed or denied:", error);
+            }, {
+                enableHighAccuracy: true
+            });
+        }
     } else {
         setTimeout(() => mapInstance.invalidateSize(), 100);
     }
@@ -122,32 +174,11 @@ window.closeMapPicker = function() {
 window.confirmMapLocation = async function() {
     closeMapPicker();
     
-    eventData.latitude = currentMapLatLng.lat;
-    eventData.longitude = currentMapLatLng.lng;
-    
-    // Reverse geocoding using Nominatim
-    try {
-        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${currentMapLatLng.lat}&lon=${currentMapLatLng.lng}&format=json`);
-        const data = await response.json();
-        
-        // Extract a sensible location name
-        let address = data.display_name || `${currentMapLatLng.lat.toFixed(4)}, ${currentMapLatLng.lng.toFixed(4)}`;
-        if (data.address) {
-            address = data.address.amenity || data.address.leisure || data.address.road || data.display_name;
-            if (data.address.city && address !== data.address.city) {
-                address += `, ${data.address.city}`;
-            }
-        }
-        
-        document.getElementById('selected-address').textContent = address;
-        document.getElementById('event-address').value = address;
-        updatePreview('location', address);
-
-    } catch (e) {
-        console.error('Reverse geocoding failed', e);
-        const address = `${currentMapLatLng.lat.toFixed(4)}, ${currentMapLatLng.lng.toFixed(4)}`;
-        document.getElementById('selected-address').textContent = address;
-        document.getElementById('event-address').value = address;
-        updatePreview('location', address);
+    // Assumes eventData is globally available from the inline HTML script
+    if (typeof eventData !== 'undefined') {
+        eventData.latitude = currentMapLatLng.lat;
+        eventData.longitude = currentMapLatLng.lng;
     }
+    
+    await reverseGeocodeAndUpdate(currentMapLatLng.lat, currentMapLatLng.lng);
 };

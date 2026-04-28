@@ -1,3 +1,6 @@
+import { getUser, setUser, apiGet, apiPut } from '../core/api.js';
+import { sportEmoji, updateNavbar, showToast } from '../core/ui.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const user = getUser();
     if (!user) {
@@ -101,7 +104,7 @@ async function loadEvents(id, type) {
     });
 }
 
-function switchTab(type) {
+window.switchTab = function(type) {
     const tabs = document.querySelectorAll('.tab-btn');
     tabs.forEach(t => t.classList.remove('active'));
     event.target.classList.add('active');
@@ -116,15 +119,15 @@ function switchTab(type) {
 }
 
 // Modal Logic
-function openEditModal() {
+window.openEditModal = function() {
     document.getElementById('edit-modal').classList.add('show');
 }
 
-function closeEditModal() {
+window.closeEditModal = function() {
     document.getElementById('edit-modal').classList.remove('show');
 }
 
-async function handleEditProfile(e) {
+window.handleEditProfile = async function(e) {
     e.preventDefault();
     const user = getUser();
     const btn = e.target.querySelector('button[type="submit"]');
@@ -156,6 +159,9 @@ async function handleEditProfile(e) {
             showToast("Profile updated successfully!");
         }
     } else {
-        alert("Failed to update profile");
+        showToast("Failed to update profile");
     }
 }
+
+import { logout } from '../core/api.js';
+window.logout = logout;

@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PlaySpot - Event Details</title>
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="css/pages/event-detail.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/pages/event-detail.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   </head>
   <body>
@@ -29,7 +29,7 @@
           >🔔<span class="navbar-bell-dot"></span
         ></a>
         <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
-        <div class="navbar-avatar">A</div>
+        <div class="navbar-avatar"></div>
       </div>
 
       <div class="navbar-hamburger" onclick="toggleMenu()">
@@ -86,13 +86,7 @@
           <!-- About -->
           <div class="detail-section">
             <div class="detail-section-title">About this event</div>
-            <p class="detail-desc">
-              Casual 5-a-side football session at the Karpoš Sports Centre
-              indoor pitch. All skill levels are welcome — we keep it friendly
-              and fun. Bibs provided, just bring your indoor football shoes. We
-              usually do two 40-minute halves with a short break in between.
-              Show up 10 minutes early to warm up and sort teams.
-            </p>
+            <p class="detail-desc">Loading description...</p>
           </div>
 
           <!-- Attendees -->
@@ -100,58 +94,12 @@
             <div class="detail-section-title">Players (8 / 10)</div>
 
             <div class="attendees-grid">
-              <div class="attendee-card host">
-                <div class="attendee-avatar avatar-blue">E</div>
-                <div>
-                  <div class="attendee-name">Erblin D.</div>
-                  <div class="attendee-role">Host</div>
-                </div>
-              </div>
-
-              <div class="attendee-card">
-                <div class="attendee-avatar avatar-pink">J</div>
-                <div class="attendee-name">Jetmir K.</div>
-              </div>
-
-              <div class="attendee-card">
-                <div class="attendee-avatar avatar-green">A</div>
-                <div class="attendee-name">Altin H.</div>
-              </div>
-
-              <div class="attendee-card">
-                <div class="attendee-avatar avatar-amber">R</div>
-                <div class="attendee-name">Rron P.</div>
-              </div>
-
-              <div class="attendee-card">
-                <div class="attendee-avatar avatar-purple">S</div>
-                <div class="attendee-name">Sufjan D.</div>
-              </div>
-
-              <div class="attendee-card">
-                <div class="attendee-avatar avatar-blue">N</div>
-                <div class="attendee-name">Nderim T.</div>
-              </div>
-
-              <div class="attendee-card">
-                <div class="attendee-avatar avatar-pink">E</div>
-                <div class="attendee-name">Eleonora B.</div>
-              </div>
-
-              <div class="attendee-card">
-                <div class="attendee-avatar avatar-green">D</div>
-                <div class="attendee-name">Darko L.</div>
-              </div>
+              <!-- Populated dynamically by api.js -->
             </div>
 
             <!-- Empty spots -->
             <div class="spots-grid">
-              <div class="spot-empty" title="Open spot — join to fill it!">
-                +
-              </div>
-              <div class="spot-empty" title="Open spot — join to fill it!">
-                +
-              </div>
+                <!-- Populated dynamically by api.js -->
             </div>
           </div>
 
@@ -174,8 +122,7 @@
 
             <!-- Map placeholder — Leaflet initialized by api.js -->
             <div class="detail-map" id="event-map">
-              <div class="detail-map-pin">📍</div>
-              <div class="detail-map-label">Karpoš Sports Centre, Skopje</div>
+                <div style="text-align:center;padding:40px;opacity:.5;">Loading map...</div>
             </div>
 
             <div class="detail-map-footer">
@@ -196,25 +143,6 @@
             <div class="detail-section-title">Comments (3)</div>
 
             <div class="comments-list">
-              <div class="comment">
-                <div class="comment-avatar avatar-blue">E</div>
-                <div class="comment-body">
-                  <div class="comment-header">
-                    <span class="comment-name">Erblin D.</span>
-                    <span class="comment-time">2 hours ago</span>
-                    <span
-                      class="badge badge-acid"
-                      style="font-size: 9px; padding: 2px 7px"
-                      >Host</span
-                    >
-                  </div>
-                  <div class="comment-text">
-                    Hey everyone! Pitch is confirmed booked. Meet at the main
-                    entrance, I'll have the bibs. See you there! 🙌
-                  </div>
-                </div>
-              </div>
-
               <!-- Comments populated by api.js -->
             </div>
 
@@ -333,15 +261,16 @@
       </div>
     </div>
 
-    <script src="js/core/api.js" defer></script>
-    `n
+    <script type="module" src="../javascript/core/api.js" defer></script>
+    
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"
       defer
     ></script>
-    <script src="js/core/ui.js" defer></script>
+    <script type="module" src="../javascript/core/ui.js" defer></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
-    <script src="js/pages/event-detail.js" defer></script>
-    <script src="js/auth.js" defer></script>
+    <script type="module" src="../javascript/pages/event-detail.js" defer></script>
+    <script type="module" src="../javascript/auth.js" defer></script>
   </body>
 </html>

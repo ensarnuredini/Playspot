@@ -1,3 +1,6 @@
+import { apiGet, getUser, isLoggedIn, apiPost, apiDelete, getToken } from '../core/api.js';
+import { sportEmoji, formatEventDate, showToast } from '../core/ui.js';
+
 // ═════════════════════════════════════════════════════════
 //  EVENT DETAIL PAGE
 // ═════════════════════════════════════════════════════════
@@ -342,7 +345,7 @@ window.shareEvent = function () {
     temp.select();
     document.execCommand("copy");
     document.body.removeChild(temp);
-    alert("URL Copied to clipboard.");
+    showToast("URL Copied to clipboard.");
   }
 };
 
@@ -380,10 +383,6 @@ async function populateJoinRequests(eventId) {
 }
 
 window.handleJoinRequest = async function (requestId, status) {
-  if (
-    !confirm(`Are you sure you want to ${status.toLowerCase()} this request?`)
-  )
-    return;
   const token = typeof getToken === "function" ? getToken() : "";
   try {
     const res = await fetch(
@@ -398,13 +397,13 @@ window.handleJoinRequest = async function (requestId, status) {
       },
     );
     if (res.ok) {
-      alert(`Request ${status.toLowerCase()}`);
-      location.reload();
+      showToast(`Request ${status.toLowerCase()}`);
+      setTimeout(() => location.reload(), 1000);
     } else {
-      alert("Failed to update status.");
+      showToast("Failed to update status.");
     }
   } catch (e) {
     console.error(e);
-    alert("Error updating status.");
+    showToast("Error updating status.");
   }
 };

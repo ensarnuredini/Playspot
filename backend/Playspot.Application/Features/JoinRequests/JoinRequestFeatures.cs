@@ -43,10 +43,11 @@ public class RequestToJoinHandler : IRequestHandler<RequestToJoinCommand, JoinRe
         string username = user?.Username ?? "Unknown";
 
         // Create and send notification
+        var action = ev.RequiresApproval ? "requested to join" : "joined";
         var notification = new Notification
         {
             UserId = ev.OrganizerId,
-            Message = $"{username} requested to join '{ev.Title}'.",
+            Message = $"{username} {action} '{ev.Title}'.",
             IsRead = false,
             CreatedAt = DateTime.UtcNow
         };
@@ -104,7 +105,13 @@ public record UpdateJoinRequestStatusCommand(int RequestId, string Status, int O
 public class UpdateJoinRequestStatusHandler : IRequestHandler<UpdateJoinRequestStatusCommand, bool>
 {
     private readonly IAppDbContext _db;
-    public UpdateJoinRequestStatusHandler(IAppDbContext db) => _db = db;
+    private readonly INotificationService _notificationService;
+
+    public UpdateJoinRequestStatusHandler(IAppDbContext db, INotificationService notificationService)
+    {
+        _db = db;
+        _notificationService = notificationService;
+    }
 
     public async Task<bool> Handle(UpdateJoinRequestStatusCommand request, CancellationToken ct)
     {
@@ -115,7 +122,42 @@ public class UpdateJoinRequestStatusHandler : IRequestHandler<UpdateJoinRequestS
         if (jr == null || jr.Event.OrganizerId != request.OrganizerId) return false;
 
         jr.Status = request.Status;
+        
+        if (request.Status == "Approved")
+        {
+            var notification = new Notification
+            {
+                UserId = jr.UserId,
+                Message = $"Your request to join '{jr.Event.Title}' has been approved!",
+                IsRead = false,
+                CreatedAt = DateTime.UtcNow
+            };
+            _db.Notifications.Add(notification);
+        }
+
         await _db.SaveChangesAsync(ct);
+
+        if (request.Status == "Approved")
+        {
+            // The newest notification will be the one we just saved
+            var savedNotification = await _db.Notifications
+                .Where(n => n.UserId == jr.UserId)
+                .OrderByDescending(n => n.CreatedAt)
+                .FirstOrDefaultAsync(ct);
+
+            if (savedNotification != null)
+            {
+                var notificationDto = new NotificationDto
+                {
+                    Id = savedNotification.Id,
+                    Message = savedNotification.Message,
+                    IsRead = savedNotification.IsRead,
+                    CreatedDateFormatted = savedNotification.CreatedAt.ToString("MMM dd, HH:mm")
+                };
+                await _notificationService.SendNotificationAsync(jr.UserId, notificationDto, ct);
+            }
+        }
+
         return true;
     }
 }

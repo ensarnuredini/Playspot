@@ -1,3 +1,6 @@
+import { apiGet, isLoggedIn, apiDelete, apiPost } from '../core/api.js';
+import { sportEmoji, formatEventDate, showToast } from '../core/ui.js';
+
 // ═════════════════════════════════════════════════════════
 //  MY EVENTS PAGE
 // ═════════════════════════════════════════════════════════
@@ -99,22 +102,18 @@ window.goToEvent = function(id) {
 };
 
 window.cancelEvent = async function(id) {
-    if (confirm('Are you sure you want to cancel this event?')) {
-        const result = await apiDelete(`/event/${id}`);
-        if (result && result.ok) {
-            alert('Event cancelled.');
-            location.reload();
-        }
+    const result = await apiDelete(`/event/${id}`);
+    if (result && result.ok) {
+        showToast('Event cancelled.');
+        setTimeout(() => location.reload(), 1000);
     }
 };
 
 window.leaveEvent = async function(id) {
-    if (confirm('Leave this event?')) {
-        const result = await apiDelete(`/joinrequest/${id}`);
-        if (result && result.ok) {
-            alert('You have left the event.');
-            location.reload();
-        }
+    const result = await apiDelete(`/joinrequest/${id}`);
+    if (result && result.ok) {
+        showToast('You have left the event.');
+        setTimeout(() => location.reload(), 1000);
     }
 };
 
@@ -122,8 +121,8 @@ window.rateEvent = async function(id) {
     const score = prompt('Rate this event (1-5):');
     if (!score) return;
     const result = await apiPost(`/event/${id}/rate`, { score: parseInt(score) });
-    if (result && result.ok) alert('Thanks for your rating!');
-    else alert('Already rated or invalid score.');
+    if (result && result.ok) showToast('Thanks for your rating!');
+    else showToast('Already rated or invalid score.');
 };
 
 window.toggleManageMenu = function(id, e) {

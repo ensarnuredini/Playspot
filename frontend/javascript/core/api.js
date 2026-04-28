@@ -128,3 +128,5 @@ async function getNotifications() {
 async function markNotificationRead(id) {
     return await apiPatch(`/notifications/${id}/read`);
 }
+
+export { getToken, setToken, getUser, setUser, isLoggedIn, logout, apiGet, apiPost, apiPut, apiPatch, apiDelete, getNotifications, markNotificationRead };

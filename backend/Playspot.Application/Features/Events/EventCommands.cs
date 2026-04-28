@@ -39,8 +39,21 @@ public class CreateEventHandler : IRequestHandler<CreateEventCommand, EventRespo
         _db.Events.Add(ev);
         await _db.SaveChangesAsync(ct);
 
+        // Auto-join the host
+        var hostJoin = new JoinRequest
+        {
+            EventId = ev.Id,
+            UserId = request.OrganizerId,
+            Status = "Approved",
+            RequestedAt = DateTime.UtcNow
+        };
+        ev.JoinRequests.Add(hostJoin); // Explicitly add to collection for mapper
+        _db.JoinRequests.Add(hostJoin);
+        await _db.SaveChangesAsync(ct);
+
         // Load organizer for DTO mapping
         await _db.Events.Entry(ev).Reference(e => e.Organizer).LoadAsync(ct);
+        hostJoin.User = ev.Organizer!;
 
         return EventMapper.MapToDto(ev);
     }
