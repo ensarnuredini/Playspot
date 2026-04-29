@@ -2,6 +2,8 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 COPY . .
+RUN ls -la
+RUN find . -name "*.sln"
 RUN dotnet restore "Playspot.sln"
 RUN dotnet publish "Playspot.API/Playspot.API.csproj" -c Release -o /out
 
