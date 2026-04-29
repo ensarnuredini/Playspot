@@ -40,7 +40,7 @@ builder.Services.AddCors(options =>
                 "http://127.0.0.1:5500",        // VS Code Live Server (alt)
                 "http://localhost:3000",        // Common dev server
                 "http://localhost:8080",        // Other dev server
-                "https://your-frontend.up.railway.app"  // Railway Frontend
+                "https://sunny-light-production-daea.up.railway.app"// Railway Frontend
             )
             .AllowAnyMethod()
             .AllowAnyHeader()
