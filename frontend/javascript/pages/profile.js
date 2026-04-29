@@ -1,15 +1,15 @@
 import { getUser, setUser, apiGet, apiPut } from '../core/api.js';
 import { sportEmoji, updateNavbar, showToast } from '../core/ui.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+export function init(params) {
     const user = getUser();
     if (!user) {
-        window.location.href = 'auth.html';
+        window.location.hash = 'auth';
         return;
     }
 
     // Get ID from URL parameter (e.g. ?id=1) or default to logged-in user
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = params || new URLSearchParams(window.location.search);
     const profileId = urlParams.get('id') || user.id;
 
     const isOwnProfile = (parseInt(profileId) === user.id);
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadProfile(profileId);
     loadEvents(profileId, 'hosting');
-});
+}
 
 async function loadProfile(id) {
     const profile = await apiGet(`/users/${id}`);
@@ -90,7 +90,7 @@ async function loadEvents(id, type) {
         const card = document.createElement('div');
         card.className = 'event-card';
         card.style.cursor = 'pointer';
-        card.onclick = () => window.location.href = `event-detail.html?id=${ev.id}`;
+        card.onclick = () => window.location.hash = `event-detail?id=${ev.id}`;
         card.innerHTML = `
             <div class="event-card-sport">${sportEmoji(ev.sport)} ${ev.sport}</div>
             <div class="event-card-title">${ev.title}</div>
@@ -112,7 +112,8 @@ window.switchTab = function(type) {
     document.getElementById('hosting-list').style.display = type === 'hosting' ? 'grid' : 'none';
     document.getElementById('joined-list').style.display = type === 'joined' ? 'grid' : 'none';
 
-    const urlParams = new URLSearchParams(window.location.search);
+    const hashParams = window.location.hash.includes('?') ? window.location.hash.split('?')[1] : '';
+    const urlParams = new URLSearchParams(hashParams);
     const profileId = urlParams.get('id') || getUser().id;
     
     loadEvents(profileId, type);

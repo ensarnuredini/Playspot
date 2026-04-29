@@ -26,7 +26,7 @@ function isLoggedIn() {
 function logout() {
     localStorage.removeItem('playspot_token');
     localStorage.removeItem('playspot_user');
-    window.location.href = 'auth.html';
+    window.location.hash = 'auth';
 }
 
 // ── Fetch Helpers ────────────────────────────────────────

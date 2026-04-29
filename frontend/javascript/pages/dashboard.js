@@ -8,13 +8,13 @@ import { sportEmoji, formatEventDate } from '../core/ui.js';
 let map;
 let markers = [];
 
-document.addEventListener('DOMContentLoaded', () => {
-    initDashboardPage();
-});
+export async function init(params) {
+    await initDashboardPage();
+}
 
 async function initDashboardPage() {
     if (!typeof isLoggedIn === 'function' || !isLoggedIn()) {
-        window.location.href = 'auth.html';
+        window.location.hash = 'auth';
         return;
     }
 
@@ -80,6 +80,7 @@ async function loadDashboardEvents(filters = {}) {
     let queryArgs = [];
     if (filters.sport && filters.sport !== 'all') queryArgs.push(`sport=${filters.sport}`);
     if (filters.search) queryArgs.push(`search=${filters.search}`);
+    if (filters.date && filters.date !== 'all') queryArgs.push(`dateFilter=${filters.date}`);
     
     const query = queryArgs.length > 0 ? '?' + queryArgs.join('&') : '';
     const events = await apiGet(`/event${query}`);
@@ -107,7 +108,7 @@ function buildDashCard(ev) {
     const spotsClass = spotsLeft <= 2 ? 'urgent' : '';
 
     return `
-        <div class="dash-event-card" id="card-${ev.id}" onclick="selectEvent(this, ${ev.id})" ondblclick="window.location.href='event-detail.html?id=${ev.id}'">
+        <div class="dash-event-card" id="card-${ev.id}" onclick="selectEvent(this, ${ev.id})" ondblclick="window.location.hash='event-detail?id=${ev.id}'">
             <div class="dash-event-top">
                 <span class="dash-event-sport">${emoji} ${ev.sport}</span>
             </div>
@@ -172,42 +173,42 @@ function renderMapMarkers(events) {
 
 // ── Global Handlers for HTML
 
+window.applyFilters = function() {
+    const sportEl = document.querySelector('.filter-chip.active');
+    let sport = 'all';
+    if(sportEl) {
+        const text = sportEl.innerText.toLowerCase();
+        if(text.includes('football')) sport = 'football';
+        else if(text.includes('basketball')) sport = 'basketball';
+        else if(text.includes('tennis')) sport = 'tennis';
+        else if(text.includes('volleyball')) sport = 'volleyball';
+        else if(text.includes('running')) sport = 'running';
+        else if(text.includes('cycling')) sport = 'cycling';
+    }
+    const searchInput = document.querySelector('.sidebar-search-input');
+    const search = searchInput ? searchInput.value : '';
+    
+    const dateSelect = document.querySelector('.filter-select');
+    const date = dateSelect ? dateSelect.value : 'all';
+
+    loadDashboardEvents({ sport, search, date });
+}
+
 window.setFilter = function(el, sport) {
     document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
-    
-    // Merge with search
-    const searchInput = document.querySelector('.sidebar-search-input');
-    loadDashboardEvents({ sport: sport, search: searchInput ? searchInput.value : '' });
+    window.applyFilters();
 }
 
 window.setDateFilter = function(value) {
-    // Merge with current state
-    const sportEl = document.querySelector('.filter-chip.active');
-    const searchInput = document.querySelector('.sidebar-search-input');
-    let sport = 'all';
-    if(sportEl) {
-        if(sportEl.innerText.toLowerCase().includes('football')) sport = 'football';
-        else if(sportEl.innerText.toLowerCase().includes('basketball')) sport = 'basketball';
-        else if(sportEl.innerText.toLowerCase().includes('tennis')) sport = 'tennis';
-        else if(sportEl.innerText.toLowerCase().includes('volleyball')) sport = 'volleyball';
-        else if(sportEl.innerText.toLowerCase().includes('running')) sport = 'running';
-        else if(sportEl.innerText.toLowerCase().includes('cycling')) sport = 'cycling';
-    }
-    loadDashboardEvents({ sport: sport, date: value, search: searchInput ? searchInput.value : '' });
+    window.applyFilters();
 }
 
 let dashSearchTimeout;
 window.handleSearch = function(query) {
     clearTimeout(dashSearchTimeout);
     dashSearchTimeout = setTimeout(() => {
-        const sportEl = document.querySelector('.filter-chip.active');
-        let sport = 'all';
-        if(sportEl) {
-             if(sportEl.innerText.toLowerCase().includes('football')) sport = 'football';
-             if(sportEl.innerText.toLowerCase().includes('all sports')) sport = 'all';
-        }
-        loadDashboardEvents({ search: query, sport: sport });
+        window.applyFilters();
     }, 300);
 }
 

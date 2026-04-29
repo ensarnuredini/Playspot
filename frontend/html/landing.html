@@ -219,17 +219,6 @@
     <script type="module" src="../javascript/core/api.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js" defer></script>
     <script type="module" src="../javascript/core/ui.js" defer></script>
-    <script type="module">
-        import { apiGet } from '../javascript/core/api.js';
-        // Load real stats from API
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const events = await apiGet('/event');
-                if (events) {
-                    document.getElementById('stat-events').textContent = events.length;
-                }
-            } catch(e) { /* API not available, keep defaults */ }
-        });
-    </script>
+    <script type="module" src="../javascript/pages/landing.js" defer></script>
 </body>
 </html>

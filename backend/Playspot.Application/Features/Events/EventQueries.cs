@@ -42,10 +42,16 @@ public class GetFilteredEventsHandler : IRequestHandler<GetFilteredEventsQuery, 
             .AsQueryable();
 
         if (!string.IsNullOrEmpty(filters.Sport))
-            query = query.Where(e => e.Sport.ToLower() == filters.Sport.ToLower());
+        {
+            var sports = filters.Sport.ToLower().Split(',', StringSplitOptions.RemoveEmptyEntries);
+            query = query.Where(e => sports.Contains(e.Sport.ToLower()));
+        }
 
         if (!string.IsNullOrEmpty(filters.SkillLevel))
-            query = query.Where(e => e.SkillLevel.ToLower() == filters.SkillLevel.ToLower());
+        {
+            var skills = filters.SkillLevel.ToLower().Split(',', StringSplitOptions.RemoveEmptyEntries);
+            query = query.Where(e => skills.Contains(e.SkillLevel.ToLower()));
+        }
 
         if (!string.IsNullOrEmpty(filters.DateFilter))
         {

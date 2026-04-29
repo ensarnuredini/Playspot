@@ -5,13 +5,13 @@ import { sportEmoji, formatEventDate, showToast } from '../core/ui.js';
 //  MY EVENTS PAGE
 // ═════════════════════════════════════════════════════════
 
-document.addEventListener('DOMContentLoaded', () => {
-    initMyEventsPage();
-});
+export async function init(params) {
+    await initMyEventsPage();
+}
 
 async function initMyEventsPage() {
     if (!typeof isLoggedIn === 'function' || !isLoggedIn()) { 
-        window.location.href = 'auth.html'; 
+        window.location.hash = 'auth'; 
         return; 
     }
 
@@ -98,14 +98,14 @@ function renderMyEventsList(panelId, events, isHosting, isPast = false) {
 
 // Global actions
 window.goToEvent = function(id) {
-    window.location.href = `event-detail.html?id=${id}`;
+    window.location.hash = `event-detail?id=${id}`;
 };
 
 window.cancelEvent = async function(id) {
     const result = await apiDelete(`/event/${id}`);
     if (result && result.ok) {
         showToast('Event cancelled.');
-        setTimeout(() => location.reload(), 1000);
+        await initMyEventsPage();
     }
 };
 
@@ -113,7 +113,7 @@ window.leaveEvent = async function(id) {
     const result = await apiDelete(`/joinrequest/${id}`);
     if (result && result.ok) {
         showToast('You have left the event.');
-        setTimeout(() => location.reload(), 1000);
+        await initMyEventsPage();
     }
 };
 

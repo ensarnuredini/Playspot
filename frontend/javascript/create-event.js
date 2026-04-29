@@ -8,7 +8,7 @@ import { apiPost, isLoggedIn } from './core/api.js';
 // Override the inline publishEvent function
 window.publishEvent = async function() {
     if (!isLoggedIn()) {
-        window.location.href = 'auth.html';
+        window.location.hash = 'auth';
         return;
     }
 
@@ -64,7 +64,7 @@ window.publishEvent = async function() {
 
         if (result && result.ok && result.data) {
             // Success — redirect to event detail page
-            window.location.href = `event-detail.html?id=${result.data.id}`;
+            window.location.hash = `event-detail?id=${result.data.id}`;
         } else {
             errorEl.textContent = 'Failed to create event. Please try again.';
             errorEl.classList.add('visible');
@@ -83,7 +83,7 @@ window.publishEvent = async function() {
 // Redirect to auth if not logged in on this page
 document.addEventListener('DOMContentLoaded', () => {
     if (!isLoggedIn()) {
-        window.location.href = 'auth.html';
+        window.location.hash = 'auth';
     }
 });
 
@@ -182,3 +182,112 @@ window.confirmMapLocation = async function() {
     
     await reverseGeocodeAndUpdate(currentMapLatLng.lat, currentMapLatLng.lng);
 };
+
+// ── State ──
+window.currentStep = 1;
+window.eventData = {
+    sport: '', sportIcon: '', sportBand: '',
+    title: '', location: '', date: '', time: '',
+    players: 10, skill: '', latitude: 0, longitude: 0
+};
+
+// ── Step navigation ──
+window.goToStep = function(step) {
+    document.getElementById(`step-${window.currentStep}`).classList.remove('active');
+    document.querySelectorAll('.step-item').forEach((item, i) => {
+        const n = i + 1;
+        item.classList.remove('active', 'completed');
+        if (n < step)  item.classList.add('completed');
+        if (n === step) item.classList.add('active');
+    });
+    window.currentStep = step;
+    document.getElementById(`step-${window.currentStep}`).classList.add('active');
+    if (step === 4) window.populateReview();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// ── Sport selection ──
+window.selectSport = function(el, name, icon, band) {
+    document.querySelectorAll('.sport-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    window.eventData.sport = name;
+    window.eventData.sportIcon = icon;
+    window.eventData.sportBand = band;
+
+    document.getElementById('preview-sport-badge').textContent = `${icon} ${name}`;
+    const bandEl = document.getElementById('preview-band');
+    bandEl.className = `preview-card-band ${band}`;
+};
+
+// ── Skill level selection ──
+window.selectSkill = function(el, level) {
+    document.querySelectorAll('.skill-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    window.eventData.skill = level;
+    document.getElementById('preview-skill').textContent = level;
+};
+
+// ── Player count stepper ──
+window.changeCount = function(delta) {
+    window.eventData.players = Math.max(2, Math.min(50, window.eventData.players + delta));
+    document.getElementById('player-count').textContent = window.eventData.players;
+    document.getElementById('count-minus').disabled = window.eventData.players <= 2;
+    document.getElementById('count-plus').disabled  = window.eventData.players >= 50;
+    document.getElementById('preview-players').textContent = `${window.eventData.players} max players`;
+};
+
+// ── Live preview updates ──
+window.updatePreview = function(field, value) {
+    window.eventData[field] = value;
+
+    if (field === 'title') {
+        const el = document.getElementById('preview-title');
+        if (value.trim()) {
+            el.textContent = value;
+            el.classList.remove('empty');
+        } else {
+            el.textContent = 'Your event title will appear here';
+            el.classList.add('empty');
+        }
+    }
+
+    if (field === 'location') {
+        document.getElementById('preview-location').textContent = value || 'Location not set';
+    }
+
+    if (field === 'date' || field === 'time') {
+        const d = document.getElementById('event-date').value;
+        const t = document.getElementById('event-time').value;
+        const formatted = d && t
+        ? `${new Date(d).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' })} · ${t}`
+        : d ? new Date(d).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' })
+        : 'Date & time not set';
+        document.getElementById('preview-date').textContent = formatted;
+    }
+};
+
+// ── Populate review step ──
+window.populateReview = function() {
+    document.getElementById('review-sport').textContent    = window.eventData.sport    || '—';
+    document.getElementById('review-title').textContent    = window.eventData.title    || '—';
+    document.getElementById('review-location').textContent = window.eventData.location || '—';
+    document.getElementById('review-players').textContent  = window.eventData.players;
+    document.getElementById('review-skill').textContent    = window.eventData.skill    || '—';
+    const d = document.getElementById('event-date').value;
+    const t = document.getElementById('event-time').value;
+    document.getElementById('review-datetime').textContent = d && t ? `${d} at ${t}` : '—';
+};
+
+// ── Mobile menu ──
+window.toggleMenu = function() {
+    const links = document.querySelector('.navbar-links');
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+};
+
+export function init(params) {
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('event-date');
+    if (dateInput) {
+        dateInput.min = today;
+    }
+}

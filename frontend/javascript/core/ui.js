@@ -44,7 +44,7 @@ function renderNavbarAuth(user, actions) {
                 </div>
             </div>
             <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
-            <div class="navbar-avatar" onclick="window.location.href='profile.html'" title="My Profile (${user.username})">
+            <div class="navbar-avatar" onclick="window.location.hash='profile'" title="My Profile (${user.username})">
                 ${user.profileImageUrl 
                     ? `<img src="${user.profileImageUrl}" alt="${user.username}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` 
                     : initial}
@@ -102,12 +102,14 @@ function formatEventDate(dateStr) {
 }
 
 // Ensure navbar is updated on load for any page
-document.addEventListener("DOMContentLoaded", () => {
+function initUI() {
   updateNavbar();
   if (isLoggedIn()) {
       setupNotifications();
   }
-});
+}
+document.addEventListener("DOMContentLoaded", initUI);
+document.addEventListener("routeChanged", initUI);
 
 // ── Notifications UI & SignalR ───────────────────────────
 

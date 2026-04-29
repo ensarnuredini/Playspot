@@ -5,12 +5,11 @@ import { sportEmoji, formatEventDate } from '../core/ui.js';
 //  EXPLORE PAGE
 // ═════════════════════════════════════════════════════════
 
-document.addEventListener('DOMContentLoaded', () => {
-    initExplorePage();
-});
+export async function init(params) {
+    await initExplorePage(params || new URLSearchParams(window.location.search));
+}
 
-async function initExplorePage() {
-    const params = new URLSearchParams(window.location.search);
+async function initExplorePage(params) {
     const filters = {
         sport: params.get('sport') || '',
         search: params.get('search') || '',
@@ -48,6 +47,14 @@ async function loadExploreEvents(filters = {}) {
         // Find skill
         const skills = Array.from(checkboxes).filter(cb => ['all', 'beginner', 'intermediate', 'advanced'].includes(cb.value)).map(c => c.value);
         if (skills.length > 0 && !filters.skillLevel) queryParts.push(`skillLevel=${skills.join(',')}`);
+
+        // Find dates
+        const dates = Array.from(checkboxes).filter(cb => ['today', 'tomorrow', 'weekend', 'week'].includes(cb.value)).map(c => c.value);
+        if (dates.length > 0 && !filters.dateFilter) queryParts.push(`dateFilter=${dates[0]}`);
+
+        // Find open spots
+        const hasOpenSpots = Array.from(checkboxes).some(cb => cb.value === 'open-spots');
+        if (hasOpenSpots) queryParts.push(`hasOpenSpots=true`);
     }
 
     const query = queryParts.length ? '?' + queryParts.join('&') : '';
@@ -163,8 +170,10 @@ window.quickSearch = function(sport) {
 
 window.applyFilters = function() {
     const search = document.getElementById('main-search')?.value || '';
+    const loc = document.getElementById('location-input')?.value || '';
+    const fullSearch = (search + ' ' + loc).trim();
     const sortBy = document.querySelector('.results-sort')?.value || 'date';
-    loadExploreEvents({ search: search, sortBy: sortBy });
+    loadExploreEvents({ search: fullSearch, sortBy: sortBy });
 }
 
 window.resetFilters = function() {

@@ -7,12 +7,11 @@ import { sportEmoji, formatEventDate, showToast } from '../core/ui.js';
 
 let eventMap = null;
 
-document.addEventListener("DOMContentLoaded", () => {
-  initEventDetailPage();
-});
+export async function init(params) {
+    await initEventDetailPage(params || new URLSearchParams(window.location.search));
+}
 
-async function initEventDetailPage() {
-  const params = new URLSearchParams(window.location.search);
+async function initEventDetailPage(params) {
   const eventId = params.get("id");
   if (!eventId) return;
 
@@ -46,7 +45,40 @@ async function initEventDetailPage() {
   }
 }
 
+// Lightweight AJAX refresh — re-fetches event data and updates only the
+// participant-related UI (button state, spots, attendees, host requests)
+// WITHOUT touching the map, comments, or hero section.
+async function refreshEventData() {
+  const eventId = window._eventId;
+  if (!eventId) return;
+
+  const ev = await apiGet(`/event/${eventId}`);
+  if (!ev) return;
+
+  // Re-evaluate joined / host state
+  window._isJoined = false;
+  window._isHost = false;
+  const user = typeof getUser === "function" ? getUser() : null;
+  if (user) {
+    if (ev.participants && ev.participants.some((p) => p.userId === user.id)) {
+      window._isJoined = true;
+    }
+    if (ev.organizerId === user.id) {
+      window._isHost = true;
+    }
+  }
+
+  // Only update the sections that actually change
+  populateActionCard(ev);
+  populateAttendees(ev);
+
+  if (window._isHost) {
+    populateJoinRequests(eventId);
+  }
+}
+
 function populateHero(ev) {
+
   const title = document.querySelector(".detail-title");
   if (title) title.innerHTML = ev.title;
 
@@ -181,6 +213,11 @@ function initEventMap(ev) {
   const lat = ev.latitude !== 0 ? ev.latitude : 41.9981;
   const lng = ev.longitude !== 0 ? ev.longitude : 21.4254;
 
+  if (eventMap) {
+      eventMap.remove();
+      eventMap = null;
+  }
+
   mapContainer.innerHTML = ""; // clear static placeholders
   eventMap = L.map("event-map", {
     zoomControl: false,
@@ -277,7 +314,7 @@ window.postComment = async function () {
   const text = input.value.trim();
   if (!text || !window._eventId) return;
   if (typeof isLoggedIn === "function" && !isLoggedIn()) {
-    window.location.href = "auth.html";
+    window.location.hash = "auth";
     return;
   }
 
@@ -304,7 +341,7 @@ window.postComment = async function () {
 
 window.toggleJoin = async function () {
   if (typeof isLoggedIn === "function" && !isLoggedIn()) {
-    window.location.href = "auth.html";
+    window.location.hash = "auth";
     return;
   }
   if (!window._eventId) return;
@@ -313,25 +350,27 @@ window.toggleJoin = async function () {
   const spotsEl = document.getElementById("spots-count");
 
   if (!window._isJoined) {
+    btn.disabled = true;
+    btn.textContent = "Joining...";
     const result = await apiPost(`/joinrequest/${window._eventId}`);
     if (result && result.ok) {
-      window._isJoined = true;
-      btn.textContent = "✓ Joined — leave event";
-      btn.classList.add("joined");
-      let spots = parseInt(spotsEl.textContent);
-      spotsEl.textContent = Math.max(0, spots - 1);
-      location.reload();
+      showToast("Request sent!");
+      await refreshEventData();
+    } else {
+      showToast("Failed to join.");
     }
+    btn.disabled = false;
   } else {
+    btn.disabled = true;
+    btn.textContent = "Leaving...";
     const result = await apiDelete(`/joinrequest/${window._eventId}`);
     if (result && result.ok) {
-      window._isJoined = false;
-      btn.textContent = "Join event →";
-      btn.classList.remove("joined");
-      let spots = parseInt(spotsEl.textContent);
-      spotsEl.textContent = spots + 1;
-      location.reload();
+      showToast("You left the event.");
+      await refreshEventData();
+    } else {
+      showToast("Failed to leave.");
     }
+    btn.disabled = false;
   }
 };
 
@@ -398,7 +437,7 @@ window.handleJoinRequest = async function (requestId, status) {
     );
     if (res.ok) {
       showToast(`Request ${status.toLowerCase()}`);
-      setTimeout(() => location.reload(), 1000);
+      await refreshEventData();
     } else {
       showToast("Failed to update status.");
     }

@@ -32,7 +32,7 @@ window.handleLogin = async function(e) {
             });
 
             // Redirect to dashboard
-            window.location.href = 'dashboard.html';
+            window.location.hash = 'dashboard';
         } else {
             errorEl.textContent = 'Incorrect email or password. Please try again.';
             errorEl.classList.add('visible');
@@ -83,7 +83,7 @@ window.handleRegister = async function(e) {
             });
 
             // Redirect to dashboard
-            window.location.href = 'dashboard.html';
+            window.location.hash = 'dashboard';
         } else {
             errorEl.textContent = result?.data?.message || 'Email already taken or registration failed.';
             errorEl.classList.add('visible');
@@ -100,10 +100,23 @@ window.handleRegister = async function(e) {
 };
 
 // If user is already logged in and visits auth page, redirect to dashboard
-document.addEventListener('DOMContentLoaded', () => {
-    if (isLoggedIn() && window.location.pathname.includes('auth.html')) {
-        window.location.href = 'dashboard.html';
+export function init(params) {
+    if (isLoggedIn() && window.location.hash.includes('auth')) {
+        window.location.hash = 'dashboard';
     }
-});
+    const urlParams = params || new URLSearchParams(window.location.search);
+    if (urlParams.get('tab') === 'register' && typeof window.switchTab === 'function') {
+        window.switchTab('register');
+    }
+}
+
+// Tab switching
+window.switchTab = function(tab) {
+    document.querySelectorAll('.auth-tab').forEach((t, i) => {
+        t.classList.toggle('active', (tab === 'login' ? i === 0 : i === 1));
+    });
+    document.getElementById('panel-login').classList.toggle('active', tab === 'login');
+    document.getElementById('panel-register').classList.toggle('active', tab === 'register');
+};
 
 console.log('✅ PlaySpot Auth module loaded');

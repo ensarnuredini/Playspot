@@ -170,48 +170,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js" defer></script>
     <script type="module" src="../javascript/core/ui.js" defer></script>
     <script type="module" src="../javascript/auth.js" defer></script>
-    <script>
-    // Tab switching
-        function switchTab(tab) {
-            document.querySelectorAll('.auth-tab').forEach((t, i) => {
-            t.classList.toggle('active', (tab === 'login' ? i === 0 : i === 1));
-        });
-        document.getElementById('panel-login').classList.toggle('active', tab === 'login');
-        document.getElementById('panel-register').classList.toggle('active', tab === 'register');
-        }
- 
-        // Login submit — wired to auth.js later
-        function handleLogin(e) {
-            e.preventDefault();
-            const btn = document.getElementById('login-btn');
-            btn.classList.add('loading');
-            btn.textContent = '';
-            // auth.js will take over this logic
-            // temporarily simulate for UI testing:
-            setTimeout(() => {
-            btn.classList.remove('loading');
-            btn.textContent = 'Log in →';
-            document.getElementById('login-error').classList.add('visible');
-            }, 1200);
-        }
- 
-    // Register submit — wired to auth.js later
-        function handleRegister(e) {
-            e.preventDefault();
-            const btn = document.getElementById('register-btn');
-            btn.classList.add('loading');
-            btn.textContent = '';
-            // auth.js will take over this logic
-            setTimeout(() => {
-            btn.classList.remove('loading');
-            btn.textContent = 'Create account →';
-            }, 1200);
-        }
- 
-    // Auto-switch to register tab if URL has ?tab=register
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('tab') === 'register') switchTab('register');
-  </script>
+
 
 
 
