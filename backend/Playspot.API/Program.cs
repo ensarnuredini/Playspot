@@ -36,10 +36,11 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
         policy
             .WithOrigins(
-                "http://localhost:5500",     // VS Code Live Server
-                "http://127.0.0.1:5500",    // VS Code Live Server (alt)
-                "http://localhost:3000",     // Common dev server
-                "http://localhost:8080"      // Other dev server
+                "http://localhost:5500",        // VS Code Live Server
+                "http://127.0.0.1:5500",        // VS Code Live Server (alt)
+                "http://localhost:3000",        // Common dev server
+                "http://localhost:8080",        // Other dev server
+                "https://your-frontend.up.railway.app"  // Railway Frontend
             )
             .AllowAnyMethod()
             .AllowAnyHeader()
