@@ -112,9 +112,11 @@ function formatEventDate(dateStr) {
 }
 
 // Ensure navbar is updated on load for any page
+let _uiInitialized = false;
 function initUI() {
   updateNavbar();
-  if (isLoggedIn()) {
+  if (!_uiInitialized && isLoggedIn()) {
+    _uiInitialized = true;
     setupNotifications();
   }
 }
@@ -124,6 +126,7 @@ document.addEventListener("routeChanged", initUI);
 // ── Notifications UI & SignalR ───────────────────────────
 
 let unreadCount = 0;
+let _signalRConnection = null;
 
 async function setupNotifications() {
   const raw = await getNotifications();
@@ -131,24 +134,25 @@ async function setupNotifications() {
     renderNotifications(raw);
   }
 
-  // Connect to SignalR
+  // Connect to SignalR — only once per session
+  if (_signalRConnection) return;
   const token = getToken();
   if (!token || typeof signalR === "undefined") return;
 
-  const connection = new signalR.HubConnectionBuilder()
+  _signalRConnection = new signalR.HubConnectionBuilder()
     .withUrl("https://playspot-production.up.railway.app/hubs/notifications", {
       accessTokenFactory: () => token,
     })
     .withAutomaticReconnect()
     .build();
 
-  connection.on("ReceiveNotification", (notification) => {
+  _signalRConnection.on("ReceiveNotification", (notification) => {
     showToast(notification.message);
     addNotificationToList(notification);
     updateBadge(1);
   });
 
-  connection
+  _signalRConnection
     .start()
     .catch((err) => console.error("SignalR Connection Error: ", err));
 }
