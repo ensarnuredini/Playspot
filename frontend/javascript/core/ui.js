@@ -1,4 +1,12 @@
-import { getUser, setUser, apiGet, isLoggedIn, getNotifications, getToken, markNotificationRead } from './api.js';
+import {
+  getUser,
+  setUser,
+  apiGet,
+  isLoggedIn,
+  getNotifications,
+  getToken,
+  markNotificationRead,
+} from "./api.js";
 
 // ── Navbar Auth State ────────────────────────────────────
 
@@ -15,11 +23,11 @@ async function updateNavbar() {
     try {
       const freshProfile = await apiGet(`/users/${user.id}`);
       if (freshProfile) {
-          user.profileImageUrl = freshProfile.profileImageUrl;
-          user.username = freshProfile.username || user.username;
-          if (typeof setUser === 'function') setUser(user);
-          // Re-render auth block with fresh image
-          renderNavbarAuth(user, actions);
+        user.profileImageUrl = freshProfile.profileImageUrl;
+        user.username = freshProfile.username || user.username;
+        if (typeof setUser === "function") setUser(user);
+        // Re-render auth block with fresh image
+        renderNavbarAuth(user, actions);
       }
     } catch (e) {
       // Ignore errors on background refresh
@@ -45,9 +53,11 @@ function renderNavbarAuth(user, actions) {
             </div>
             <a href="create-event.html" class="btn btn-acid btn-sm">+ New event</a>
             <div class="navbar-avatar" onclick="window.location.hash='profile'" title="My Profile (${user.username})">
-                ${user.profileImageUrl 
-                    ? `<img src="${user.profileImageUrl}" alt="${user.username}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` 
-                    : initial}
+                ${
+                  user.profileImageUrl
+                    ? `<img src="${user.profileImageUrl}" alt="${user.username}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`
+                    : initial
+                }
             </div>
         `;
   } else {
@@ -105,7 +115,7 @@ function formatEventDate(dateStr) {
 function initUI() {
   updateNavbar();
   if (isLoggedIn()) {
-      setupNotifications();
+    setupNotifications();
   }
 }
 document.addEventListener("DOMContentLoaded", initUI);
@@ -116,93 +126,96 @@ document.addEventListener("routeChanged", initUI);
 let unreadCount = 0;
 
 async function setupNotifications() {
-    const raw = await getNotifications();
-    if (raw) {
-        renderNotifications(raw);
-    }
-    
-    // Connect to SignalR
-    const token = getToken();
-    if (!token || typeof signalR === 'undefined') return;
+  const raw = await getNotifications();
+  if (raw) {
+    renderNotifications(raw);
+  }
 
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:5258/hubs/notifications", {
-            accessTokenFactory: () => token
-        })
-        .withAutomaticReconnect()
-        .build();
+  // Connect to SignalR
+  const token = getToken();
+  if (!token || typeof signalR === "undefined") return;
 
-    connection.on("ReceiveNotification", (notification) => {
-        showToast(notification.message);
-        addNotificationToList(notification);
-        updateBadge(1);
-    });
+  const connection = new signalR.HubConnectionBuilder()
+    .withUrl("https://playspot-production.up.railway.app/hubs/notifications", {
+      accessTokenFactory: () => token,
+    })
+    .withAutomaticReconnect()
+    .build();
 
-    connection.start().catch(err => console.error("SignalR Connection Error: ", err));
+  connection.on("ReceiveNotification", (notification) => {
+    showToast(notification.message);
+    addNotificationToList(notification);
+    updateBadge(1);
+  });
+
+  connection
+    .start()
+    .catch((err) => console.error("SignalR Connection Error: ", err));
 }
 
 function updateBadge(increment) {
-    unreadCount += increment;
-    const dot = document.getElementById("bell-dot");
-    if (dot) {
-        dot.style.display = unreadCount > 0 ? "block" : "none";
-        dot.innerText = unreadCount > 0 ? unreadCount : "";
-    }
+  unreadCount += increment;
+  const dot = document.getElementById("bell-dot");
+  if (dot) {
+    dot.style.display = unreadCount > 0 ? "block" : "none";
+    dot.innerText = unreadCount > 0 ? unreadCount : "";
+  }
 }
 
 function renderNotifications(list) {
-    unreadCount = 0;
-    const ul = document.getElementById("notifications-list");
-    if (!ul) return;
-    
-    if (list.length === 0) {
-        ul.innerHTML = '<div class="notification-item" style="justify-content:center;color:#888;padding:15px;">No notifications yet.</div>';
-        updateBadge(0);
-        return;
-    }
+  unreadCount = 0;
+  const ul = document.getElementById("notifications-list");
+  if (!ul) return;
 
-    ul.innerHTML = "";
-    list.forEach(n => {
-        if (!n.isRead) unreadCount++;
-        ul.appendChild(createNotificationElement(n));
-    });
+  if (list.length === 0) {
+    ul.innerHTML =
+      '<div class="notification-item" style="justify-content:center;color:#888;padding:15px;">No notifications yet.</div>';
     updateBadge(0);
+    return;
+  }
+
+  ul.innerHTML = "";
+  list.forEach((n) => {
+    if (!n.isRead) unreadCount++;
+    ul.appendChild(createNotificationElement(n));
+  });
+  updateBadge(0);
 }
 
 function addNotificationToList(n) {
-    const ul = document.getElementById("notifications-list");
-    if (!ul) return;
-    
-    const isEmpty = ul.innerHTML.includes("No notifications yet.");
-    if (isEmpty) ul.innerHTML = "";
-    
-    ul.insertBefore(createNotificationElement(n), ul.firstChild);
+  const ul = document.getElementById("notifications-list");
+  if (!ul) return;
+
+  const isEmpty = ul.innerHTML.includes("No notifications yet.");
+  if (isEmpty) ul.innerHTML = "";
+
+  ul.insertBefore(createNotificationElement(n), ul.firstChild);
 }
 
 function createNotificationElement(n) {
-    const div = document.createElement("div");
-    div.className = "notification-item" + (!n.isRead ? " unread" : "");
-    div.innerHTML = `
+  const div = document.createElement("div");
+  div.className = "notification-item" + (!n.isRead ? " unread" : "");
+  div.innerHTML = `
         <div class="notification-text">${n.message}</div>
         <div class="notification-time">${n.createdDateFormatted}</div>
     `;
-    div.onclick = async () => {
-        if (!n.isRead) {
-            n.isRead = true;
-            div.classList.remove("unread");
-            updateBadge(-1);
-            await markNotificationRead(n.id);
-        }
-    };
-    return div;
+  div.onclick = async () => {
+    if (!n.isRead) {
+      n.isRead = true;
+      div.classList.remove("unread");
+      updateBadge(-1);
+      await markNotificationRead(n.id);
+    }
+  };
+  return div;
 }
 
-window.toggleNotifications = function(e) {
-    e.preventDefault();
-    const drop = document.getElementById("notifications-dropdown");
-    if (drop) {
-        drop.classList.toggle("active");
-    }
+window.toggleNotifications = function (e) {
+  e.preventDefault();
+  const drop = document.getElementById("notifications-dropdown");
+  if (drop) {
+    drop.classList.toggle("active");
+  }
 };
 
 window.toggleMenu = function () {
@@ -215,26 +228,37 @@ window.toggleMenu = function () {
 // ── Toast Notification UI ────────────────────────────────
 
 function showToast(message) {
-    let container = document.getElementById("toast-container");
-    if (!container) {
-        container = document.createElement("div");
-        container.id = "toast-container";
-        document.body.appendChild(container);
-    }
+  let container = document.getElementById("toast-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "toast-container";
+    document.body.appendChild(container);
+  }
 
-    const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.innerHTML = `
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `
         <div class="toast-icon">🔔</div>
         <div class="toast-msg">${message}</div>
     `;
-    
-    container.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.classList.add("fade-out");
-        setTimeout(() => toast.remove(), 300);
-    }, 4000);
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("fade-out");
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
 }
 
-export { updateNavbar, renderNavbarAuth, sportEmoji, formatEventDate, setupNotifications, updateBadge, renderNotifications, addNotificationToList, createNotificationElement, showToast };
+export {
+  updateNavbar,
+  renderNavbarAuth,
+  sportEmoji,
+  formatEventDate,
+  setupNotifications,
+  updateBadge,
+  renderNotifications,
+  addNotificationToList,
+  createNotificationElement,
+  showToast,
+};
