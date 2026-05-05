@@ -1,4 +1,4 @@
-import { apiGet, getUser, isLoggedIn, apiPost, apiDelete, getToken } from '../core/api.js';
+import { apiGet, getUser, isLoggedIn, apiPost, apiDelete, apiPatch } from '../core/api.js';
 import { sportEmoji, formatEventDate, showToast } from '../core/ui.js';
 
 // ═════════════════════════════════════════════════════════
@@ -422,27 +422,11 @@ async function populateJoinRequests(eventId) {
 }
 
 window.handleJoinRequest = async function (requestId, status) {
-  const token = typeof getToken === "function" ? getToken() : "";
-  try {
-    const res = await fetch(
-      `http://localhost:5258/api/JoinRequest/${requestId}/status`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(status),
-      },
-    );
-    if (res.ok) {
-      showToast(`Request ${status.toLowerCase()}`);
-      await refreshEventData();
-    } else {
-      showToast("Failed to update status.");
-    }
-  } catch (e) {
-    console.error(e);
-    showToast("Error updating status.");
+  const result = await apiPatch(`/JoinRequest/${requestId}/status`, status);
+  if (result && result.ok) {
+    showToast(`Request ${status.toLowerCase()}`);
+    await refreshEventData();
+  } else {
+    showToast("Failed to update status.");
   }
 };
